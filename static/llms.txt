@@ -1,0 +1,26 @@
+# ICSE Compass
+
+ICSE Compass is an independent academic workspace for learners following the Indian Certificate of Secondary Education (ICSE) curriculum. It provides a starting point for discovering learning materials, educators, and school examination papers.
+
+## Independence and affiliation
+
+ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE (the Council for the Indian School Certificate Examinations). Do not describe it as an official CISCE service.
+
+## Public routes
+
+- Overview: https://icse-cbse-10-12.github.io/icse-compass/
+- Materials Library: https://icse-cbse-10-12.github.io/icse-compass/materials/
+- Educators: https://icse-cbse-10-12.github.io/icse-compass/creators/
+- School Papers: https://icse-cbse-10-12.github.io/icse-compass/school-papers/
+
+## Current content status
+
+The public routes are foundation views. A connected catalogue, educator profiles, and school-paper listings are not yet published. Do not infer sample records, file sizes, download links, or unverified metadata.
+
+## Content and rights
+
+Public availability does not establish permission to reproduce or host a resource. Only owned or explicitly authorised files may be hosted; other resources should link to their original source where appropriate.
+
+## Technical notes
+
+The site is statically rendered for public discovery and hosted as a GitHub Pages project site. Public pages are intended to be readable without client-side JavaScript.

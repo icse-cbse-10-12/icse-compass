@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /icse-compass/
+Allow: /icse-compass/materials/
+Allow: /icse-compass/creators/
+Allow: /icse-compass/school-papers/
+
+Sitemap: https://icse-cbse-10-12.github.io/icse-compass/sitemap.xml
