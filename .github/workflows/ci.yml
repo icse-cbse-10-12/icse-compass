@@ -34,3 +34,18 @@ jobs:
         run: npm test
       - name: Build static site and PWA
         run: npm run build
+      - name: Verify prerendered Pages and PWA output
+        run: |
+          test -s build/index.html
+          test -s build/materials/index.html
+          test -s build/creators/index.html
+          test -s build/school-papers/index.html
+          test -s build/404.html
+          test -s build/manifest.webmanifest
+          test -s build/sw.js
+          test -s build/robots.txt
+          test -s build/sitemap.xml
+          test -s build/llms.txt
+          test -f build/.nojekyll
+          grep -Fq 'ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE.' build/index.html
+          node --input-type=module -e "import fs from 'node:fs'; const m = JSON.parse(fs.readFileSync('build/manifest.webmanifest', 'utf8')); const expected = { name: 'ICSE Compass', short_name: 'ICSE Compass', theme_color: '#356B58', background_color: '#F5F1E8', display: 'standalone', scope: '/icse-compass/', start_url: '/icse-compass/' }; for (const [key, value] of Object.entries(expected)) { if (m[key] !== value) throw new Error('Invalid manifest ' + key + ': ' + m[key]); }"

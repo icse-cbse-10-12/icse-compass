@@ -4,7 +4,6 @@ import { defineConfig } from 'vitest/config';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 
 export default defineConfig({
-  base: '/icse-compass/',
   plugins: [
     tailwindcss(),
     sveltekit(),
@@ -23,10 +22,8 @@ export default defineConfig({
         icons: [{ src: '/icse-compass/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' }]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,webmanifest,ico}'],
+        globPatterns: ['client/**/*.{js,css,html,svg,png,webmanifest,ico,txt,xml}', 'prerendered/pages/**/*.html'],
         cleanupOutdatedCaches: true,
-        navigateFallback: '/icse-compass/index.html',
-        navigateFallbackDenylist: [new RegExp('^/icse-compass/data/')],
         runtimeCaching: [{
           urlPattern: new RegExp('^/icse-compass/data/.*[.]json$'),
           handler: 'StaleWhileRevalidate',
