@@ -9,13 +9,11 @@
   ]};
 </script>
 <svelte:head>
-  <meta name="description" content="ICSE Compass is an independent academic workspace for learning resources, educators and school papers." />
   <meta name="robots" content="index,follow" />
-  <meta property="og:type" content="website" /><meta property="og:site_name" content="ICSE Compass" />
-  <meta property="og:title" content="ICSE Compass | Your academic workspace" />
-  <meta property="og:description" content="A focused, independent academic workspace for ICSE learners." />
-  <meta property="og:url" content="{siteOrigin}{siteBase}/" /><meta property="og:locale" content="en_IN" />
-  <link rel="canonical" href="{siteOrigin}{siteBase}/" /><link rel="manifest" href="{base}/manifest.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ICSE Compass" />
+  <meta property="og:locale" content="en_IN" />
+  <link rel="manifest" href="{base}/manifest.webmanifest" />
   <link rel="icon" href="{base}/favicon.svg" type="image/svg+xml" />
   <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
 </svelte:head>
@@ -30,4 +28,4 @@
   <IndependenceNotice />
   <footer class="footer"><span>© {new Date().getFullYear()} ICSE Compass</span><span>Independent educational workspace · Not affiliated with CISCE</span></footer>
 </div>
-<nav class="mobile-nav" aria-label="Quick navigation">{#each publicRoutes as route}<a href="{base}{route.path}" aria-label={route.label}><span class="mobile-nav-mark" aria-hidden="true">{route.shortLabel === 'Home' ? '⌂' : route.shortLabel === 'Materials' ? '▤' : route.shortLabel === 'Educators' ? '◎' : '▧'}</span><span>{route.shortLabel}</span></a>{/each}</nav>
+<nav class="mobile-nav" aria-label="Quick navigation">{#each publicRoutes as route}<a href="{base}{route.path}" aria-label={route.label}><span class="mobile-nav-mark" aria-hidden="true">{route.shortLabel === 'Overview' ? '⌂' : route.shortLabel === 'Materials' ? '▤' : route.shortLabel === 'Educators' ? '◎' : '▧'}</span><span>{route.shortLabel}</span></a>{/each}</nav>

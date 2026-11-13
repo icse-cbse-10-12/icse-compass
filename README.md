@@ -23,7 +23,7 @@ No sample resources, invented download links, fabricated file sizes, or unverifi
 
 - Svelte 5 and SvelteKit 2
 - TypeScript with svelte-check
-- Vite 7 and Tailwind CSS v4
+- Vite 5 and Tailwind CSS v4
 - @sveltejs/adapter-static for prerendered GitHub Pages output
 - @vite-pwa/sveltekit with Workbox
 - Vitest for unit tests

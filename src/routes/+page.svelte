@@ -1,5 +1,12 @@
 <script lang="ts">import { base } from '$app/paths';</script>
-<svelte:head><title>ICSE Compass | Your academic workspace</title><meta name="description" content="Find ICSE learning materials, educators and school papers in one independent academic workspace." /></svelte:head>
+<svelte:head>
+  <title>ICSE Compass | Your academic workspace</title>
+  <meta name="description" content="Find ICSE learning materials, educators and school papers in one independent academic workspace." />
+  <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
+  <meta property="og:title" content="ICSE Compass | Your academic workspace" />
+  <meta property="og:description" content="A focused, independent academic workspace for ICSE learners." />
+  <meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/" />
+</svelte:head>
 <main class="page-content">
 <section class="hero"><div class="eyebrow"><span class="eyebrow-dot"></span> YOUR ICSE STUDY SPACE</div>
 <h1>Find your direction.<br /><em>Make every study session count.</em></h1>
