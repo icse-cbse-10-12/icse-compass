@@ -8,9 +8,18 @@
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
     <title>ICSE Compass | Your academic workspace</title>
+    <script>
+      (function () {
+        var redirect = sessionStorage.getItem("icse-compass-redirect");
+        if (redirect) {
+          sessionStorage.removeItem("icse-compass-redirect");
+          window.history.replaceState(null, "", redirect);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/icse-compass/src/main.tsx"></script>
   </body>
 </html>
