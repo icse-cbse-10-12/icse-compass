@@ -86,10 +86,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Query patched package metadata
+      - name: Query compatible patched package metadata
         shell: bash
         run: |
-          for package in '@sveltejs/kit@3.2.0' '@sveltejs/adapter-static@4.0.1' '@sveltejs/vite-plugin-svelte@latest' '@vite-pwa/sveltekit@2.0.2' 'vite-plugin-pwa@2.0.0' 'vite@6.4.4' 'vitest@5.1.0'; do
+          for package in '@tailwindcss/vite@latest' 'tailwindcss@latest' 'typescript@latest' 'vite@8.0.12' '@sveltejs/kit@3.2.0' '@sveltejs/adapter-static@4.0.1' '@sveltejs/vite-plugin-svelte@7.3.1' '@vite-pwa/sveltekit@2.0.2' 'vite-plugin-pwa@2.0.0' 'vitest@5.1.0' 'rolldown@latest' 'magicast@latest' '@vite-pwa/assets-generator@latest'; do
             echo "===== $package ====="
-            npm view "$package" version peerDependencies engines --json
+            npm view "$package" version peerDependencies peerDependenciesMeta engines --json
           done
