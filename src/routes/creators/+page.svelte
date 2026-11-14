@@ -18,7 +18,7 @@
     } catch { failed = true; }
     finally { loading = false; }
   }
-  onMount(loadCreators);
+  onMount(() => { void loadCreators(); });
 </script>
 <svelte:head><title>Educators | ICSE Compass</title><meta name="description" content="Discover verified educator profiles and their published ICSE learning resources." /><link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/creators/" /><meta property="og:title" content="Educators | ICSE Compass" /><meta property="og:description" content="Discover verified educator profiles and their published ICSE learning resources." /><meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/creators/" /></svelte:head>
 <main class="page-content creators-page"><p class="eyebrow">ICSE COMPASS · EDUCATORS</p><h1>Learn from educators</h1><p class="intro">Browse verified educator profiles and discover the resources attributed to each original source.</p>

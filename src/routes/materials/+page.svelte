@@ -40,7 +40,7 @@
     }
   }
   function clearFilters() { query = ''; subjectId = ''; chapterId = ''; creatorId = ''; resourceType = ''; sort = 'relevance'; }
-  onMount(loadCatalogue);
+  onMount(() => { void loadCatalogue(); });
 </script>
 <svelte:head>
   <title>Materials Library | ICSE Compass</title>
