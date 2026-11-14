@@ -33,7 +33,9 @@ export default defineConfig({
           cleanupOutdatedCaches: true,
           runtimeCaching: [{
             urlPattern: new RegExp('^/icse-compass/data/.*[.]json$'),
-            handler: 'StaleWhileRevalidate',
+            handler: 'NetworkFirst',
+            options: {
+              networkTimeoutSeconds: 3,
             options: {
               cacheName: 'icse-compass-catalogue-v1',
               cacheableResponse: { statuses: [0, 200] },
