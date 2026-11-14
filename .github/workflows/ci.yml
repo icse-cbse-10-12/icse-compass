@@ -91,30 +91,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Preview npm's major-version remediation
+      - name: Resolve current dependency graph
+        run: npm install --no-audit --no-fund
+      - name: Apply npm's major-version remediation
         shell: bash
         run: |
-          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
-          cp package.json package-before-remediation.json
           set +e
-          npm audit fix --force --package-lock-only --ignore-scripts --no-fund
+          npm audit fix --force --no-fund
           fix_status=$?
           set -e
           echo "$fix_status" > remediation-exit-code
-          cp package.json package-after-remediation.json
-          npm audit --json > remediation-audit.json || true
-          npm ls --depth=0 > remediation-tree.txt 2>&1 || true
+      - name: Validate remediated dependency graph
+        shell: bash
+        run: |
+          npm ls --depth=0
+          npm audit --json > remediation-audit.json
+          npm run check
+          npm test
+          npm run build
       - name: Upload remediation preview
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dependency-remediation-preview
           path: |
-            package-before-remediation.json
-            package-after-remediation.json
+            package.json
             package-lock.json
             remediation-exit-code
             remediation-audit.json
-            remediation-tree.txt
           if-no-files-found: warn
           retention-days: 7
