@@ -37,6 +37,7 @@ export function validateCatalogue(data) {
     if (resource.creatorId && !creatorIds.has(resource.creatorId)) errors.push('Resource ' + resource.id + ' references missing creator ' + resource.creatorId);
     if (resource.subjectId && !subjectIds.has(resource.subjectId)) errors.push('Resource ' + resource.id + ' references missing subject ' + resource.subjectId);
     if (resource.chapterId && !chapterIds.has(resource.chapterId)) errors.push('Resource ' + resource.id + ' references missing chapter ' + resource.chapterId);
+    if (resource.chapterId && resource.subjectId && chapters.find((chapter) => chapter.id === resource.chapterId)?.subjectId !== resource.subjectId) errors.push('Resource ' + resource.id + ' chapter does not belong to its subject');
     if (resource.status !== 'published') errors.push('Public resource ' + resource.id + ' is not published');
     if (resource.fileSizeBytes !== undefined && (!Number.isFinite(resource.fileSizeBytes) || resource.fileSizeBytes <= 0)) errors.push('Resource ' + resource.id + ' has invalid fileSizeBytes');
     if (resource.pageCount !== undefined && (!Number.isInteger(resource.pageCount) || resource.pageCount <= 0)) errors.push('Resource ' + resource.id + ' has invalid pageCount');

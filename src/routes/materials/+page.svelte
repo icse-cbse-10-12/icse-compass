@@ -15,8 +15,9 @@
   let loading = true;
   let loadError = false;
   let filtered: Resource[] = [];
-  $: filtered = filterResources(resources, query, { subjectId, chapterId, creatorId, resourceType, sort }, creators);
+  $: filtered = filterResources(resources, query, { subjectId, chapterId, creatorId, resourceType, sort }, creators, subjects, chapters);
   $: availableChapters = chapters.filter((chapter) => !subjectId || chapter.subjectId === subjectId);
+  $: if (chapterId && !availableChapters.some((chapter) => chapter.id === chapterId)) chapterId = '';
   $: creatorById = new Map(creators.map((creator) => [creator.id, creator]));
   async function loadCatalogue() {
     loading = true;

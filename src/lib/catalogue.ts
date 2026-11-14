@@ -14,16 +14,18 @@ export interface Resource {
 export interface CatalogueData { resources: Resource[]; creators: Creator[]; subjects: Subject[]; chapters: Chapter[] }
 export interface ResourceFilters { subjectId?: string; chapterId?: string; creatorId?: string; resourceType?: string; sort?: 'relevance' | 'alphabetical' | 'recent' }
 
-export function filterResources(resources: Resource[], query: string, filters: ResourceFilters = {}, creators: Creator[] = []): Resource[] {
+export function filterResources(resources: Resource[], query: string, filters: ResourceFilters = {}, creators: Creator[] = [], subjects: Subject[] = [], chapters: Chapter[] = []): Resource[] {
   const normalized = query.trim().toLocaleLowerCase('en-IN');
   const creatorNames = new Map(creators.map((creator) => [creator.id, creator.name.toLocaleLowerCase('en-IN')]));
+  const subjectNames = new Map(subjects.map((subject) => [subject.id, subject.name.toLocaleLowerCase('en-IN')]));
+  const chapterNames = new Map(chapters.map((chapter) => [chapter.id, chapter.name.toLocaleLowerCase('en-IN')]));
   const scored = resources.flatMap((resource) => {
     if (filters.subjectId && resource.subjectId !== filters.subjectId) return [];
     if (filters.chapterId && resource.chapterId !== filters.chapterId) return [];
     if (filters.creatorId && resource.creatorId !== filters.creatorId) return [];
     if (filters.resourceType && resource.resourceType !== filters.resourceType) return [];
     if (!normalized) return [{ resource, score: 0 }];
-    const fields = [resource.title, resource.description, resource.subjectId ?? '', resource.chapterId ?? '', resource.resourceType, creatorNames.get(resource.creatorId ?? '') ?? '', ...resource.keywords].map((value) => value.toLocaleLowerCase('en-IN'));
+    const fields = [resource.title, resource.description, subjectNames.get(resource.subjectId ?? '') ?? '', chapterNames.get(resource.chapterId ?? '') ?? '', resource.resourceType, creatorNames.get(resource.creatorId ?? '') ?? '', ...resource.keywords].map((value) => value.toLocaleLowerCase('en-IN'));
     const title = resource.title.toLocaleLowerCase('en-IN');
     const score = (title === normalized ? 100 : title.startsWith(normalized) ? 50 : title.includes(normalized) ? 25 : 0) + fields.filter((field) => field.includes(normalized)).length;
     return score > 0 ? [{ resource, score }] : [];
