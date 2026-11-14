@@ -17,7 +17,7 @@ Create these six tabs with the exact names below. Row 1 must contain the exact s
 - `access_method`: `hosted`, `external`, or `embed`.
 - `hosting_permission`: `owned`, `authorized`, `not-applicable`, or `not-authorized`.
 - A hosted file is publishable only when permission is `owned` or `authorized`.
-- An embed is publishable only when `embed_allowed` is TRUE and the publisher permits embedding.
+- An embed is publishable only when `embed_allowed` is TRUE and the publisher permits embedding. For an embed row, put the provider's official embed URL in `source_url` (not a normal watch-page URL).
 - External resources link to their original source; no rehosting permission is implied.
 - `file_size_bytes` and `page_count` are optional and must be verified. Leave blank if unknown.
 - `keywords` accepts comma- or semicolon-separated terms.
