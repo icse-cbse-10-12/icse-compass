@@ -16,6 +16,7 @@
 | /materials/ | Materials Library | Foundation view; no catalogue connected |
 | /creators/ | Educators | Foundation view; no profiles published |
 | /school-papers/ | School Papers | Foundation view; no papers published |
+| /privacy/ | Privacy | Public privacy notice and device-only data design |
 
 No sample resources, invented download links, fabricated file sizes, or unverified metadata are presented as real catalogue content.
 
@@ -53,7 +54,7 @@ Run npm run check, npm test, and npm run build before opening a pull request.
 
 ## Static publishing and PWA
 
-SvelteKit uses @sveltejs/adapter-static. The GitHub Pages project base is /icse-compass. The build prerenders the four public routes and emits the Pages fallback as 404.html.
+SvelteKit uses @sveltejs/adapter-static. The GitHub Pages project base is /icse-compass. The build prerenders the public routes, including /privacy/, and emits the Pages fallback as 404.html.
 
 The manifest uses the ICSE Compass name and Paper & Ink theme. Workbox precaches generated JavaScript, CSS, HTML, SVG, and PNG assets. Future same-origin JSON feeds under /icse-compass/data/*.json use StaleWhileRevalidate with a bounded seven-day cache. Service-worker registration is handled by the SvelteKit PWA integration without delaying the initial route render.
 
@@ -63,13 +64,21 @@ Static discovery files are published from static/: robots.txt, sitemap.xml, llms
 
 Paper & Ink palette: paper #F5F1E8, ink #252923, botanical #356B58, border #DCD5C7.
 
-Navigation controls provide at least 48px touch targets. Mobile navigation is fixed in the thumb zone and accounts for the device safe area. The stylesheet avoids backdrop filters, blend-mode effects, and heavy layered shadows. Reduced-motion preferences disable the reading-progress animation and skeleton pulse.
+Typography uses the device's native system font stack; no external font CDN is required. The app source and CI guard against external font providers, analytics, session replay, and ad-tracker endpoints. Navigation controls provide at least 48px touch targets. Mobile navigation is fixed in the thumb zone and accounts for the device safe area. The stylesheet avoids backdrop filters, blend-mode effects, and heavy layered shadows. Reduced-motion preferences disable the reading-progress animation and skeleton pulse.
 
-## Data, copyright, and privacy
+## Privacy by design for learners under 18
+
+The current release is a static public frontend with no student accounts, email waitlists, profile photos, biometric collection, analytics, advertising, behavioural monitoring, or tracking cookies. The app does not request student profile details. See the [Privacy page](https://icse-cbse-10-12.github.io/icse-compass/privacy/) for the hosting-provider and external-publisher distinction.
+
+Future saved study links and paper checklists must remain on-device: IndexedDB for saved records and localStorage only for small preferences. No account-based sync, background upload, or server-side student profile is permitted by the product design. The service worker may cache public app assets and public JSON feeds only; it must never cache student personal data or authenticated responses. See [docs/privacy-by-design.md](docs/privacy-by-design.md) before adding student-facing data features.
+
+This is a privacy-by-design product policy, not a legal certification. Before introducing any processing of personal data, obtain a current Indian legal review and implement any applicable notice, consent, parental-consent, security, retention, and rights requirements.
+
+## Data, copyright, and security
 
 Public availability of a resource does not prove permission to reproduce or host it. Host only files owned by the project or covered by explicit hosting permission. Otherwise link to the original source or use an authorised embed. Listing review must not be treated as copyright clearance.
 
-The current release is a public static frontend. It does not contain student accounts, private student records, or privileged admin operations. Private credentials must never be placed in browser-delivered environment variables or frontend source.
+Private credentials must never be placed in browser-delivered environment variables or frontend source. The public frontend must not expose service-account keys, privileged API tokens, or admin secrets.
 
 ## GitHub Pages workflow
 

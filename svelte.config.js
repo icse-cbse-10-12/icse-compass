@@ -6,6 +6,6 @@ export default {
   kit: {
     adapter: adapter({ pages: 'build', assets: 'build', fallback: '404.html', precompress: true, strict: true }),
     paths: { base: '/icse-compass' },
-    prerender: { entries: ['/', '/materials/', '/creators/', '/school-papers/'] }
+    prerender: { entries: ['/', '/materials/', '/creators/', '/school-papers/', '/privacy/'] }
   }
 };

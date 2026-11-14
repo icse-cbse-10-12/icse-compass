@@ -2,7 +2,7 @@
   import '../styles.css';
   import { base } from '$app/paths';
   import IndependenceNotice from '$lib/IndependenceNotice.svelte';
-  import { publicRoutes, siteOrigin, siteBase } from '$lib/site';
+  import { publicRoutes, privacyPath, siteOrigin, siteBase } from '$lib/site';
   const structuredData = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'EducationalOrganization', name: 'ICSE Compass', url: siteOrigin + siteBase + '/', description: 'An independent academic workspace for discovering ICSE learning resources, educators, and school papers.' },
     { '@type': 'WebSite', name: 'ICSE Compass', url: siteOrigin + siteBase + '/', inLanguage: 'en-IN' }
@@ -26,6 +26,6 @@
   </header>
   <slot />
   <IndependenceNotice />
-  <footer class="footer"><span>© {new Date().getFullYear()} ICSE Compass</span><span>Independent educational workspace · Not affiliated with CISCE</span></footer>
+  <footer class="footer"><span>© {new Date().getFullYear()} ICSE Compass</span><span>Independent educational workspace · Not affiliated with CISCE</span><a class="footer-link" href="{base}{privacyPath}">Privacy</a></footer>
 </div>
 <nav class="mobile-nav" aria-label="Quick navigation">{#each publicRoutes as route}<a href="{base}{route.path}" aria-label={route.label}><span class="mobile-nav-mark" aria-hidden="true">{route.shortLabel === 'Overview' ? '⌂' : route.shortLabel === 'Materials' ? '▤' : route.shortLabel === 'Educators' ? '◎' : '▧'}</span><span>{route.shortLabel}</span></a>{/each}</nav>
