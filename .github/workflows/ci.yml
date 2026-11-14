@@ -1,19 +1,15 @@
 name: CI
-
 on:
   pull_request:
     branches: [main]
   push:
     branches: [main, "feat/**"]
   workflow_dispatch:
-
 permissions:
   contents: read
-
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -29,6 +25,8 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci
+      - name: Validate public catalogue JSON
+        run: npm run validate:catalogue
       - name: Run full dependency audit
         shell: bash
         run: |
@@ -68,6 +66,11 @@ jobs:
           test -s build/robots.txt
           test -s build/sitemap.xml
           test -s build/llms.txt
+          test -s build/data/resources.json
+          test -s build/data/creators.json
+          test -s build/data/subjects.json
+          test -s build/data/chapters.json
+          test -s build/data/catalogue-meta.json
           test -f build/.nojekyll
           grep -Fq 'ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE.' build/index.html
           grep -Fq 'Your study space should stay yours.' build/privacy/index.html

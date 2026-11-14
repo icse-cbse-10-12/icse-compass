@@ -9,7 +9,7 @@ ICSE Compass is an independent educational project being developed for learners 
 - **Repository:** https://github.com/icse-cbse-10-12/icse-compass
 - **Current hosting workflow:** GitHub Pages
 - **Application stack:** Svelte 5, SvelteKit 3, TypeScript 6, Vite 8, Tailwind CSS v4
-- **Project status:** Phase 1 â static application foundation
+- **Project status:** Phase 2 â searchable catalogue and Google Sheets publishing integration
 
 ---
 
@@ -54,11 +54,13 @@ The first public release is being built in phases. The current repository is the
 
 ### Phase 1 â foundation
 
-The current codebase establishes the application shell, navigation, design foundation, SvelteKit 3 routing, reproducible dependency lock, tests, static PWA build, and GitHub Actions workflows.
+The application shell, navigation, design foundation, SvelteKit 3 routing, reproducible dependency lock, tests, static PWA build, and GitHub Actions workflows are implemented.
 
-The Materials, Educators, and School Papers routes are **clearly marked foundation placeholders**. They do not yet contain a connected catalogue or real resource listings.
+### Phase 2 â Materials catalogue
 
-No sample resources, invented download links, fabricated file sizes, or unverified resource metadata are presented as real catalogue content.
+The Materials Library now supports search, combined filters, sorting, resource details, and source-aware links. The Educators route reads verified public creator records. Public catalogue data is generated as static JSON from a separate Google Sheet through the Google Apps Script publisher.
+
+The catalogue data starts empty. No sample resources, invented download links, fabricated file sizes, or unverified resource metadata are presented as real catalogue content. The Sheet integration requires one-time setup; see [the publishing guide](docs/phase-2-sheet-setup.md).
 
 ### Release status at a glance
 
@@ -68,10 +70,10 @@ No sample resources, invented download links, fabricated file sizes, or unverifi
 | TypeScript strict configuration | Implemented |
 | Responsive Paper & Ink interface | Implemented |
 | Public navigation and client-side routes | Implemented |
-| Materials catalogue integration | Not implemented |
-| Educator profile data | Not implemented |
+| Materials catalogue UI and JSON data layer | Implemented |
+| Educator directory integration | Implemented; empty until verified profiles are published |
 | School Papers catalogue | Not implemented |
-| Admin publishing and approval | Not implemented |
+| Google Sheets publishing integration | Implemented; one-time setup required |
 | Student accounts and cloud progress | Not implemented |
 | Offline progress synchronisation | Not implemented |
 | EduBot integration | Not implemented |
@@ -88,17 +90,20 @@ This table describes the current codebase. Planned capabilities must not be trea
 - Keyboard-visible focus styling and reduced-motion support in the stylesheet.
 - Accessible names for primary navigation elements.
 - Vitest foundation test suite.
-- GitHub Actions CI for dependency installation, TypeScript/build validation, and tests.
-- A GitHub Pages build and deployment workflow.
+- Searchable Materials Library, combined filters, sorting, and resource detail views.
+- Static JSON catalogue files and validation for IDs, HTTPS URLs, references, hosted-file rights, and embed permission.
+- Educator directory backed by verified public creator records.
+- Google Apps Script publisher for approved Sheet rows, with a setup guide.
+- GitHub Actions CI and Pages build gates for catalogue JSON validation.
 - A GitHub Pages fallback page for client-side routes.
 
 ## What is not implemented yet
 
 The following are future work and must not be assumed to exist:
 
-- A live Google Sheets or other catalogue connection.
-- Resource search, filters, subject/chapter taxonomy, or resource detail records.
-- Creator profile records or verified educator links.
+- A connected Google Sheet until the one-time Apps Script and token setup is completed.
+- A public admin dashboard, admin authentication, roles, and review interface.
+- Verified creator/resource records; the public catalogue is intentionally empty until reviewed data is published.
 - School-paper submissions, review, moderation, or publishing.
 - Admin authentication, roles, and audit logs.
 - Student registration, personal progress, or cloud data storage.
@@ -355,7 +360,7 @@ The product is intended to grow in controlled phases. This roadmap is directiona
 | Phase | Focus | Status |
 |---|---|---|
 | 1 | Repository, app shell, navigation, design foundation, routing, CI, initial Pages workflow | Foundation implemented |
-| 2 | Materials catalogue, search, filters, resource details, creator associations | Planned |
+| 2 | Materials catalogue, search, filters, resource details, creator associations, Sheet-to-JSON publishing | Implemented; Sheet setup pending |
 | 3 | Educator pages, School Papers, admin publishing, review and audit workflow | Planned |
 | 4 | Student accounts, syllabus progress, study planner, revision tools | Planned |
 | 5 | Offline-first local storage, sync states, and conflict recovery | Planned |

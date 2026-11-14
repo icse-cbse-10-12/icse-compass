@@ -3,9 +3,7 @@
   "private": true,
   "version": "0.2.5",
   "type": "module",
-  "imports": {
-    "#lib/*": "./src/lib/*"
-  },
+  "imports": { "#lib/*": "./src/lib/*" },
   "scripts": {
     "dev": "vite dev",
     "build": "svelte-kit sync && vite build",
@@ -13,7 +11,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "typecheck": "npm run check",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "validate:catalogue": "node scripts/validate-catalogue.mjs"
   },
   "dependencies": {
     "@sveltejs/adapter-static": "^4.0.1",
