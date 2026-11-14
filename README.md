@@ -117,7 +117,6 @@ Features should be added only with the required data model, permission checks, f
 | TypeScript | Static typing and safer application code |
 | Vite | Development server and production build |
 | Tailwind CSS v4 | Utility-first styling |
-| Lucide icons (where used) | Interface icons |
 | @sveltejs/adapter-static | Prerendered static publishing |
 | Vitest | Unit and component test runner |
 | @vite-pwa/sveltekit and Workbox | Progressive Web App and public-asset caching |
@@ -134,22 +133,17 @@ icse-compass/
 │   └── workflows/
 │       ├── ci.yml              # Pull request and branch quality checks
 │       └── pages.yml           # Build and deploy to GitHub Pages
-├── public/
-│   └── static/                 # Public static assets and Pages fallback support
+├── static/                    # Public assets, robots, sitemap, PWA icon, .nojekyll
 ├── src/
 │   ├── lib/                    # Shared application modules and tests
 │   ├── routes/                 # SvelteKit pages and layouts
 │   └── styles.css              # Global styles and design foundation
-├── .env.example                # Public-client configuration guidance
+├── .env.example                # Public-client configuration guidance (if present)
 ├── .gitignore
-├── index.html                  # HTML entry point
 ├── package.json                # Scripts and dependencies
-├── tsconfig.json               # TypeScript project references
-├── tsconfig.app.json           # Application TypeScript settings
-├── tsconfig.node.json          # Tooling TypeScript settings
+├── tsconfig.json               # TypeScript project settings
 ├── svelte.config.js            # SvelteKit and static adapter config
-├── vite.config.ts              # Vite, SvelteKit, Tailwind, PWA, and Vitest config
-└── static/                     # Public assets, robots, sitemap, and offline assets
+└── vite.config.ts              # Vite, SvelteKit, Tailwind, PWA, and Vitest config
 ```
 
 As the project grows, features should be organised into focused modules rather than putting catalogue access, business rules, and UI state into a single component.
@@ -182,7 +176,7 @@ cd icse-compass
 npm install
 ```
 
-The repository currently does not commit a package lockfile. Dependency reproducibility and the npm audit findings must be resolved before this migration is merged.
+The repository currently does not commit a package lockfile. A reproducible dependency lock and a reviewed npm audit are merge requirements; do not treat a successful build as proof that dependencies are vulnerability-free.
 
 ### 3. Start the development server
 
@@ -262,7 +256,7 @@ It is configured to:
 1. Run when changes are pushed to `main` or when manually dispatched.
 2. Install dependencies.
 3. Build the application.
-4. Upload the `dist` directory as a Pages artifact.
+4. Upload the `build` directory produced by `@sveltejs/adapter-static` as a Pages artifact.
 5. Deploy the artifact to GitHub Pages.
 
 The Vite base path is currently configured for this GitHub Pages project site:
