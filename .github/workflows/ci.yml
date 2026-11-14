@@ -26,8 +26,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install dependencies
-        run: npm install
+      - name: Resolve and generate dependency lock
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Run full dependency audit
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          npm audit --audit-level=high --json > npm-audit.json
+          audit_status=$?
+          set -e
+          echo "$audit_status" > npm-audit-exit-code
+          echo "npm audit exit code: $audit_status"
+      - name: Upload dependency audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-audit-evidence
+          path: |
+            package-lock.json
+            npm-audit.json
+            npm-audit-exit-code
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce dependency audit
+        run: test "$(cat npm-audit-exit-code)" = "0"
       - name: Svelte and TypeScript checks
         run: npm run check
       - name: Run Vitest
