@@ -8,7 +8,7 @@ function readJson<T>(name: string): T {
   return JSON.parse(readFileSync(resolve(process.cwd(), 'static', 'data', name), 'utf8')) as T;
 }
 
-export const prerender = true;
+export const prerender = 'auto';
 
 export function entries() {
   const creators = readJson<Creator[]>('creators.json');
