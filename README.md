@@ -142,7 +142,6 @@ icse-compass/
 âââ .gitignore
 âââ package.json                # Scripts and dependencies
 âââ tsconfig.json               # TypeScript project settings
-âââ svelte.config.js            # SvelteKit and static adapter config
 âââ vite.config.ts              # Vite, SvelteKit, Tailwind, PWA, and Vitest config
 ```
 
