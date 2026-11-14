@@ -70,6 +70,7 @@ jobs:
           test -s build/data/creators.json
           test -s build/data/subjects.json
           test -s build/data/chapters.json
+          test -s build/data/catalogue-meta.json
           test -f build/.nojekyll
           grep -Fq 'ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE.' build/index.html
           grep -Fq 'Your study space should stay yours.' build/privacy/index.html

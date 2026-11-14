@@ -25,7 +25,7 @@ function handleCatalogueEdit(event) {
 }
 function publishCatalogue() {
   const lock = LockService.getScriptLock();
-  if (!lock.tryLock(20000)) throw new Error('A catalogue publication is already running. Try again shortly.');
+  lock.waitLock(30000);
   try {
     const catalogue = buildCatalogue_();
     const errors = validateCatalogue_(catalogue);
@@ -82,7 +82,7 @@ function buildCatalogue_() {
     if (size > 0) item.fileSizeBytes = size;
     if (pages > 0) item.pageCount = pages;
     if (optional_(r.thumbnail_url)) item.thumbnailUrl = String(r.thumbnail_url).trim();
-    if (optional_(r.updated_at)) item.updatedAt = String(r.updated_at).trim();
+    if (optional_(r.updated_at)) item.updatedAt = isoDate_(r.updated_at);
     return item;
   });
   return {
@@ -169,3 +169,10 @@ function required_(value, label) { const result = String(value || '').trim(); if
 function optional_(value) { return value !== null && value !== undefined && String(value).trim() !== ''; }
 function numberOr_(value, fallback) { if (!optional_(value)) return fallback; const n = Number(value); if (!Number.isFinite(n)) throw new Error('Expected a number, received: ' + value); return n; }
 function boolean_(value) { return value === true || ['true','yes','1'].includes(String(value || '').trim().toLowerCase()); }
+
+function isoDate_(value) {
+  if (value instanceof Date && !isNaN(value.getTime())) return value.toISOString();
+  const text = String(value).trim();
+  const parsed = new Date(text);
+  return isNaN(parsed.getTime()) ? text : parsed.toISOString();
+}
