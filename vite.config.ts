@@ -28,7 +28,7 @@ export default defineConfig({
           start_url: '/icse-compass/',
           icons: [{ src: '/icse-compass/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' }]
         },
-        workbox: {
+        generateSW: {
           globPatterns: ['client/**/*.{js,css,html,svg,png,webmanifest,ico,txt,xml}', 'prerendered/pages/**/*.html'],
           cleanupOutdatedCaches: true,
           runtimeCaching: [{
