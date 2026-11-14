@@ -86,10 +86,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Query compatible patched package metadata
+      - name: Query patched transitive package releases
         shell: bash
         run: |
-          for package in '@tailwindcss/vite@latest' 'tailwindcss@latest' 'typescript@latest' 'vite@8.0.12' '@sveltejs/kit@3.2.0' '@sveltejs/adapter-static@4.0.1' '@sveltejs/vite-plugin-svelte@7.3.1' '@vite-pwa/sveltekit@2.0.2' 'vite-plugin-pwa@2.0.0' 'vitest@5.1.0' 'rolldown@latest' 'magicast@latest' '@vite-pwa/assets-generator@latest'; do
+          for package in 'deepmerge@latest' 'deepmerge@5.0.0' 'glob@14.0.2' 'glob@latest' 'minimatch@11.0.1' 'minimatch@latest' '@rollup/plugin-node-resolve@latest'; do
             echo "===== $package ====="
-            npm view "$package" version peerDependencies peerDependenciesMeta engines --json
+            npm view "$package" version dependencies engines --json
           done
