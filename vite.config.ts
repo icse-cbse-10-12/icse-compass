@@ -36,7 +36,6 @@ export default defineConfig({
             handler: 'NetworkFirst',
             options: {
               networkTimeoutSeconds: 3,
-            options: {
               cacheName: 'icse-compass-catalogue-v1',
               cacheableResponse: { statuses: [0, 200] },
               expiration: { maxEntries: 50, maxAgeSeconds: 604800 }
