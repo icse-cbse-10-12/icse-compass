@@ -26,8 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Resolve dependency graph
-        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          cache: npm
       - name: Install locked dependencies
         run: npm ci
       - name: Run full dependency audit
