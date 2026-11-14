@@ -258,10 +258,10 @@ It is configured to:
 4. Upload the `build` directory produced by `@sveltejs/adapter-static` as a Pages artifact.
 5. Deploy the artifact to GitHub Pages.
 
-The Vite base path is currently configured for this GitHub Pages project site:
+The SvelteKit base path is currently configured for this GitHub Pages project site:
 
 ```ts
-base: "/icse-compass/"
+paths: { base: '/icse-compass' }
 ```
 
 The expected project-site URL is:
