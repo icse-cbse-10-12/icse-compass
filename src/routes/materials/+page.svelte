@@ -17,7 +17,6 @@
   let filtered: Resource[] = [];
   $: filtered = filterResources(resources, query, { subjectId, chapterId, creatorId, resourceType, sort }, creators, subjects, chapters);
   $: availableChapters = chapters.filter((chapter) => !subjectId || chapter.subjectId === subjectId);
-  $: if (chapterId && !availableChapters.some((chapter) => chapter.id === chapterId)) chapterId = '';
   $: creatorById = new Map(creators.map((creator) => [creator.id, creator]));
   async function loadCatalogue() {
     loading = true;
@@ -60,7 +59,7 @@
     <input id="resource-search" class="catalogue-search" type="search" bind:value={query} placeholder="Search notes, chapters, topics or educators..." autocomplete="off" />
     <div class="filter-grid">
       <label>Subject
-        <select bind:value={subjectId}><option value="">All subjects</option>{#each subjects as subject}<option value={subject.id}>{subject.name}</option>{/each}</select>
+        <select value={subjectId} onchange={(event) => { subjectId = (event.currentTarget as HTMLSelectElement).value; chapterId = ''; }}><option value="">All subjects</option>{#each subjects as subject}<option value={subject.id}>{subject.name}</option>{/each}</select>
       </label>
       <label>Chapter
         <select bind:value={chapterId}><option value="">All chapters</option>{#each availableChapters as chapter}<option value={chapter.id}>{chapter.name}</option>{/each}</select>
