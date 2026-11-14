@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { siteBase } from '#lib/site.ts';
-  import { filterResources, type Creator, type Resource, type Subject, type Chapter } from '#lib/catalogue';
+  import { filterResources, type Creator, type Resource, type Subject, type Chapter } from '#lib/catalogue.ts';
   let resources: Resource[] = [];
   let creators: Creator[] = [];
   let subjects: Subject[] = [];

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { siteBase } from '#lib/site.ts';
-  import type { Creator, Resource } from '#lib/catalogue';
+  import type { Creator, Resource } from '#lib/catalogue.ts';
   let creators: Creator[] = [];
   let resources: Resource[] = [];
   let loading = true;
