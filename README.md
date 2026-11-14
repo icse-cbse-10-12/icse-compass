@@ -8,8 +8,8 @@ ICSE Compass is an independent educational project being developed for learners 
 
 - **Repository:** https://github.com/icse-cbse-10-12/icse-compass
 - **Current hosting workflow:** GitHub Pages
-- **Application stack:** Svelte 5, SvelteKit 2, TypeScript, Vite, Tailwind CSS v4
-- **Project status:** Phase 1 — static application foundation
+- **Application stack:** Svelte 5, SvelteKit 3, TypeScript 6, Vite 8, Tailwind CSS v4
+- **Project status:** Phase 1 â static application foundation
 
 ---
 
@@ -42,19 +42,19 @@ ICSE Compass is intended to make academic resource discovery more organised and 
 
 The public-facing product is planned around:
 
-1. **Materials Library** — discover notes, worksheets, reference material, and other learning resources.
-2. **Educator directory** — browse dedicated pages for educators and learning channels.
-3. **School Papers** — find school-level practice and examination papers.
-4. **Personal study workspace (later release)** — syllabus progress, planning, revision, and related student tools.
-5. **Academic assistance (later release)** — a future EduBot integration, subject to a separate implementation and safety review.
+1. **Materials Library** â discover notes, worksheets, reference material, and other learning resources.
+2. **Educator directory** â browse dedicated pages for educators and learning channels.
+3. **School Papers** â find school-level practice and examination papers.
+4. **Personal study workspace (later release)** â syllabus progress, planning, revision, and related student tools.
+5. **Academic assistance (later release)** â a future EduBot integration, subject to a separate implementation and safety review.
 
 The first public release is being built in phases. The current repository is the application foundation, not the completed resource platform.
 
 ## Current release status
 
-### Phase 1 — foundation
+### Phase 1 â foundation
 
-The current codebase establishes the application shell, navigation, design foundation, routing, tests, and GitHub Actions workflows.
+The current codebase establishes the application shell, navigation, design foundation, SvelteKit 3 routing, reproducible dependency lock, tests, static PWA build, and GitHub Actions workflows.
 
 The Materials, Educators, and School Papers routes are **clearly marked foundation placeholders**. They do not yet contain a connected catalogue or real resource listings.
 
@@ -64,7 +64,7 @@ No sample resources, invented download links, fabricated file sizes, or unverifi
 
 | Area | Current status |
 |---|---|
-| SvelteKit application shell | Implemented |
+| SvelteKit 3 application shell | Implemented |
 | TypeScript strict configuration | Implemented |
 | Responsive Paper & Ink interface | Implemented |
 | Public navigation and client-side routes | Implemented |
@@ -113,13 +113,13 @@ Features should be added only with the required data model, permission checks, f
 
 | Technology | Purpose |
 |---|---|
-| Svelte 5 and SvelteKit 2 | User interface and application framework |
+| Svelte 5 and SvelteKit 3 | User interface and application framework |
 | TypeScript | Static typing and safer application code |
-| Vite | Development server and production build |
+| Vite 8 | Development server and production build |
 | Tailwind CSS v4 | Utility-first styling |
 | @sveltejs/adapter-static | Prerendered static publishing |
 | Vitest | Unit and component test runner |
-| @vite-pwa/sveltekit and Workbox | Progressive Web App and public-asset caching |
+| @vite-pwa/sveltekit and Workbox | Progressive Web App integration and public-asset caching |
 | svelte-check | Svelte and TypeScript validation |
 | GitHub Actions | Continuous integration and GitHub Pages deployment |
 
@@ -129,21 +129,21 @@ Versions and dependency ranges are defined in [package.json](./package.json).
 
 ```text
 icse-compass/
-├── .github/
-│   └── workflows/
-│       ├── ci.yml              # Pull request and branch quality checks
-│       └── pages.yml           # Build and deploy to GitHub Pages
-├── static/                    # Public assets, robots, sitemap, PWA icon, .nojekyll
-├── src/
-│   ├── lib/                    # Shared application modules and tests
-│   ├── routes/                 # SvelteKit pages and layouts
-│   └── styles.css              # Global styles and design foundation
-├── .env.example                # Public-client configuration guidance (if present)
-├── .gitignore
-├── package.json                # Scripts and dependencies
-├── tsconfig.json               # TypeScript project settings
-├── svelte.config.js            # SvelteKit and static adapter config
-└── vite.config.ts              # Vite, SvelteKit, Tailwind, PWA, and Vitest config
+âââ .github/
+â   âââ workflows/
+â       âââ ci.yml              # Pull request and branch quality checks
+â       âââ pages.yml           # Build and deploy to GitHub Pages
+âââ static/                    # Public assets, robots, sitemap, PWA icon, .nojekyll
+âââ src/
+â   âââ lib/                    # Shared application modules and tests
+â   âââ routes/                 # SvelteKit pages and layouts
+â   âââ styles.css              # Global styles and design foundation
+âââ .env.example                # Public-client configuration guidance (if present)
+âââ .gitignore
+âââ package.json                # Scripts and dependencies
+âââ tsconfig.json               # TypeScript project settings
+âââ svelte.config.js            # SvelteKit and static adapter config
+âââ vite.config.ts              # Vite, SvelteKit, Tailwind, PWA, and Vitest config
 ```
 
 As the project grows, features should be organised into focused modules rather than putting catalogue access, business rules, and UI state into a single component.
@@ -152,7 +152,7 @@ As the project grows, features should be organised into focused modules rather t
 
 ### Prerequisites
 
-- Node.js 22 or a compatible newer LTS release.
+- Node.js 22.17 or newer compatible LTS release.
 - npm (bundled with Node.js).
 - Git.
 
@@ -173,10 +173,10 @@ cd icse-compass
 ### 2. Install dependencies
 
 ```bash
-npm install
+npm ci
 ```
 
-The repository currently does not commit a package lockfile. A reproducible dependency lock and a reviewed npm audit are merge requirements; do not treat a successful build as proof that dependencies are vulnerability-free.
+The repository commits `package-lock.json`. Use `npm ci` to install the exact reviewed dependency graph; it fails if the manifest and lockfile disagree. CI runs a full `npm audit` and blocks moderate, high, and critical findings. Low-severity advisories are still reported and should be reviewed rather than hidden.
 
 ### 3. Start the development server
 
@@ -269,7 +269,7 @@ The expected project-site URL is:
 
 https://icse-cbse-10-12.github.io/icse-compass/
 
-For GitHub Pages deployment, ensure the repository's **Settings → Pages → Build and deployment → Source** is set to **GitHub Actions**. A successful workflow run is the deployment signal; a successful local build alone does not mean the site is published.
+For GitHub Pages deployment, ensure the repository's **Settings â Pages â Build and deployment â Source** is set to **GitHub Actions**. A successful workflow run is the deployment signal; a successful local build alone does not mean the site is published.
 
 ### Vercel (not configured yet)
 
@@ -340,10 +340,10 @@ It runs on pull requests targeting `main` and pushes to `main` or `feat/**`. The
 
 1. Checks out the repository.
 2. Sets up Node.js 22.
-3. Installs dependencies.
-4. Runs the TypeScript/build command.
-5. Runs the Vitest test suite.
-6. Verifies prerendered routes, sitemap/llms output, PWA assets, and selected privacy guardrails.
+3. Installs the committed dependency graph with `npm ci`.
+4. Runs `npm audit` and blocks moderate-or-higher findings.
+5. Runs Svelte/TypeScript validation and the Vitest suite.
+6. Builds the static site/PWA and verifies prerendered routes, sitemap/llms output, PWA assets, and selected privacy guardrails.
 
 The current test suite is a small foundation suite. It verifies that the overview renders and that the independent relationship with CISCE is stated. It is not yet comprehensive coverage of a finished product.
 
@@ -386,4 +386,4 @@ No open-source license has been declared in this repository yet. Until a license
 
 ---
 
-**ICSE Compass** — an independent academic workspace, developed in phases.
+**ICSE Compass** â an independent academic workspace, developed in phases.
