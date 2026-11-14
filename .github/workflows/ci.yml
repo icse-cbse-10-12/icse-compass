@@ -79,45 +79,17 @@ jobs:
       - name: Enforce dependency audit
         run: test "$(cat npm-audit-exit-code)" = "0"
 
-  remediation-preview:
+  package-metadata:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Resolve current dependency graph
-        run: npm install --no-audit --no-fund
-      - name: Apply npm's major-version remediation
+      - name: Query patched package metadata
         shell: bash
         run: |
-          set +e
-          npm audit fix --force --no-fund
-          fix_status=$?
-          set -e
-          echo "$fix_status" > remediation-exit-code
-      - name: Validate remediated dependency graph
-        shell: bash
-        run: |
-          npm ls --depth=0
-          npm audit --json > remediation-audit.json
-          npm run check
-          npm test
-          npm run build
-      - name: Upload remediation preview
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dependency-remediation-preview
-          path: |
-            package.json
-            package-lock.json
-            remediation-exit-code
-            remediation-audit.json
-          if-no-files-found: warn
-          retention-days: 7
+          for package in '@sveltejs/kit@3.2.0' '@sveltejs/adapter-static@4.0.1' '@sveltejs/vite-plugin-svelte@latest' '@vite-pwa/sveltekit@2.0.2' 'vite-plugin-pwa@2.0.0' 'vite@6.4.4' 'vitest@5.1.0'; do
+            echo "===== $package ====="
+            npm view "$package" version peerDependencies engines --json
+          done
