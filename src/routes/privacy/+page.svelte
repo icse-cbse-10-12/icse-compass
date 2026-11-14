@@ -1,4 +1,4 @@
-<script lang="ts">import { base } from '$app/paths';</script>
+<script lang="ts">import { siteBase } from '#lib/site.ts';</script>
 <svelte:head>
   <title>Privacy | ICSE Compass</title>
   <meta name="description" content="How ICSE Compass protects student privacy with no accounts, no tracking cookies, and on-device study data." />
@@ -45,5 +45,5 @@
   </section>
 
   <p class="privacy-disclaimer">This page describes the current app design and planned device-only storage approach. It is not a legal certification or a guarantee about the separate services linked above.</p>
-  <a class="text-link" href="{base}/">← Return to overview</a>
+  <a class="text-link" href="{siteBase}/">← Return to overview</a>
 </main>
