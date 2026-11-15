@@ -19,7 +19,7 @@ describe('ICSE Compass homepage product-led hero', () => {
   });
 
   it('offers working subject shortcuts through the Materials Library search query', () => {
-    for (const subject of ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'History & Civics', 'Computer']) {
+    for (const subject of ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'History &amp; Civics', 'Computer']) {
       expect(homepage).toContain(subject);
     }
     expect(homepage).toContain('?q=');
