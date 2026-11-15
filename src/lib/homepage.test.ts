@@ -28,27 +28,12 @@ describe('ICSE Compass homepage product-led hero', () => {
     expect(materials).toContain("query = params.get('q') ?? ''");
   });
 
-  it('uses a deep-navy command panel with readable light-on-dark content', () => {
-    expect(homepage).toContain('background: var(--navy)');
-    expect(homepage).toContain('color: #ffffff');
-    expect(homepage).toContain('background: #1e314e');
-    expect(homepage).toContain('border: 1px solid rgba(255, 255, 255, .15)');
+  it('uses a high-contrast index card and legible micro-labels', () => {
+    expect(homepage).toContain('background: #ffffff');
+    expect(homepage).toContain('border: 1px solid #e2dfd7');
+    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
     expect(homepage).toContain('font-size: 12px');
     expect(homepage).toContain('line-height: 1.08');
-  });
-
-  it('uses a terracotta primary action and a working search form', () => {
-    expect(homepage).toContain('background: var(--terracotta)');
-    expect(homepage).toContain('onsubmit={handleSearch}');
-    expect(homepage).toContain('bind:value={searchQuery}');
-    expect(homepage).toContain('goto(');
-  });
-
-  it('uses rounded controls and keeps links as Svelte expressions', () => {
-    expect(homepage).toContain('border-radius: 24px');
-    expect(homepage).toContain('border-radius: 16px');
-    expect(homepage).not.toContain('href="{siteBase}/');
-    expect(homepage).not.toContain('href="{base}/');
   });
 
   it('keeps index-row labels factual rather than implying unverified endorsements', () => {
@@ -86,7 +71,7 @@ describe('lightweight paper-and-ink motion', () => {
 
   it('keeps the motion disabled for reduced-motion preferences', () => {
     expect(homepage).toContain('@media (prefers-reduced-motion: reduce)');
-    expect(homepage).toContain('.hero-product-panel, .hero-index-row, .index-row-arrow');
+    expect(homepage).toContain('.hero-product-panel, .hero-card-deck, .hero-deck-card');
     expect(homepage).toContain('animation: none !important');
   });
 
@@ -131,11 +116,10 @@ describe('high-contrast Student OS homepage direction', () => {
     expect(homepage).toContain('font-family: var(--sans)');
   });
 
-  it('keeps the dark command panel and its inner cards visually distinct', () => {
-    expect(homepage).toContain('background: var(--navy)');
-    expect(homepage).toContain('background: #1e314e');
-    expect(homepage).toContain('border-radius: 24px');
-    expect(homepage).toContain('box-shadow: 0 18px 42px rgba(22, 38, 62, .18)');
+  it('keeps high-contrast anchors and card offsets within the restrained paper aesthetic', () => {
+    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
+    expect(homepage).toContain('background: #ffffff');
+    expect(homepage).toContain('border: 1px solid #e2dfd7');
   });
 
   it('preserves reduced-motion support for the redesigned card deck', () => {

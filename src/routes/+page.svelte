@@ -1,5 +1,20 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { siteBase } from '#lib/site.ts';
+
+  let searchQuery = $state('');
+
+  const indexCards = [
+    { num: '01', label: 'RESOURCE INDEX', title: 'Materials library', desc: 'Browse notes, worksheets and learning resources by subject and chapter.', cta: 'EXPLORE MATERIALS', href: `${siteBase}/materials/` },
+    { num: '02', label: 'SOURCE PROFILES', title: 'Educator sources', desc: 'Discover educator profiles and trace learning back to its original source.', cta: 'MEET EDUCATORS', href: `${siteBase}/creators/` },
+    { num: '03', label: 'PRACTICE INDEX', title: 'School papers', desc: 'Find school-level practice and exam papers when published in the index.', cta: 'VIEW PRACTICE', href: `${siteBase}/school-papers/` }
+  ];
+
+  function handleSearch(event: SubmitEvent) {
+    event.preventDefault();
+    const query = searchQuery.trim();
+    void goto(query ? `${siteBase}/materials/?q=${encodeURIComponent(query)}` : `${siteBase}/materials/`);
+  }
 </script>
 
 <svelte:head>
@@ -18,7 +33,7 @@
       <h1 id="home-title">Your ICSE study sources,<br /><em>in one clear index.</em></h1>
       <p class="hero-description">Find learning material by subject and chapter, discover the educators behind original sources, and move towards useful practice — without losing track of where it came from.</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="{siteBase}/materials/">Browse materials <span aria-hidden="true">↗</span></a>
+        <a class="button button-primary home-primary" href="{siteBase}/materials/">Browse materials <span aria-hidden="true">↗</span></a>
         <a class="text-action" href="{siteBase}/creators/">Explore educators <span aria-hidden="true">→</span></a>
       </div>
       <div class="hero-footnote"><span class="footnote-mark" aria-hidden="true">✳</span> Independent discovery. Original sources. Clear attribution.</div>
@@ -33,40 +48,34 @@
         <span class="panel-edition">01 <i>/</i> 03</span>
       </div>
 
-      <a class="hero-search-link" href="{siteBase}/materials/" aria-label="Open Materials Library to search by subject, chapter or source">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.5"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <span>Search by subject, chapter or source</span>
-        <span class="search-action" aria-hidden="true">↗</span>
-      </a>
+      <form class="hero-search-form" onsubmit={handleSearch}>
+        <label class="hero-search-label" for="homepage-search">Find a topic, chapter or source</label>
+        <div class="hero-search-field">
+          <input id="homepage-search" type="search" bind:value={searchQuery} placeholder="Search the materials library…" aria-label="Search by subject, chapter or source" />
+          <button type="submit">Search <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
 
       <nav class="subject-shortcuts" aria-label="Quick subject searches">
-        <a class="subject-physics" href="{siteBase}/materials/?q=Physics">Physics</a>
-        <a class="subject-chemistry" href="{siteBase}/materials/?q=Chemistry">Chemistry</a>
-        <a class="subject-mathematics" href="{siteBase}/materials/?q=Mathematics">Mathematics</a>
-        <a class="subject-biology" href="{siteBase}/materials/?q=Biology">Biology</a>
-        <a class="subject-history" href="{siteBase}/materials/?q=History%20%26%20Civics">History &amp; Civics</a>
-        <a class="subject-computer" href="{siteBase}/materials/?q=Computer">Computer</a>
+        <a class="subject-physics" href={`${siteBase}/materials/?q=Physics`}>Physics</a>
+        <a class="subject-chemistry" href={`${siteBase}/materials/?q=Chemistry`}>Chemistry</a>
+        <a class="subject-mathematics" href={`${siteBase}/materials/?q=Mathematics`}>Mathematics</a>
+        <a class="subject-biology" href={`${siteBase}/materials/?q=Biology`}>Biology</a>
+        <a class="subject-history" href={`${siteBase}/materials/?q=History%20%26%20Civics`}>History &amp; Civics</a>
+        <a class="subject-computer" href={`${siteBase}/materials/?q=Computer`}>Computer</a>
       </nav>
 
       <nav class="hero-card-deck" aria-label="Explore the ICSE Compass index">
-        <a class="hero-deck-card deck-materials" href="{siteBase}/materials/">
-          <span class="deck-card-top"><span>01 / RESOURCE INDEX</span><span aria-hidden="true">↗</span></span>
-          <span class="deck-card-title">Materials library</span>
-          <span class="deck-card-description">Browse notes, worksheets and learning resources by subject and chapter.</span>
-          <span class="deck-card-bottom"><span class="deck-card-mark" aria-hidden="true">M</span><span>EXPLORE MATERIALS</span></span>
-        </a>
-        <a class="hero-deck-card deck-educators" href="{siteBase}/creators/">
-          <span class="deck-card-top"><span>02 / SOURCE PROFILES</span><span aria-hidden="true">↗</span></span>
-          <span class="deck-card-title">Educator sources</span>
-          <span class="deck-card-description">Discover educator profiles and trace learning back to its original source.</span>
-          <span class="deck-card-bottom"><span class="deck-card-mark" aria-hidden="true">E</span><span>MEET EDUCATORS</span></span>
-        </a>
-        <a class="hero-deck-card deck-practice" href="{siteBase}/school-papers/">
-          <span class="deck-card-top"><span>03 / PRACTICE INDEX</span><span aria-hidden="true">↗</span></span>
-          <span class="deck-card-title">School papers</span>
-          <span class="deck-card-description">Find school-level practice and exam papers when published in the index.</span>
-          <span class="deck-card-bottom"><span class="deck-card-mark" aria-hidden="true">P</span><span>VIEW PRACTICE</span></span>
-        </a>
+        {#each indexCards as card}
+          <a class="hero-deck-card" href={card.href}>
+            <span class="deck-card-top"><span><b>{card.num}</b> / {card.label}</span><span aria-hidden="true">↗</span></span>
+            <span class="deck-card-content">
+              <span class="deck-card-title">{card.title}</span>
+              <span class="deck-card-description">{card.desc}</span>
+            </span>
+            <span class="deck-card-bottom"><span>{card.cta}</span><span class="deck-card-arrow" aria-hidden="true">↗</span></span>
+          </a>
+        {/each}
       </nav>
 
       <div class="product-panel-footer"><span>INDEPENDENT BY DESIGN</span><span>FOLLOW THE SOURCE <b>↗</b></span></div>
@@ -118,79 +127,91 @@
     grid-template-columns: minmax(0, 1fr) minmax(430px, .92fr);
     align-items: center;
     gap: clamp(38px, 6vw, 82px);
-    min-height: 650px;
-    padding-block: 78px 88px;
+    min-height: 0;
+    padding-block: 54px 62px;
   }
   .hero-copy { max-width: 610px; }
   .hero-copy h1 { max-width: 740px; margin: 27px 0 22px; font-size: clamp(42px, 4.1vw, 58px); line-height: 1.08; letter-spacing: -2.3px; }
-  .hero-copy h1 em { color: var(--green); font-weight: 400; }
-  .hero-description { max-width: 510px; font-size: 13px; line-height: 1.95; }
+  .hero-copy h1 em { color: var(--terracotta); font-weight: 400; }
+  .hero-description { max-width: 510px; font-size: 13px; line-height: 1.85; }
   .hero-actions { gap: 22px; margin-top: 30px; }
-  .hero-footnote { margin-top: 39px; }
+  .hero-footnote { margin-top: 28px; }
   .hero-product-panel {
     position: relative;
     isolation: isolate;
     min-width: 0;
     padding: 27px 28px 18px;
     overflow: hidden;
-    background: #ffffff;
-    border: 1px solid #e2dfd7;
-    box-shadow: 4px 4px 0 #16263e14;
-    transform: perspective(1000px) translateY(0) rotateX(0) rotateY(0);
-    transform-style: preserve-3d;
-    transition: transform 220ms cubic-bezier(.2, .75, .25, 1), box-shadow 220ms ease;
+    color: #ffffff;
+    background: var(--navy);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 24px;
+    box-shadow: 0 18px 42px rgba(22, 38, 62, .18);
+  }
+  .hero-product-panel::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -115px;
+    right: -95px;
+    width: 290px;
+    height: 290px;
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 50%;
+    box-shadow: 0 0 0 28px rgba(255, 255, 255, .025), 0 0 0 58px rgba(255, 255, 255, .02);
+    pointer-events: none;
   }
   @media (hover: hover) and (pointer: fine) {
-    .hero-product-panel { will-change: transform; }
-    .hero-product-panel:hover { transform: perspective(1000px) rotateX(1.2deg) rotateY(-1.2deg) translateY(-2px); box-shadow: 0 12px 28px rgba(37, 41, 35, .09); }
+    .hero-product-panel { will-change: transform; transition: transform 220ms cubic-bezier(.2, .75, .25, 1), box-shadow 220ms ease; }
+    .hero-product-panel:hover { transform: translateY(-2px); box-shadow: 0 22px 48px rgba(22, 38, 62, .22); }
   }
   .product-panel-heading, .product-panel-footer { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-  .panel-kicker, .panel-edition { color: #4a5046; font-size: 12px; font-weight: 700; letter-spacing: 1.1px; }
-  .product-panel-footer { color: #4a5046; font-size: 9px; font-weight: 750; letter-spacing: 1px; }
-  .product-panel-heading h2 { margin: 13px 0 0; color: var(--ink); font: 500 clamp(25px, 2.6vw, 34px)/1.12 var(--serif); letter-spacing: -.7px; }
-  .panel-edition { white-space: nowrap; }
-  .panel-edition i { color: #9aa397; font-style: normal; }
-  .subject-shortcuts { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
-  .subject-shortcuts a { display: inline-flex; align-items: center; min-height: 29px; padding: 5px 10px; color: #356b58; background: #f3f5ef; border: 1px solid #d8dfd3; font-size: 10px; font-weight: 650; line-height: 1.2; transition: background .18s ease, border-color .18s ease, color .18s ease; }
-  .subject-shortcuts a:hover, .subject-shortcuts a:focus-visible { color: #244d3e; background: #eaf0e8; border-color: #9eb5a4; }
-  .subject-shortcuts a:focus-visible { outline: 2px solid #356b58; outline-offset: 2px; }
-  .hero-search-link {
-    position: relative; z-index: 1;
-    display: flex; align-items: center; gap: 13px;
-    min-height: 56px; margin-top: 29px; padding: 0 15px;
-    color: #667064; background: rgba(255, 254, 250, .88);
-    border: 1px solid #d3d9cf; font-size: 10px; font-weight: 650;
-    transition: border-color .18s ease, background .18s ease, transform .18s ease;
-  }
-  .hero-search-link:hover { border-color: #8da493; background: #fffefa; transform: translateY(-1px); }
-  .hero-search-link svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--green); }
-  .search-action { margin-left: auto; color: var(--green); font-size: 15px; }
-  @keyframes deckCardEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .hero-card-deck { position: relative; z-index: 1; display: grid; gap: 10px; margin-top: 17px; padding: 4px 4px 7px 0; perspective: 1000px; }
-  .hero-deck-card:nth-child(1) { animation-delay: 60ms; }
-  .hero-deck-card:nth-child(2) { animation-delay: 120ms; }
-  .hero-deck-card:nth-child(3) { animation-delay: 180ms; }
-  .hero-deck-card { position: relative; display: flex; min-height: 111px; flex-direction: column; padding: 12px 14px 10px; color: var(--ink); background: #ffffff; border: 1px solid #e2dfd7; box-shadow: 4px 4px 0 #16263e14; transform: translateY(0); animation: deckCardEnter 360ms cubic-bezier(.2, .75, .25, 1) both; transition: transform 180ms ease, box-shadow 180ms ease; }
-  .hero-deck-card:hover, .hero-deck-card:focus-visible { transform: translateY(-4px); box-shadow: 6px 8px 0 #16263e1c; }
-  .deck-card-top, .deck-card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #596477; font: 750 9px/1.3 var(--sans); letter-spacing: .8px; }
-  .deck-card-top > span:last-child { color: var(--terracotta); font-size: 15px; }
-  .deck-card-title { margin-top: 7px; color: var(--navy); font: 600 19px/1.15 var(--serif); }
-  .deck-card-description { margin-top: 4px; color: #596477; font: 450 10px/1.5 var(--sans); }
-  .deck-card-bottom { margin-top: auto; padding-top: 8px; color: var(--navy); font-size: 8px; }
-  .deck-card-mark { display: grid; width: 21px; height: 21px; place-items: center; color: #fff; background: var(--navy); font: 700 10px var(--sans); }
-  .deck-educators { margin-left: 13px; }
-  .deck-practice { margin-left: 26px; }
-  .subject-shortcuts a { font-family: var(--sans); border-radius: 2px; }
-  .subject-shortcuts .subject-physics { color: #244c91; background: #eaf0fb; border-color: #cbd8ef; }
+  .panel-kicker, .panel-edition { color: #d9e2ef; font-size: 10px; font-weight: 800; letter-spacing: 1.25px; }
+  .product-panel-footer { color: #b9c6d7; font-size: 8px; font-weight: 750; letter-spacing: 1px; }
+  .product-panel-heading h2 { margin: 11px 0 0; color: #ffffff; font: 500 clamp(25px, 2.6vw, 34px)/1.12 var(--serif); letter-spacing: -.7px; }
+  .panel-edition { white-space: nowrap; color: #f4c4b7; }
+  .panel-edition i { color: #91a2b9; font-style: normal; }
+  .hero-search-form { position: relative; z-index: 1; margin-top: 22px; }
+  .hero-search-label { display: block; margin-bottom: 8px; color: #c5d0df; font-size: 9px; font-weight: 700; letter-spacing: .5px; }
+  .hero-search-field { display: flex; align-items: center; gap: 7px; padding: 5px; background: #ffffff; border: 1px solid rgba(255, 255, 255, .35); border-radius: 13px; }
+  .hero-search-field input { width: 100%; min-width: 0; min-height: 43px; padding: 0 10px; color: #16263e; background: transparent; border: 0; outline: 0; font-size: 11px; }
+  .hero-search-field input::placeholder { color: #748094; opacity: 1; }
+  .hero-search-field input:focus-visible { outline: 2px solid var(--terracotta); outline-offset: -2px; border-radius: 8px; }
+  .hero-search-field button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: 0 0 auto; min-height: 40px; padding: 0 14px; color: #ffffff; background: var(--terracotta); border: 0; border-radius: 9px; font-size: 10px; font-weight: 800; cursor: pointer; transition: background .18s ease, transform .18s ease; }
+  .hero-search-field button:hover { background: #ad3d27; transform: translateY(-1px); }
+  .hero-search-field button:focus-visible { outline: 3px solid #f6c6b9; outline-offset: 2px; }
+  .subject-shortcuts { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+  .subject-shortcuts a { display: inline-flex; align-items: center; min-height: 29px; padding: 5px 10px; color: #244c91; background: #eaf0fb; border: 1px solid #cbd8ef; border-radius: 999px; font-size: 9px; font-weight: 750; line-height: 1.2; transition: transform .18s ease, filter .18s ease; }
   .subject-shortcuts .subject-chemistry { color: #246447; background: #e9f4ed; border-color: #c9e2d2; }
   .subject-shortcuts .subject-mathematics { color: #9b3929; background: #fbede9; border-color: #efd0c7; }
   .subject-shortcuts .subject-biology { color: #17666b; background: #e7f3f2; border-color: #c5e1df; }
   .subject-shortcuts .subject-history { color: #805a19; background: #f8f1df; border-color: #e9dbb7; }
   .subject-shortcuts .subject-computer { color: #51427e; background: #f0edf8; border-color: #d9d1eb; }
-  .subject-shortcuts a:hover, .subject-shortcuts a:focus-visible { filter: saturate(1.18); transform: translateY(-1px); }
-  .product-panel-footer { margin-top: 18px; font-size: 7px; letter-spacing: 1.1px; }
-  .product-panel-footer b { margin-left: 5px; font-size: 12px; font-weight: 400; }
-  .panel-watermark { position: absolute; z-index: 0; right: -8px; bottom: -77px; color: rgba(53, 107, 88, .045); font: 500 260px/.8 var(--serif); pointer-events: none; }
+  .subject-shortcuts a:hover { filter: saturate(1.18); transform: translateY(-1px); }
+  .subject-shortcuts a:focus-visible { outline: 2px solid #f6c6b9; outline-offset: 3px; }
+  @keyframes deckCardEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-card-deck { position: relative; z-index: 1; display: grid; gap: 9px; margin-top: 17px; padding: 2px 2px 5px 0; }
+  .hero-deck-card:nth-child(1) { animation-delay: 50ms; }
+  .hero-deck-card:nth-child(2) { animation-delay: 100ms; }
+  .hero-deck-card:nth-child(3) { animation-delay: 150ms; }
+  .hero-deck-card { display: flex; min-height: 105px; flex-direction: column; padding: 12px 14px 10px; color: #ffffff; background: #1e314e; border: 1px solid rgba(255, 255, 255, .15); border-radius: 16px; box-shadow: 0 4px 12px rgba(4, 14, 29, .12); animation: deckCardEnter 360ms cubic-bezier(.2, .75, .25, 1) both; transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+  .hero-deck-card:hover, .hero-deck-card:focus-visible { color: #ffffff; background: #243b5e; border-color: rgba(244, 196, 183, .65); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(4, 14, 29, .18); }
+  .hero-deck-card:focus-visible { outline: 3px solid #f6c6b9; outline-offset: 3px; }
+  .deck-card-top, .deck-card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #c4cfdd; font: 750 8px/1.3 var(--sans); letter-spacing: .8px; }
+  .deck-card-top b { color: #f4c4b7; font-weight: 850; }
+  .deck-card-top > span:last-child { color: #f4c4b7; font-size: 14px; }
+  .deck-card-content { display: block; margin: 6px 0 5px; }
+  .deck-card-title { display: block; color: #ffffff; font: 600 18px/1.15 var(--serif); }
+  .deck-card-description { display: block; margin-top: 3px; color: #c7d1df; font: 450 9px/1.45 var(--sans); }
+  .deck-card-bottom { margin-top: auto; padding-top: 7px; color: #e7c1b7; font-size: 8px; }
+  .deck-card-arrow { color: #f4c4b7; font-size: 14px; transition: transform .18s ease; }
+  .hero-deck-card:hover .deck-card-arrow { transform: translate(2px, -2px); }
+  .product-panel-footer { margin-top: 17px; font-size: 7px; letter-spacing: 1.1px; }
+  .product-panel-footer b { margin-left: 5px; color: #f4c4b7; font-size: 12px; font-weight: 400; }
+  .panel-watermark { position: absolute; z-index: 0; right: -8px; bottom: -77px; color: rgba(255, 255, 255, .035); font: 500 260px/.8 var(--serif); pointer-events: none; }
+  .home-primary { color: #ffffff; background: var(--terracotta); border-radius: 12px; box-shadow: 0 8px 18px rgba(200, 75, 49, .2); }
+  .home-primary:hover { background: #ad3d27; transform: translateY(-2px); }
+  .text-action { border-radius: 10px; padding-inline: 8px; }
   .home-method { display: grid; grid-template-columns: minmax(230px, .8fr) minmax(0, 1.4fr); gap: clamp(38px, 8vw, 112px); padding-block: 78px 92px; border-top: 1px solid var(--line); }
   .method-intro h2 { margin: 19px 0 17px; color: var(--ink); font: 500 clamp(36px, 4vw, 49px)/1.08 var(--serif); letter-spacing: -1.4px; }
   .method-intro h2 em { color: var(--green); font-weight: 400; }
@@ -206,7 +227,7 @@
   .home-principle .principle-inner > a { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; color: var(--green); font-size: 9px; font-weight: 850; letter-spacing: .7px; white-space: nowrap; }
   .home-principle .principle-inner > a:hover { color: var(--green-dark); }
   @media (prefers-reduced-motion: reduce) {
-    .hero-product-panel, .hero-index-row, .index-row-arrow, .hero-card-deck, .hero-deck-card { animation: none !important; transition: none !important; transform: none !important; will-change: auto !important; }
+    .hero-product-panel, .hero-card-deck, .hero-deck-card { animation: none !important; transition: none !important; transform: none !important; will-change: auto !important; }
   }
   @media (max-width: 1050px) {
     .home-hero { grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: 34px; min-height: 590px; padding-block: 64px 72px; }
@@ -239,10 +260,6 @@
     .hero-search-link { min-height: 52px; gap: 9px; margin-top: 22px; padding-inline: 11px; font-size: 10px; }
     .subject-shortcuts { gap: 6px; margin-top: 9px; }
     .subject-shortcuts a { min-height: 28px; padding-inline: 8px; font-size: 9px; }
-    .index-row-meta { padding: 4px 5px; font-size: 7px; }
-    .hero-index-row { min-height: 73px; gap: 11px; }
-    .index-row-copy strong { font-size: 18px; }
-    .index-row-copy small { font-size: 8px; }
     .product-panel-footer { font-size: 6px; letter-spacing: .8px; }
     .home-method { gap: 28px; padding-block: 48px 53px; }
     .method-intro h2 { margin-block: 15px 12px; font-size: 37px; }
@@ -258,9 +275,6 @@
   @media (max-width: 370px) {
     .hero-copy h1 { font-size: 42px; }
     .hero-product-panel { padding-inline: 13px; }
-    .hero-index-row { gap: 8px; }
-    .index-row-copy strong { font-size: 17px; }
-    .index-row-copy small { font-size: 7px; }
     .method-step { grid-template-columns: 88px minmax(0, 1fr); }
   }
 </style>
