@@ -59,9 +59,9 @@ describe('lightweight paper-and-ink motion', () => {
 
   it('stagger-animates index rows using only opacity and transform', () => {
     expect(homepage).toContain('@keyframes deckCardEnter');
-    expect(homepage).toContain('animation-delay: 60ms');
-    expect(homepage).toContain('animation-delay: 120ms');
-    expect(homepage).toContain('animation-delay: 180ms');
+    expect(homepage).toContain('animation-delay: 50ms');
+    expect(homepage).toContain('animation-delay: 100ms');
+    expect(homepage).toContain('animation-delay: 150ms');
   });
 
   it('moves directional arrows with transform rather than layout properties', () => {
@@ -125,5 +125,32 @@ describe('high-contrast Student OS homepage direction', () => {
   it('preserves reduced-motion support for the redesigned card deck', () => {
     expect(homepage).toContain('.hero-card-deck, .hero-deck-card');
     expect(homepage).toContain('@media (prefers-reduced-motion: reduce)');
+  });
+});
+
+
+describe('navy command card and homepage search', () => {
+  it('creates a high-contrast navy panel with rounded destination cards', () => {
+    expect(homepage).toContain('background: var(--navy)');
+    expect(homepage).toContain('background: #1e314e');
+    expect(homepage).toContain('border-radius: 24px');
+    expect(homepage).toContain('border-radius: 16px');
+    expect(homepage).toContain('color: #ffffff');
+  });
+
+  it('makes the main action terracotta and keeps the search form functional', () => {
+    expect(homepage).toContain('background: var(--terracotta)');
+    expect(homepage).toContain('onsubmit={handleSearch}');
+    expect(homepage).toContain('bind:value={searchQuery}');
+    expect(homepage).toContain('event.preventDefault()');
+    expect(homepage).toContain('void goto(query ?');
+    expect(homepage).toContain('encodeURIComponent(query)');
+  });
+
+  it('uses explicit Svelte route expressions instead of quoted interpolation strings', () => {
+    expect(homepage).toContain('href={`${siteBase}/materials/`}');
+    expect(homepage).toContain('href={`${siteBase}/creators/`}');
+    expect(homepage).toContain('href: `${siteBase}/school-papers/`');
+    expect(homepage).not.toContain('href="{siteBase}/');
   });
 });
