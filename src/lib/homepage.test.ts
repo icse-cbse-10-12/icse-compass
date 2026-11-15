@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 const homepage = readFileSync(new URL('../routes/+page.svelte', import.meta.url), 'utf8');
 const materials = readFileSync(new URL('../routes/materials/+page.svelte', import.meta.url), 'utf8');
+const styles = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
 
 describe('ICSE Compass homepage product-led hero', () => {
   it('uses a labelled product index panel instead of the decorative compass illustration', () => {
@@ -57,15 +58,15 @@ describe('lightweight paper-and-ink motion', () => {
   });
 
   it('stagger-animates index rows using only opacity and transform', () => {
-    expect(homepage).toContain('@keyframes indexRowEnter');
+    expect(homepage).toContain('@keyframes deckCardEnter');
     expect(homepage).toContain('animation-delay: 60ms');
     expect(homepage).toContain('animation-delay: 120ms');
     expect(homepage).toContain('animation-delay: 180ms');
   });
 
   it('moves directional arrows with transform rather than layout properties', () => {
-    expect(homepage).toContain('.hero-index-row:hover .index-row-arrow');
-    expect(homepage).toContain('transform: translate(2px, -2px)');
+    expect(homepage).toContain('.hero-deck-card:hover, .hero-deck-card:focus-visible');
+    expect(homepage).toContain('transform: translateY(-4px)');
   });
 
   it('keeps the motion disabled for reduced-motion preferences', () => {
@@ -84,10 +85,10 @@ describe('lightweight paper-and-ink motion', () => {
 
 describe('high-contrast Student OS homepage direction', () => {
   it('uses the navy, terracotta, warm-stone and white design tokens', () => {
-    expect(homepage).toContain('--navy: #16263e');
-    expect(homepage).toContain('--terracotta: #c84b31');
-    expect(homepage).toContain('--paper: #f6f5f0');
-    expect(homepage).toContain('--white: #ffffff');
+    expect(styles).toContain('--navy: #16263e');
+    expect(styles).toContain('--terracotta: #c84b31');
+    expect(styles).toContain('--paper: #f6f5f0');
+    expect(styles).toContain('--white: #ffffff');
   });
 
   it('adds a lightweight dot-grid texture behind the hero', () => {
@@ -111,7 +112,7 @@ describe('high-contrast Student OS homepage direction', () => {
   });
 
   it('uses the geometric sans stack for interface controls while retaining serif display typography', () => {
-    expect(homepage).toContain('--sans: "Manrope", Inter');
+    expect(styles).toContain('--sans: "Manrope", Inter');
     expect(homepage).toContain('font-family: var(--sans)');
   });
 

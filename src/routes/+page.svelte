@@ -165,8 +165,12 @@
   .hero-search-link:hover { border-color: #8da493; background: #fffefa; transform: translateY(-1px); }
   .hero-search-link svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--green); }
   .search-action { margin-left: auto; color: var(--green); font-size: 15px; }
+  @keyframes deckCardEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .hero-card-deck { position: relative; z-index: 1; display: grid; gap: 10px; margin-top: 17px; padding: 4px 4px 7px 0; perspective: 1000px; }
-  .hero-deck-card { position: relative; display: flex; min-height: 111px; flex-direction: column; padding: 12px 14px 10px; color: var(--ink); background: #ffffff; border: 1px solid #e2dfd7; box-shadow: 4px 4px 0 #16263e14; transform: translateY(0); transition: transform 180ms ease, box-shadow 180ms ease; }
+  .hero-deck-card:nth-child(1) { animation-delay: 60ms; }
+  .hero-deck-card:nth-child(2) { animation-delay: 120ms; }
+  .hero-deck-card:nth-child(3) { animation-delay: 180ms; }
+  .hero-deck-card { position: relative; display: flex; min-height: 111px; flex-direction: column; padding: 12px 14px 10px; color: var(--ink); background: #ffffff; border: 1px solid #e2dfd7; box-shadow: 4px 4px 0 #16263e14; transform: translateY(0); animation: deckCardEnter 360ms cubic-bezier(.2, .75, .25, 1) both; transition: transform 180ms ease, box-shadow 180ms ease; }
   .hero-deck-card:hover, .hero-deck-card:focus-visible { transform: translateY(-4px); box-shadow: 6px 8px 0 #16263e1c; }
   .deck-card-top, .deck-card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #596477; font: 750 9px/1.3 var(--sans); letter-spacing: .8px; }
   .deck-card-top > span:last-child { color: var(--terracotta); font-size: 15px; }
