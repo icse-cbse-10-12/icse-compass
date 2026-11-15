@@ -40,32 +40,32 @@
       </a>
 
       <nav class="subject-shortcuts" aria-label="Quick subject searches">
-        <a href="{siteBase}/materials/?q=Physics">Physics</a>
-        <a href="{siteBase}/materials/?q=Chemistry">Chemistry</a>
-        <a href="{siteBase}/materials/?q=Mathematics">Mathematics</a>
-        <a href="{siteBase}/materials/?q=Biology">Biology</a>
-        <a href="{siteBase}/materials/?q=History%20%26%20Civics">History &amp; Civics</a>
-        <a href="{siteBase}/materials/?q=Computer">Computer</a>
+        <a class="subject-physics" href="{siteBase}/materials/?q=Physics">Physics</a>
+        <a class="subject-chemistry" href="{siteBase}/materials/?q=Chemistry">Chemistry</a>
+        <a class="subject-mathematics" href="{siteBase}/materials/?q=Mathematics">Mathematics</a>
+        <a class="subject-biology" href="{siteBase}/materials/?q=Biology">Biology</a>
+        <a class="subject-history" href="{siteBase}/materials/?q=History%20%26%20Civics">History &amp; Civics</a>
+        <a class="subject-computer" href="{siteBase}/materials/?q=Computer">Computer</a>
       </nav>
 
-      <nav class="hero-index-list" aria-label="Explore the ICSE Compass index">
-        <a class="hero-index-row" href="{siteBase}/materials/">
-          <span class="index-ordinal">01</span>
-          <span class="index-row-copy"><strong>Materials library</strong><small>Notes, worksheets and learning resources</small></span>
-          <span class="index-row-meta">RESOURCE INDEX</span>
-          <span class="index-row-arrow" aria-hidden="true">↗</span>
+      <nav class="hero-card-deck" aria-label="Explore the ICSE Compass index">
+        <a class="hero-deck-card deck-materials" href="{siteBase}/materials/">
+          <span class="deck-card-top"><span>01 / RESOURCE INDEX</span><span aria-hidden="true">↗</span></span>
+          <span class="deck-card-title">Materials library</span>
+          <span class="deck-card-description">Browse notes, worksheets and learning resources by subject and chapter.</span>
+          <span class="deck-card-bottom"><span class="deck-card-mark" aria-hidden="true">M</span><span>EXPLORE MATERIALS</span></span>
         </a>
-        <a class="hero-index-row" href="{siteBase}/creators/">
-          <span class="index-ordinal">02</span>
-          <span class="index-row-copy"><strong>Educator sources</strong><small>Explore profiles and original teaching sources</small></span>
-          <span class="index-row-meta">SOURCE PROFILES</span>
-          <span class="index-row-arrow" aria-hidden="true">↗</span>
+        <a class="hero-deck-card deck-educators" href="{siteBase}/creators/">
+          <span class="deck-card-top"><span>02 / SOURCE PROFILES</span><span aria-hidden="true">↗</span></span>
+          <span class="deck-card-title">Educator sources</span>
+          <span class="deck-card-description">Discover educator profiles and trace learning back to its original source.</span>
+          <span class="deck-card-bottom"><span class="deck-card-mark" aria-hidden="true">E</span><span>MEET EDUCATORS</span></span>
         </a>
-        <a class="hero-index-row" href="{siteBase}/school-papers/">
-          <span class="index-ordinal">03</span>
-          <span class="index-row-copy"><strong>School papers</strong><small>Find school-level practice and exam papers</small></span>
-          <span class="index-row-meta">PRACTICE</span>
-          <span class="index-row-arrow" aria-hidden="true">↗</span>
+        <a class="hero-deck-card deck-practice" href="{siteBase}/school-papers/">
+          <span class="deck-card-top"><span>03 / PRACTICE INDEX</span><span aria-hidden="true">↗</span></span>
+          <span class="deck-card-title">School papers</span>
+          <span class="deck-card-description">Find school-level practice and exam papers when published in the index.</span>
+          <span class="deck-card-bottom"><span class="deck-card-mark" aria-hidden="true">P</span><span>VIEW PRACTICE</span></span>
         </a>
       </nav>
 
@@ -110,7 +110,9 @@
 </main>
 
 <style>
-  .home-page { overflow: clip; }
+  .home-page { position: relative; overflow: clip; }
+  .home-page::before { content: ""; position: absolute; z-index: 0; inset: 0 0 auto; height: 760px; pointer-events: none; opacity: .42; background-image: radial-gradient(circle, rgba(22, 38, 62, .16) 1px, transparent 1px); background-size: 18px 18px; mask-image: linear-gradient(to bottom, #000 0%, transparent 92%); }
+  .home-hero, .home-method, .home-principle { position: relative; z-index: 1; }
   .home-hero {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(430px, .92fr);
@@ -131,9 +133,9 @@
     min-width: 0;
     padding: 27px 28px 18px;
     overflow: hidden;
-    background: #fcfbf7;
-    border: 1px solid #dcd5c7;
-    box-shadow: 0 2px 8px rgba(37, 41, 35, .08);
+    background: #ffffff;
+    border: 1px solid #e2dfd7;
+    box-shadow: 4px 4px 0 #16263e14;
     transform: perspective(1000px) translateY(0) rotateX(0) rotateY(0);
     transform-style: preserve-3d;
     transition: transform 220ms cubic-bezier(.2, .75, .25, 1), box-shadow 220ms ease;
@@ -163,23 +165,29 @@
   .hero-search-link:hover { border-color: #8da493; background: #fffefa; transform: translateY(-1px); }
   .hero-search-link svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--green); }
   .search-action { margin-left: auto; color: var(--green); font-size: 15px; }
-  .hero-index-list { position: relative; z-index: 1; margin-top: 17px; border-top: 1px solid #cfd7cc; }
-  @keyframes indexRowEnter {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .hero-index-row { display: flex; align-items: center; gap: 15px; min-height: 79px; padding: 12px 4px; border-bottom: 1px solid #cfd7cc; transition: padding .18s ease, color .18s ease; animation: indexRowEnter 360ms cubic-bezier(.2, .75, .25, 1) both; }
-  .hero-index-row:nth-child(1) { animation-delay: 60ms; }
-  .hero-index-row:nth-child(2) { animation-delay: 120ms; }
-  .hero-index-row:nth-child(3) { animation-delay: 180ms; }
-  .hero-index-row:hover { padding-inline: 9px; color: var(--green); }
-  .index-ordinal { align-self: flex-start; padding-top: 3px; color: #68816f; font: 500 17px var(--serif); }
-  .index-row-copy { display: flex; min-width: 0; flex-direction: column; gap: 5px; }
-  .index-row-copy strong { color: var(--ink); font: 500 19px/1.1 var(--serif); }
-  .index-row-copy small { color: #737b70; font-size: 9px; line-height: 1.5; }
-  .index-row-meta { margin-left: auto; padding: 5px 7px; color: #356b58; background: #eef2eb; border: 1px solid #d8e0d5; font-size: 8px; font-weight: 750; letter-spacing: .55px; white-space: nowrap; }
-  .index-row-arrow { color: var(--green); font-size: 16px; transition: transform 180ms ease; }
-  .hero-index-row:hover .index-row-arrow, .hero-index-row:focus-visible .index-row-arrow { transform: translate(2px, -2px); }
+  @keyframes deckCardEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-card-deck { position: relative; z-index: 1; display: grid; gap: 10px; margin-top: 17px; padding: 4px 4px 7px 0; perspective: 1000px; }
+  .hero-deck-card:nth-child(1) { animation-delay: 60ms; }
+  .hero-deck-card:nth-child(2) { animation-delay: 120ms; }
+  .hero-deck-card:nth-child(3) { animation-delay: 180ms; }
+  .hero-deck-card { position: relative; display: flex; min-height: 111px; flex-direction: column; padding: 12px 14px 10px; color: var(--ink); background: #ffffff; border: 1px solid #e2dfd7; box-shadow: 4px 4px 0 #16263e14; transform: translateY(0); animation: deckCardEnter 360ms cubic-bezier(.2, .75, .25, 1) both; transition: transform 180ms ease, box-shadow 180ms ease; }
+  .hero-deck-card:hover, .hero-deck-card:focus-visible { transform: translateY(-4px); box-shadow: 6px 8px 0 #16263e1c; }
+  .deck-card-top, .deck-card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #596477; font: 750 9px/1.3 var(--sans); letter-spacing: .8px; }
+  .deck-card-top > span:last-child { color: var(--terracotta); font-size: 15px; }
+  .deck-card-title { margin-top: 7px; color: var(--navy); font: 600 19px/1.15 var(--serif); }
+  .deck-card-description { margin-top: 4px; color: #596477; font: 450 10px/1.5 var(--sans); }
+  .deck-card-bottom { margin-top: auto; padding-top: 8px; color: var(--navy); font-size: 8px; }
+  .deck-card-mark { display: grid; width: 21px; height: 21px; place-items: center; color: #fff; background: var(--navy); font: 700 10px var(--sans); }
+  .deck-educators { margin-left: 13px; }
+  .deck-practice { margin-left: 26px; }
+  .subject-shortcuts a { font-family: var(--sans); border-radius: 2px; }
+  .subject-shortcuts .subject-physics { color: #244c91; background: #eaf0fb; border-color: #cbd8ef; }
+  .subject-shortcuts .subject-chemistry { color: #246447; background: #e9f4ed; border-color: #c9e2d2; }
+  .subject-shortcuts .subject-mathematics { color: #9b3929; background: #fbede9; border-color: #efd0c7; }
+  .subject-shortcuts .subject-biology { color: #17666b; background: #e7f3f2; border-color: #c5e1df; }
+  .subject-shortcuts .subject-history { color: #805a19; background: #f8f1df; border-color: #e9dbb7; }
+  .subject-shortcuts .subject-computer { color: #51427e; background: #f0edf8; border-color: #d9d1eb; }
+  .subject-shortcuts a:hover, .subject-shortcuts a:focus-visible { filter: saturate(1.18); transform: translateY(-1px); }
   .product-panel-footer { margin-top: 18px; font-size: 7px; letter-spacing: 1.1px; }
   .product-panel-footer b { margin-left: 5px; font-size: 12px; font-weight: 400; }
   .panel-watermark { position: absolute; z-index: 0; right: -8px; bottom: -77px; color: rgba(53, 107, 88, .045); font: 500 260px/.8 var(--serif); pointer-events: none; }
@@ -198,7 +206,7 @@
   .home-principle .principle-inner > a { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; color: var(--green); font-size: 9px; font-weight: 850; letter-spacing: .7px; white-space: nowrap; }
   .home-principle .principle-inner > a:hover { color: var(--green-dark); }
   @media (prefers-reduced-motion: reduce) {
-    .hero-product-panel, .hero-index-row, .index-row-arrow { animation: none !important; transition: none !important; transform: none !important; will-change: auto !important; }
+    .hero-product-panel, .hero-index-row, .index-row-arrow, .hero-card-deck, .hero-deck-card { animation: none !important; transition: none !important; transform: none !important; will-change: auto !important; }
   }
   @media (max-width: 1050px) {
     .home-hero { grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: 34px; min-height: 590px; padding-block: 64px 72px; }
@@ -211,6 +219,9 @@
     .home-hero { grid-template-columns: 1fr; gap: 38px; min-height: 0; padding-block: 58px 62px; }
     .hero-copy h1 { max-width: 620px; font-size: clamp(48px, 9vw, 68px); }
     .hero-product-panel { max-width: 620px; }
+    .hero-deck-card { min-height: 106px; }
+    .deck-educators { margin-left: 9px; }
+    .deck-practice { margin-left: 18px; }
     .home-method { grid-template-columns: 1fr; gap: 33px; padding-block: 57px 66px; }
     .method-intro h2 { font-size: 42px; }
     .method-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
