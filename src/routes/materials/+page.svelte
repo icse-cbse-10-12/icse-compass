@@ -47,7 +47,11 @@
     query = ''; subjectId = ''; chapterId = ''; creatorId = ''; resourceType = ''; sort = 'relevance';
   }
 
-  onMount(() => { void loadCatalogue(); });
+  onMount(() => {
+    const params = new URLSearchParams(window.location.search);
+    query = params.get('q') ?? '';
+    void loadCatalogue();
+  });
 </script>
 
 <svelte:head>

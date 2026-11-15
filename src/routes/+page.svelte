@@ -39,20 +39,32 @@
         <span class="search-action" aria-hidden="true">↗</span>
       </a>
 
+      <nav class="subject-shortcuts" aria-label="Quick subject searches">
+        <a href="{siteBase}/materials/?q=Physics">Physics</a>
+        <a href="{siteBase}/materials/?q=Chemistry">Chemistry</a>
+        <a href="{siteBase}/materials/?q=Mathematics">Mathematics</a>
+        <a href="{siteBase}/materials/?q=Biology">Biology</a>
+        <a href="{siteBase}/materials/?q=History%20%26%20Civics">History &amp; Civics</a>
+        <a href="{siteBase}/materials/?q=Computer">Computer</a>
+      </nav>
+
       <nav class="hero-index-list" aria-label="Explore the ICSE Compass index">
         <a class="hero-index-row" href="{siteBase}/materials/">
           <span class="index-ordinal">01</span>
           <span class="index-row-copy"><strong>Materials library</strong><small>Notes, worksheets and learning resources</small></span>
+          <span class="index-row-meta">RESOURCE INDEX</span>
           <span class="index-row-arrow" aria-hidden="true">↗</span>
         </a>
         <a class="hero-index-row" href="{siteBase}/creators/">
           <span class="index-ordinal">02</span>
           <span class="index-row-copy"><strong>Educator sources</strong><small>Explore profiles and original teaching sources</small></span>
+          <span class="index-row-meta">SOURCE PROFILES</span>
           <span class="index-row-arrow" aria-hidden="true">↗</span>
         </a>
         <a class="hero-index-row" href="{siteBase}/school-papers/">
           <span class="index-ordinal">03</span>
           <span class="index-row-copy"><strong>School papers</strong><small>Find school-level practice and exam papers</small></span>
+          <span class="index-row-meta">PRACTICE</span>
           <span class="index-row-arrow" aria-hidden="true">↗</span>
         </a>
       </nav>
@@ -108,7 +120,7 @@
     padding-block: 78px 88px;
   }
   .hero-copy { max-width: 610px; }
-  .hero-copy h1 { max-width: 690px; margin: 27px 0 22px; font-size: clamp(48px, 5.5vw, 76px); line-height: 1.01; letter-spacing: -2.9px; }
+  .hero-copy h1 { max-width: 740px; margin: 27px 0 22px; font-size: clamp(42px, 4.1vw, 58px); line-height: 1.08; letter-spacing: -2.3px; }
   .hero-copy h1 em { color: var(--green); font-weight: 400; }
   .hero-description { max-width: 510px; font-size: 13px; line-height: 1.95; }
   .hero-actions { gap: 22px; margin-top: 30px; }
@@ -119,15 +131,20 @@
     min-width: 0;
     padding: 27px 28px 18px;
     overflow: hidden;
-    background: #e8ebe2;
-    border: 1px solid #d2d9ce;
-    box-shadow: 0 22px 55px rgba(37, 41, 35, .07);
+    background: #fcfbf7;
+    border: 1px solid #dcd5c7;
+    box-shadow: 0 2px 8px rgba(37, 41, 35, .08);
   }
   .product-panel-heading, .product-panel-footer { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-  .panel-kicker, .panel-edition, .product-panel-footer { color: #647365; font-size: 8px; font-weight: 850; letter-spacing: 1.35px; }
+  .panel-kicker, .panel-edition { color: #4a5046; font-size: 12px; font-weight: 700; letter-spacing: 1.1px; }
+  .product-panel-footer { color: #4a5046; font-size: 9px; font-weight: 750; letter-spacing: 1px; }
   .product-panel-heading h2 { margin: 13px 0 0; color: var(--ink); font: 500 clamp(25px, 2.6vw, 34px)/1.12 var(--serif); letter-spacing: -.7px; }
   .panel-edition { white-space: nowrap; }
   .panel-edition i { color: #9aa397; font-style: normal; }
+  .subject-shortcuts { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+  .subject-shortcuts a { display: inline-flex; align-items: center; min-height: 29px; padding: 5px 10px; color: #356b58; background: #f3f5ef; border: 1px solid #d8dfd3; font-size: 10px; font-weight: 650; line-height: 1.2; transition: background .18s ease, border-color .18s ease, color .18s ease; }
+  .subject-shortcuts a:hover, .subject-shortcuts a:focus-visible { color: #244d3e; background: #eaf0e8; border-color: #9eb5a4; }
+  .subject-shortcuts a:focus-visible { outline: 2px solid #356b58; outline-offset: 2px; }
   .hero-search-link {
     position: relative; z-index: 1;
     display: flex; align-items: center; gap: 13px;
@@ -146,7 +163,8 @@
   .index-row-copy { display: flex; min-width: 0; flex-direction: column; gap: 5px; }
   .index-row-copy strong { color: var(--ink); font: 500 19px/1.1 var(--serif); }
   .index-row-copy small { color: #737b70; font-size: 9px; line-height: 1.5; }
-  .index-row-arrow { margin-left: auto; color: var(--green); font-size: 16px; }
+  .index-row-meta { margin-left: auto; padding: 5px 7px; color: #356b58; background: #eef2eb; border: 1px solid #d8e0d5; font-size: 8px; font-weight: 750; letter-spacing: .55px; white-space: nowrap; }
+  .index-row-arrow { color: var(--green); font-size: 16px; }
   .product-panel-footer { margin-top: 18px; font-size: 7px; letter-spacing: 1.1px; }
   .product-panel-footer b { margin-left: 5px; font-size: 12px; font-weight: 400; }
   .panel-watermark { position: absolute; z-index: 0; right: -8px; bottom: -77px; color: rgba(53, 107, 88, .045); font: 500 260px/.8 var(--serif); pointer-events: none; }
@@ -167,7 +185,7 @@
   @media (max-width: 1050px) {
     .home-hero { grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: 34px; min-height: 590px; padding-block: 64px 72px; }
     .hero-product-panel { padding-inline: 22px; }
-    .hero-copy h1 { font-size: clamp(45px, 5.1vw, 62px); }
+    .hero-copy h1 { font-size: clamp(42px, 4.2vw, 56px); }
     .home-method { gap: 42px; }
     .method-step { padding-inline: 14px; }
   }
@@ -183,13 +201,16 @@
   }
   @media (max-width: 600px) {
     .home-hero { gap: 31px; padding-block: 48px 48px; }
-    .hero-copy h1 { margin-top: 22px; font-size: clamp(43px, 11.5vw, 59px); letter-spacing: -2px; }
+    .hero-copy h1 { margin-top: 22px; font-size: clamp(42px, 9.5vw, 54px); letter-spacing: -2px; }
     .hero-description { font-size: 12px; line-height: 1.85; }
     .hero-actions { gap: 9px 16px; margin-top: 22px; }
     .hero-footnote { margin-top: 26px; font-size: 8px; }
     .hero-product-panel { padding: 21px 17px 15px; }
     .product-panel-heading h2 { font-size: 27px; }
-    .hero-search-link { min-height: 52px; gap: 9px; margin-top: 22px; padding-inline: 11px; font-size: 9px; }
+    .hero-search-link { min-height: 52px; gap: 9px; margin-top: 22px; padding-inline: 11px; font-size: 10px; }
+    .subject-shortcuts { gap: 6px; margin-top: 9px; }
+    .subject-shortcuts a { min-height: 28px; padding-inline: 8px; font-size: 9px; }
+    .index-row-meta { padding: 4px 5px; font-size: 7px; }
     .hero-index-row { min-height: 73px; gap: 11px; }
     .index-row-copy strong { font-size: 18px; }
     .index-row-copy small { font-size: 8px; }
