@@ -2,6 +2,7 @@
   import '../styles.css';
   import IndependenceNotice from '#lib/IndependenceNotice.svelte';
   import { publicRoutes, privacyPath, siteOrigin, siteBase } from '#lib/site.ts';
+  import { page } from '$app/state';
 
   const homeUrl = siteOrigin + siteBase + '/';
   const structuredData = {
@@ -48,7 +49,7 @@
 
     <nav class="desktop-nav" aria-label="Main navigation">
       {#each publicRoutes as route}
-        <a href="{siteBase}{route.path}" class="nav-link">{route.label}<span aria-hidden="true">↗</span></a>
+        <a href="{siteBase}{route.path}" class="nav-link" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}>{route.label}<span aria-hidden="true">↗</span></a>
       {/each}
     </nav>
     <span class="public-label"><span aria-hidden="true"></span> OPEN ACCESS</span>
@@ -66,7 +67,7 @@
 
 <nav class="mobile-nav" aria-label="Quick navigation">
   {#each publicRoutes as route}
-    <a href="{siteBase}{route.path}" aria-label={route.label}>
+    <a href="{siteBase}{route.path}" aria-label={route.label} aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}>
       <span class="mobile-nav-icon" aria-hidden="true">
         {#if route.shortLabel === 'Overview'}
           <svg viewBox="0 0 24 24" fill="none"><path d="m3.5 10 8.5-7 8.5 7v10.5h-6v-6h-5v6h-6V10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
