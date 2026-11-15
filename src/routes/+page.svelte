@@ -120,7 +120,7 @@
     padding-block: 78px 88px;
   }
   .hero-copy { max-width: 610px; }
-  .hero-copy h1 { max-width: 740px; margin: 27px 0 22px; font-size: clamp(42px, 4.5vw, 64px); line-height: 1.08; letter-spacing: -2.5px; }
+  .hero-copy h1 { max-width: 740px; margin: 27px 0 22px; font-size: clamp(42px, 4.1vw, 58px); line-height: 1.08; letter-spacing: -2.3px; }
   .hero-copy h1 em { color: var(--green); font-weight: 400; }
   .hero-description { max-width: 510px; font-size: 13px; line-height: 1.95; }
   .hero-actions { gap: 22px; margin-top: 30px; }
@@ -185,7 +185,7 @@
   @media (max-width: 1050px) {
     .home-hero { grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: 34px; min-height: 590px; padding-block: 64px 72px; }
     .hero-product-panel { padding-inline: 22px; }
-    .hero-copy h1 { font-size: clamp(42px, 4.4vw, 58px); }
+    .hero-copy h1 { font-size: clamp(42px, 4.2vw, 56px); }
     .home-method { gap: 42px; }
     .method-step { padding-inline: 14px; }
   }
@@ -201,7 +201,7 @@
   }
   @media (max-width: 600px) {
     .home-hero { gap: 31px; padding-block: 48px 48px; }
-    .hero-copy h1 { margin-top: 22px; font-size: clamp(42px, 10.5vw, 57px); letter-spacing: -2px; }
+    .hero-copy h1 { margin-top: 22px; font-size: clamp(42px, 9.5vw, 54px); letter-spacing: -2px; }
     .hero-description { font-size: 12px; line-height: 1.85; }
     .hero-actions { gap: 9px 16px; margin-top: 22px; }
     .hero-footnote { margin-top: 26px; font-size: 8px; }
