@@ -80,3 +80,49 @@ describe('lightweight paper-and-ink motion', () => {
     expect(homepage).not.toContain('three');
   });
 });
+
+
+describe('high-contrast Student OS homepage direction', () => {
+  it('uses the navy, terracotta, warm-stone and white design tokens', () => {
+    expect(homepage).toContain('--navy: #16263e');
+    expect(homepage).toContain('--terracotta: #c84b31');
+    expect(homepage).toContain('--paper: #f6f5f0');
+    expect(homepage).toContain('--white: #ffffff');
+  });
+
+  it('adds a lightweight dot-grid texture behind the hero', () => {
+    expect(homepage).toContain('radial-gradient(circle');
+    expect(homepage).toContain('background-size: 18px 18px');
+  });
+
+  it('color-codes all six subject shortcuts with named accessible classes', () => {
+    for (const subjectClass of ['subject-physics', 'subject-chemistry', 'subject-mathematics', 'subject-biology', 'subject-history', 'subject-computer']) {
+      expect(homepage).toContain(subjectClass);
+    }
+    expect(homepage).toContain('aria-label="Quick subject searches"');
+  });
+
+  it('uses a stacked set of real destination cards, not invented catalogue entries', () => {
+    expect(homepage).toContain('class="hero-card-deck"');
+    expect(homepage).toContain('href="{siteBase}/materials/"');
+    expect(homepage).toContain('href="{siteBase}/creators/"');
+    expect(homepage).toContain('href="{siteBase}/school-papers/"');
+    expect(homepage).not.toMatch(/CISCE Official Specimen Paper|Mole Concept Notes|Chapter Formula Sheet/);
+  });
+
+  it('uses the geometric sans stack for interface controls while retaining serif display typography', () => {
+    expect(homepage).toContain('--sans: "Manrope", Inter');
+    expect(homepage).toContain('font-family: var(--sans)');
+  });
+
+  it('keeps high-contrast anchors and card offsets within the restrained paper aesthetic', () => {
+    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
+    expect(homepage).toContain('background: #ffffff');
+    expect(homepage).toContain('border: 1px solid #e2dfd7');
+  });
+
+  it('preserves reduced-motion support for the redesigned card deck', () => {
+    expect(homepage).toContain('.hero-card-deck, .hero-deck-card');
+    expect(homepage).toContain('@media (prefers-reduced-motion: reduce)');
+  });
+});
