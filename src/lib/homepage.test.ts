@@ -13,9 +13,9 @@ describe('ICSE Compass homepage product-led hero', () => {
   });
 
   it('offers direct, truthful paths into the existing public destinations', () => {
-    expect(homepage).toContain('href="{siteBase}/materials/"');
-    expect(homepage).toContain('href="{siteBase}/creators/"');
-    expect(homepage).toContain('href="{siteBase}/school-papers/"');
+    expect(homepage).toContain('href={`${siteBase}/materials/`}');
+    expect(homepage).toContain('href={`${siteBase}/creators/`}');
+    expect(homepage).toContain('href: `${siteBase}/school-papers/`');
     expect(homepage).toContain('Search by subject, chapter or source');
   });
 
@@ -28,10 +28,10 @@ describe('ICSE Compass homepage product-led hero', () => {
     expect(materials).toContain("query = params.get('q') ?? ''");
   });
 
-  it('uses a high-contrast index card and legible micro-labels', () => {
-    expect(homepage).toContain('background: #ffffff');
-    expect(homepage).toContain('border: 1px solid #e2dfd7');
-    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
+  it('uses a deep-navy command panel with readable light-on-dark content', () => {
+    expect(homepage).toContain('background: var(--navy)');
+    expect(homepage).toContain('border: 1px solid rgba(255, 255, 255, .15)');
+    expect(homepage).toContain('box-shadow: 0 18px 42px rgba(22, 38, 62, .18)');
     expect(homepage).toContain('font-size: 12px');
     expect(homepage).toContain('line-height: 1.08');
   });
@@ -51,27 +51,27 @@ describe('ICSE Compass homepage product-led hero', () => {
 
 
 describe('lightweight paper-and-ink motion', () => {
-  it('adds a restrained CSS-only 3D hover treatment to the homepage index card', () => {
-    expect(homepage).toContain('transform: perspective(1000px) rotateX(1.2deg) rotateY(-1.2deg)');
+  it('adds a restrained CSS-only lift treatment to the homepage index card', () => {
+    expect(homepage).toContain('transform: translateY(-2px)');
     expect(homepage).toContain('@media (hover: hover) and (pointer: fine)');
     expect(homepage).toContain('will-change: transform');
   });
 
   it('stagger-animates index rows using only opacity and transform', () => {
     expect(homepage).toContain('@keyframes deckCardEnter');
-    expect(homepage).toContain('animation-delay: 60ms');
-    expect(homepage).toContain('animation-delay: 120ms');
-    expect(homepage).toContain('animation-delay: 180ms');
+    expect(homepage).toContain('animation-delay: 50ms');
+    expect(homepage).toContain('animation-delay: 100ms');
+    expect(homepage).toContain('animation-delay: 150ms');
   });
 
   it('moves directional arrows with transform rather than layout properties', () => {
     expect(homepage).toContain('.hero-deck-card:hover, .hero-deck-card:focus-visible');
-    expect(homepage).toContain('transform: translateY(-4px)');
+    expect(homepage).toContain('transform: translateY(-2px)');
   });
 
   it('keeps the motion disabled for reduced-motion preferences', () => {
     expect(homepage).toContain('@media (prefers-reduced-motion: reduce)');
-    expect(homepage).toContain('.hero-product-panel, .hero-index-row, .index-row-arrow');
+    expect(homepage).toContain('.hero-product-panel, .hero-card-deck, .hero-deck-card');
     expect(homepage).toContain('animation: none !important');
   });
 
@@ -105,25 +105,52 @@ describe('high-contrast Student OS homepage direction', () => {
 
   it('uses a stacked set of real destination cards, not invented catalogue entries', () => {
     expect(homepage).toContain('class="hero-card-deck"');
-    expect(homepage).toContain('href="{siteBase}/materials/"');
-    expect(homepage).toContain('href="{siteBase}/creators/"');
-    expect(homepage).toContain('href="{siteBase}/school-papers/"');
+    expect(homepage).toContain('href={`${siteBase}/materials/`}');
+    expect(homepage).toContain('href={`${siteBase}/creators/`}');
+    expect(homepage).toContain('href: `${siteBase}/school-papers/`');
     expect(homepage).not.toMatch(/CISCE Official Specimen Paper|Mole Concept Notes|Chapter Formula Sheet/);
   });
 
   it('uses the geometric sans stack for interface controls while retaining serif display typography', () => {
     expect(styles).toContain('--sans: "Manrope", Inter');
-    expect(homepage).toContain('font-family: var(--sans)');
+    expect(homepage).toContain('font: 750 8px/1.3 var(--sans)');
   });
 
-  it('keeps high-contrast anchors and card offsets within the restrained paper aesthetic', () => {
-    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
-    expect(homepage).toContain('background: #ffffff');
-    expect(homepage).toContain('border: 1px solid #e2dfd7');
+  it('keeps the dark command panel and its inner cards visually distinct', () => {
+    expect(homepage).toContain('box-shadow: 0 18px 42px rgba(22, 38, 62, .18)');
+    expect(homepage).toContain('background: var(--navy)');
+    expect(homepage).toContain('border: 1px solid rgba(255, 255, 255, .15)');
   });
 
   it('preserves reduced-motion support for the redesigned card deck', () => {
     expect(homepage).toContain('.hero-card-deck, .hero-deck-card');
     expect(homepage).toContain('@media (prefers-reduced-motion: reduce)');
+  });
+});
+
+
+describe('navy command card and homepage search', () => {
+  it('creates a high-contrast navy panel with rounded destination cards', () => {
+    expect(homepage).toContain('background: var(--navy)');
+    expect(homepage).toContain('background: #1e314e');
+    expect(homepage).toContain('border-radius: 24px');
+    expect(homepage).toContain('border-radius: 16px');
+    expect(homepage).toContain('color: #ffffff');
+  });
+
+  it('makes the main action terracotta and keeps the search form functional', () => {
+    expect(homepage).toContain('background: var(--terracotta)');
+    expect(homepage).toContain('onsubmit={handleSearch}');
+    expect(homepage).toContain('bind:value={searchQuery}');
+    expect(homepage).toContain('event.preventDefault()');
+    expect(homepage).toContain('void goto(query ?');
+    expect(homepage).toContain('encodeURIComponent(query)');
+  });
+
+  it('uses explicit Svelte route expressions instead of quoted interpolation strings', () => {
+    expect(homepage).toContain('href={`${siteBase}/materials/`}');
+    expect(homepage).toContain('href={`${siteBase}/creators/`}');
+    expect(homepage).toContain('href: `${siteBase}/school-papers/`');
+    expect(homepage).not.toContain('href="{siteBase}/');
   });
 });
