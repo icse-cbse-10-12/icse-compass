@@ -28,10 +28,10 @@ describe('ICSE Compass homepage product-led hero', () => {
     expect(materials).toContain("query = params.get('q') ?? ''");
   });
 
-  it('uses a high-contrast index card and legible micro-labels', () => {
-    expect(homepage).toContain('background: #ffffff');
-    expect(homepage).toContain('border: 1px solid #e2dfd7');
-    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
+  it('uses a deep-navy command panel with readable light-on-dark content', () => {
+    expect(homepage).toContain('background: var(--navy)');
+    expect(homepage).toContain('border: 1px solid rgba(255, 255, 255, .15)');
+    expect(homepage).toContain('box-shadow: 0 18px 42px rgba(22, 38, 62, .18)');
     expect(homepage).toContain('font-size: 12px');
     expect(homepage).toContain('line-height: 1.08');
   });
@@ -51,8 +51,8 @@ describe('ICSE Compass homepage product-led hero', () => {
 
 
 describe('lightweight paper-and-ink motion', () => {
-  it('adds a restrained CSS-only 3D hover treatment to the homepage index card', () => {
-    expect(homepage).toContain('transform: perspective(1000px) rotateX(1.2deg) rotateY(-1.2deg)');
+  it('adds a restrained CSS-only lift treatment to the homepage index card', () => {
+    expect(homepage).toContain('transform: translateY(-2px)');
     expect(homepage).toContain('@media (hover: hover) and (pointer: fine)');
     expect(homepage).toContain('will-change: transform');
   });
@@ -66,7 +66,7 @@ describe('lightweight paper-and-ink motion', () => {
 
   it('moves directional arrows with transform rather than layout properties', () => {
     expect(homepage).toContain('.hero-deck-card:hover, .hero-deck-card:focus-visible');
-    expect(homepage).toContain('transform: translateY(-4px)');
+    expect(homepage).toContain('transform: translateY(-2px)');
   });
 
   it('keeps the motion disabled for reduced-motion preferences', () => {
@@ -107,19 +107,19 @@ describe('high-contrast Student OS homepage direction', () => {
     expect(homepage).toContain('class="hero-card-deck"');
     expect(homepage).toContain('href={`${siteBase}/materials/`}');
     expect(homepage).toContain('href={`${siteBase}/creators/`}');
-    expect(homepage).toContain('href={`${siteBase}/school-papers/`}');
+    expect(homepage).toContain('href: `${siteBase}/school-papers/`');
     expect(homepage).not.toMatch(/CISCE Official Specimen Paper|Mole Concept Notes|Chapter Formula Sheet/);
   });
 
   it('uses the geometric sans stack for interface controls while retaining serif display typography', () => {
     expect(styles).toContain('--sans: "Manrope", Inter');
-    expect(homepage).toContain('font-family: var(--sans)');
+    expect(homepage).toContain('font: 750 8px/1.3 var(--sans)');
   });
 
-  it('keeps high-contrast anchors and card offsets within the restrained paper aesthetic', () => {
-    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
-    expect(homepage).toContain('background: #ffffff');
-    expect(homepage).toContain('border: 1px solid #e2dfd7');
+  it('keeps the dark command panel and its inner cards visually distinct', () => {
+    expect(homepage).toContain('box-shadow: 0 18px 42px rgba(22, 38, 62, .18)');
+    expect(homepage).toContain('background: var(--navy)');
+    expect(homepage).toContain('border: 1px solid rgba(255, 255, 255, .15)');
   });
 
   it('preserves reduced-motion support for the redesigned card deck', () => {
