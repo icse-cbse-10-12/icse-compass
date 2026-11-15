@@ -15,7 +15,7 @@ describe('ICSE Compass homepage product-led hero', () => {
   it('offers direct, truthful paths into the existing public destinations', () => {
     expect(homepage).toContain('href={`${siteBase}/materials/`}');
     expect(homepage).toContain('href={`${siteBase}/creators/`}');
-    expect(homepage).toContain('href={`${siteBase}/school-papers/`}');
+    expect(homepage).toContain('href: `${siteBase}/school-papers/`');
     expect(homepage).toContain('Search by subject, chapter or source');
   });
 
