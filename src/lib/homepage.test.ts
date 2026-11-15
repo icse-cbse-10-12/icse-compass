@@ -29,9 +29,9 @@ describe('ICSE Compass homepage product-led hero', () => {
   });
 
   it('uses a high-contrast index card and legible micro-labels', () => {
-    expect(homepage).toContain('background: #fcfbf7');
-    expect(homepage).toContain('border: 1px solid #dcd5c7');
-    expect(homepage).toContain('box-shadow: 0 2px 8px');
+    expect(homepage).toContain('background: #ffffff');
+    expect(homepage).toContain('border: 1px solid #e2dfd7');
+    expect(homepage).toContain('box-shadow: 4px 4px 0 #16263e14');
     expect(homepage).toContain('font-size: 12px');
     expect(homepage).toContain('line-height: 1.08');
   });
