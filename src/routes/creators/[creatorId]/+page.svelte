@@ -1,13 +1,20 @@
 <script lang="ts">
-  import { siteBase } from '#lib/site.ts';
+  import { siteBase, siteOrigin } from '#lib/site.ts';
   import type { PageData } from './$types';
   let { data }: { data: PageData } = $props();
+  const profileUrl = `${siteOrigin}${siteBase}/creators/${encodeURIComponent(data.creator.id)}/`;
+  const description = data.creator.description || 'Verified educator profile and attributed ICSE learning resources.';
 </script>
 <svelte:head>
   <title>{data.creator.name} | Educators | ICSE Compass</title>
-  <meta name="description" content={data.creator.description || 'Verified educator profile and attributed ICSE learning resources.'} />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={profileUrl} />
+  <meta property="og:type" content="profile" />
   <meta property="og:title" content={data.creator.name + ' | ICSE Compass'} />
-  <meta property="og:description" content={data.creator.description || 'Verified educator profile and attributed learning resources.'} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={profileUrl} />
+  <meta name="twitter:title" content={data.creator.name + ' | ICSE Compass'} />
+  <meta name="twitter:description" content={description} />
 </svelte:head>
 <main class="page-content educator-detail">
   <a class="back-link" href="{siteBase}/creators/">← All educators</a>

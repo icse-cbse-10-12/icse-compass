@@ -2,16 +2,34 @@
   import '../styles.css';
   import IndependenceNotice from '#lib/IndependenceNotice.svelte';
   import { publicRoutes, privacyPath, siteOrigin, siteBase } from '#lib/site.ts';
-  const structuredData = { '@context': 'https://schema.org', '@graph': [
-    { '@type': 'EducationalOrganization', name: 'ICSE Compass', url: siteOrigin + siteBase + '/', description: 'An independent academic workspace for discovering ICSE learning resources, educators, and school papers.' },
-    { '@type': 'WebSite', name: 'ICSE Compass', url: siteOrigin + siteBase + '/', inLanguage: 'en-IN' }
-  ]};
+  const homeUrl = siteOrigin + siteBase + '/';
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        name: 'ICSE Compass',
+        url: homeUrl,
+        description: 'An independent academic workspace for discovering ICSE learning resources and educator sources.',
+        inLanguage: 'en-IN'
+      },
+      {
+        '@type': 'WebApplication',
+        name: 'ICSE Compass',
+        url: homeUrl,
+        applicationCategory: 'EducationalApplication',
+        operatingSystem: 'Any',
+        description: 'An independent resource-discovery workspace for learners following the ICSE curriculum.'
+      }
+    ]
+  };
 </script>
 <svelte:head>
   <meta name="robots" content="index,follow" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ICSE Compass" />
   <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary" />
   <link rel="manifest" href="{siteBase}/manifest.webmanifest" />
   <link rel="icon" href="{siteBase}/favicon.svg" type="image/svg+xml" />
   <script type="application/ld+json">{JSON.stringify(structuredData)}</script>

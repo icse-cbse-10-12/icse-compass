@@ -1,31 +1,32 @@
 # ICSE Compass
 
-ICSE Compass is an independent academic workspace for learners following the Indian Certificate of Secondary Education (ICSE) curriculum. It provides a starting point for discovering learning materials, educators, and school examination papers.
+ICSE Compass is an independent resource-discovery workspace for learners following the Indian Certificate of Secondary Education (ICSE) curriculum. It is an independent project, not an official examination-board service.
 
 ## Independence and affiliation
 
-ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE (the Council for the Indian School Certificate Examinations). Do not describe it as an official CISCE service.
+ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE (the Council for the Indian School Certificate Examinations).
 
-## Privacy-first commitment
-
-ICSE Compass is designed for learners, including students under 18. The app does not require student accounts or ask students to submit personal profile details. It sets no tracking cookies and does not use third-party analytics, session replay, behavioural monitoring, or targeted advertising. Planned saved study links and paper checklists are intended to stay in the learner's browser storage on that device; they will not be uploaded to an ICSE Compass account. The current foundation release does not yet include those student workspace features. The site is hosted on GitHub Pages, which may process technical request data under GitHub's own privacy terms. See the Privacy page for the full distinction and external publisher disclosure.
-
-## Public routes
+## Public pages
 
 - Overview: https://icse-cbse-10-12.github.io/icse-compass/
 - Materials Library: https://icse-cbse-10-12.github.io/icse-compass/materials/
-- Educators: https://icse-cbse-10-12.github.io/icse-compass/creators/
-- School Papers: https://icse-cbse-10-12.github.io/icse-compass/school-papers/
-- Privacy: https://icse-cbse-10-12.github.io/icse-compass/privacy/
+- Educator directory: https://icse-cbse-10-12.github.io/icse-compass/creators/
+- Privacy information: https://icse-cbse-10-12.github.io/icse-compass/privacy/
 
-## Current content status
+## Content availability
 
-The public routes are foundation views. A connected catalogue, educator profiles, and school-paper listings are not yet published. Do not infer sample records, file sizes, download links, or unverified metadata.
+The Materials Library and Educator directory are catalogue interfaces. A listing appears only after an item has been reviewed and published. At the time this file was updated, the public catalogue JSON files contain no published records. Do not infer or invent resource titles, educator profiles, file sizes, school papers, download links, or availability.
 
-## Content and rights
+The School Papers page is a foundation view and is intentionally excluded from search indexing and the XML sitemap until verified paper listings are available.
 
-Public availability does not establish permission to reproduce or host a resource. Only owned or explicitly authorised files may be hosted; other resources should link to their original source where appropriate.
+## Content rights
+
+Public availability does not establish permission to reproduce or host a resource. Only owned or explicitly authorised files may be hosted. Other resources should link to their original source where appropriate. Do not reproduce paid third-party books or files without permission.
+
+## Privacy
+
+The app does not require student accounts or personal profile details. It does not use third-party analytics, session replay, behavioural monitoring, or targeted advertising. GitHub Pages may process technical request data under GitHub's own privacy terms. See the Privacy page for details.
 
 ## Technical notes
 
-The site is statically rendered for public discovery and hosted as a GitHub Pages project site. Public pages are intended to be readable without client-side JavaScript. Public assets and feeds may be cached locally by the PWA service worker; student-specific data is not sent to the server.
+The site is statically rendered and hosted as a GitHub Pages project site. Public assets and catalogue feeds may be cached locally by the PWA service worker. Student-specific data is not sent to the server.
