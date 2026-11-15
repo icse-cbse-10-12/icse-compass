@@ -33,8 +33,8 @@
       <h1 id="home-title">Your ICSE study sources,<br /><em>in one clear index.</em></h1>
       <p class="hero-description">Find learning material by subject and chapter, discover the educators behind original sources, and move towards useful practice — without losing track of where it came from.</p>
       <div class="hero-actions">
-        <a class="button button-primary home-primary" href="{siteBase}/materials/">Browse materials <span aria-hidden="true">↗</span></a>
-        <a class="text-action" href="{siteBase}/creators/">Explore educators <span aria-hidden="true">→</span></a>
+        <a class="button button-primary home-primary" href={`${siteBase}/materials/`}>Browse materials <span aria-hidden="true">↗</span></a>
+        <a class="text-action" href={`${siteBase}/creators/`}>Explore educators <span aria-hidden="true">→</span></a>
       </div>
       <div class="hero-footnote"><span class="footnote-mark" aria-hidden="true">✳</span> Independent discovery. Original sources. Clear attribution.</div>
     </div>
@@ -113,7 +113,7 @@
     <div class="page-width principle-inner">
       <span class="principle-mark" aria-hidden="true">“</span>
       <p>Good study starts with <em>good sources.</em></p>
-      <a href="{siteBase}/materials/">Explore the index <span aria-hidden="true">↗</span></a>
+      <a href={`${siteBase}/materials/`}>Explore the index <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 </main>
@@ -230,7 +230,7 @@
     .hero-product-panel, .hero-card-deck, .hero-deck-card { animation: none !important; transition: none !important; transform: none !important; will-change: auto !important; }
   }
   @media (max-width: 1050px) {
-    .home-hero { grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: 34px; min-height: 590px; padding-block: 64px 72px; }
+    .home-hero { grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: 34px; min-height: 0; padding-block: 48px 56px; }
     .hero-product-panel { padding-inline: 22px; }
     .hero-copy h1 { font-size: clamp(42px, 4.2vw, 56px); }
     .home-method { gap: 42px; }
@@ -257,7 +257,6 @@
     .hero-footnote { margin-top: 26px; font-size: 8px; }
     .hero-product-panel { padding: 21px 17px 15px; }
     .product-panel-heading h2 { font-size: 27px; }
-    .hero-search-link { min-height: 52px; gap: 9px; margin-top: 22px; padding-inline: 11px; font-size: 10px; }
     .subject-shortcuts { gap: 6px; margin-top: 9px; }
     .subject-shortcuts a { min-height: 28px; padding-inline: 8px; font-size: 9px; }
     .product-panel-footer { font-size: 6px; letter-spacing: .8px; }

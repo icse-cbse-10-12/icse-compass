@@ -13,9 +13,9 @@ describe('ICSE Compass homepage product-led hero', () => {
   });
 
   it('offers direct, truthful paths into the existing public destinations', () => {
-    expect(homepage).toContain('href="{siteBase}/materials/"');
-    expect(homepage).toContain('href="{siteBase}/creators/"');
-    expect(homepage).toContain('href="{siteBase}/school-papers/"');
+    expect(homepage).toContain('href={`${siteBase}/materials/`}');
+    expect(homepage).toContain('href={`${siteBase}/creators/`}');
+    expect(homepage).toContain('href={`${siteBase}/school-papers/`}');
     expect(homepage).toContain('Search by subject, chapter or source');
   });
 
@@ -105,9 +105,9 @@ describe('high-contrast Student OS homepage direction', () => {
 
   it('uses a stacked set of real destination cards, not invented catalogue entries', () => {
     expect(homepage).toContain('class="hero-card-deck"');
-    expect(homepage).toContain('href="{siteBase}/materials/"');
-    expect(homepage).toContain('href="{siteBase}/creators/"');
-    expect(homepage).toContain('href="{siteBase}/school-papers/"');
+    expect(homepage).toContain('href={`${siteBase}/materials/`}');
+    expect(homepage).toContain('href={`${siteBase}/creators/`}');
+    expect(homepage).toContain('href={`${siteBase}/school-papers/`}');
     expect(homepage).not.toMatch(/CISCE Official Specimen Paper|Mole Concept Notes|Chapter Formula Sheet/);
   });
 
