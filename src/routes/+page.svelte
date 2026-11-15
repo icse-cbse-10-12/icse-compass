@@ -3,78 +3,214 @@
 </script>
 
 <svelte:head>
-  <title>ICSE Compass | A clearer way to find your study resources</title>
-  <meta name="description" content="Discover verified ICSE learning resources and educator sources in one independent academic workspace." />
+  <title>ICSE Compass | Find your next study source</title>
+  <meta name="description" content="An independent academic index for discovering ICSE learning resources, educator sources and school-level practice." />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
-  <meta property="og:title" content="ICSE Compass | A clearer way to find your study resources" />
-  <meta property="og:description" content="A focused, independent academic workspace for ICSE learners." />
+  <meta property="og:title" content="ICSE Compass | Find your next study source" />
+  <meta property="og:description" content="Discover ICSE learning resources, original educator sources and school-level practice in one independent academic index." />
   <meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/" />
 </svelte:head>
 
-<main>
-  <section class="home-hero page-width">
+<main class="home-page">
+  <section class="home-hero page-width" aria-labelledby="home-title">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="eyebrow-rule"></span> AN INDEPENDENT STUDY COMPANION <span class="eyebrow-year">EST. FOR ICSE LEARNERS</span></p>
-      <h1>Find the right<br /><em>way forward.</em></h1>
-      <p class="hero-description">A considered place to discover learning resources, explore educator sources and bring your ICSE study material into focus.</p>
+      <p class="eyebrow"><span class="eyebrow-rule"></span> AN INDEPENDENT ACADEMIC INDEX <span class="eyebrow-year">FOR ICSE LEARNERS</span></p>
+      <h1 id="home-title">Your ICSE study sources,<br /><em>in one clear index.</em></h1>
+      <p class="hero-description">Find learning material by subject and chapter, discover the educators behind original sources, and move towards useful practice — without losing track of where it came from.</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="{siteBase}/materials/">Explore the library <span aria-hidden="true">↗</span></a>
-        <a class="text-action" href="{siteBase}/creators/">Meet the educators <span aria-hidden="true">→</span></a>
+        <a class="button button-primary" href="{siteBase}/materials/">Browse materials <span aria-hidden="true">↗</span></a>
+        <a class="text-action" href="{siteBase}/creators/">Explore educators <span aria-hidden="true">→</span></a>
       </div>
-      <div class="hero-footnote"><span class="footnote-mark">✳</span> Independent discovery. Original sources. Clear direction.</div>
+      <div class="hero-footnote"><span class="footnote-mark" aria-hidden="true">✳</span> Independent discovery. Original sources. Clear attribution.</div>
     </div>
 
-    <div class="hero-art" aria-label="An abstract editorial illustration of a compass and study index" role="img">
-      <div class="art-topline"><span>THE STUDY INDEX</span><span>01 / 04</span></div>
-      <div class="art-grid"></div>
-      <div class="art-compass">
-        <div class="compass-ring compass-ring-outer"></div>
-        <div class="compass-ring compass-ring-inner"></div>
-        <div class="compass-axis"></div>
-        <div class="compass-needle"></div>
-        <span class="compass-north">N</span><span class="compass-east">E</span><span class="compass-south">S</span><span class="compass-west">W</span>
-        <span class="compass-centre"></span>
+    <aside class="hero-product-panel" aria-labelledby="hero-index-title">
+      <div class="product-panel-heading">
+        <div>
+          <span class="panel-kicker">THE ICSE COMPASS INDEX</span>
+          <h2 id="hero-index-title">A better place to begin.</h2>
+        </div>
+        <span class="panel-edition">01 <i>/</i> 03</span>
       </div>
-      <div class="art-index"><span class="index-number">A.</span><span>Find a source</span><span class="index-arrow">↗</span></div>
-      <div class="art-note"><span class="note-kicker">A BETTER START</span><strong>Less searching.<br />More studying.</strong><span class="note-line"></span><span class="note-small">A workspace built around clarity.</span></div>
-      <div class="art-bottomline"><span>ICSE COMPASS</span><span>INDEPENDENT / 2026</span></div>
+
+      <a class="hero-search-link" href="{siteBase}/materials/" aria-label="Open Materials Library to search by subject, chapter or source">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.5"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Search by subject, chapter or source</span>
+        <span class="search-action" aria-hidden="true">↗</span>
+      </a>
+
+      <nav class="hero-index-list" aria-label="Explore the ICSE Compass index">
+        <a class="hero-index-row" href="{siteBase}/materials/">
+          <span class="index-ordinal">01</span>
+          <span class="index-row-copy"><strong>Materials library</strong><small>Notes, worksheets and learning resources</small></span>
+          <span class="index-row-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="hero-index-row" href="{siteBase}/creators/">
+          <span class="index-ordinal">02</span>
+          <span class="index-row-copy"><strong>Educator sources</strong><small>Explore profiles and original teaching sources</small></span>
+          <span class="index-row-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="hero-index-row" href="{siteBase}/school-papers/">
+          <span class="index-ordinal">03</span>
+          <span class="index-row-copy"><strong>School papers</strong><small>Find school-level practice and exam papers</small></span>
+          <span class="index-row-arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+
+      <div class="product-panel-footer"><span>INDEPENDENT BY DESIGN</span><span>FOLLOW THE SOURCE <b>↗</b></span></div>
+      <span class="panel-watermark" aria-hidden="true">C</span>
+    </aside>
+  </section>
+
+  <section class="home-method page-width" aria-labelledby="method-title">
+    <div class="method-intro">
+      <p class="eyebrow"><span class="eyebrow-rule"></span> A MORE CONSIDERED WAY TO STUDY</p>
+      <h2 id="method-title">Find it. Trace it.<br /><em>Make it useful.</em></h2>
+      <p>Good study material is easier to use when its subject, context and original source are clear. Compass brings those details closer together.</p>
+    </div>
+
+    <div class="method-steps">
+      <div class="method-step">
+        <span class="step-number">01 <i>—</i> DISCOVER</span>
+        <h3>Start with the subject.</h3>
+        <p>Browse the materials index by the topic, chapter or format you need.</p>
+      </div>
+      <div class="method-step">
+        <span class="step-number">02 <i>—</i> TRACE</span>
+        <h3>Know where it came from.</h3>
+        <p>Explore educator profiles and follow resources back to their original sources.</p>
+      </div>
+      <div class="method-step">
+        <span class="step-number">03 <i>—</i> CONTINUE</span>
+        <h3>Choose your next step.</h3>
+        <p>Move from discovery to school-level practice when verified papers are available.</p>
+      </div>
     </div>
   </section>
 
-  <section class="discovery-section page-width" aria-labelledby="discovery-title">
-    <div class="section-intro">
-      <div><p class="eyebrow"><span class="eyebrow-rule"></span> START WITH WHAT YOU NEED</p><h2 id="discovery-title">Your study, <em>better organised.</em></h2></div>
-      <p>Three clear ways into the learning material and sources you are looking for.</p>
+  <section class="home-principle" aria-label="ICSE Compass principle">
+    <div class="page-width principle-inner">
+      <span class="principle-mark" aria-hidden="true">“</span>
+      <p>Good study starts with <em>good sources.</em></p>
+      <a href="{siteBase}/materials/">Explore the index <span aria-hidden="true">↗</span></a>
     </div>
-
-    <div class="destination-grid">
-      <a class="destination-card destination-featured" href="{siteBase}/materials/">
-        <span class="destination-index">01 / LIBRARY</span>
-        <span class="destination-symbol symbol-library" aria-hidden="true"><svg viewBox="0 0 72 72" fill="none"><path d="M14 17.5h29a8 8 0 0 1 8 8v30H22a8 8 0 0 1-8-8v-30Z" stroke="currentColor" stroke-width="1.5"/><path d="M22 55.5V25a7.5 7.5 0 0 1 7.5-7.5H58v30a8 8 0 0 1-8 8H22Z" stroke="currentColor" stroke-width="1.5"/><path d="M30 29h19M30 36h19M30 43h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="destination-title">Materials Library</span>
-        <span class="destination-description">Search approved notes, worksheets and learning resources by subject, chapter and format.</span>
-        <span class="destination-bottom"><span>SEARCH THE CATALOGUE</span><span class="destination-arrow">↗</span></span>
-      </a>
-
-      <a class="destination-card" href="{siteBase}/creators/">
-        <span class="destination-index">02 / PEOPLE</span>
-        <span class="destination-symbol symbol-people" aria-hidden="true"><svg viewBox="0 0 72 72" fill="none"><circle cx="36" cy="25" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M16 58c1.8-10.4 8.5-15.5 20-15.5S54.2 47.6 56 58" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 15h9M55 15h9M36 5v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="destination-title">Educators</span>
-        <span class="destination-description">Explore educator profiles and find resources attributed to their original sources.</span>
-        <span class="destination-bottom"><span>EXPLORE PROFILES</span><span class="destination-arrow">↗</span></span>
-      </a>
-
-      <a class="destination-card" href="{siteBase}/school-papers/">
-        <span class="destination-index">03 / PRACTICE</span>
-        <span class="destination-symbol symbol-papers" aria-hidden="true"><svg viewBox="0 0 72 72" fill="none"><path d="M19 11.5h24l11 11v38H19v-49Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M43 11.5v12h11M28 34h18M28 42h18M28 50h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        <span class="destination-title">School Papers</span>
-        <span class="destination-description">A dedicated directory for verified school-level practice and examination papers.</span>
-        <span class="destination-bottom"><span>VIEW PAPER DIRECTORY</span><span class="destination-arrow">↗</span></span>
-      </a>
-    </div>
-  </section>
-
-  <section class="principle-band">
-    <div class="page-width principle-inner"><span class="principle-mark">“</span><p>Good study starts with <em>good sources.</em></p><span class="principle-caption">A SIMPLE PRINCIPLE. A CLEARER WORKSPACE.</span></div>
   </section>
 </main>
+
+<style>
+  .home-page { overflow: clip; }
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(430px, .92fr);
+    align-items: center;
+    gap: clamp(38px, 6vw, 82px);
+    min-height: 650px;
+    padding-block: 78px 88px;
+  }
+  .hero-copy { max-width: 610px; }
+  .hero-copy h1 { max-width: 690px; margin: 27px 0 22px; font-size: clamp(48px, 5.5vw, 76px); line-height: 1.01; letter-spacing: -2.9px; }
+  .hero-copy h1 em { color: var(--green); font-weight: 400; }
+  .hero-description { max-width: 510px; font-size: 13px; line-height: 1.95; }
+  .hero-actions { gap: 22px; margin-top: 30px; }
+  .hero-footnote { margin-top: 39px; }
+  .hero-product-panel {
+    position: relative;
+    isolation: isolate;
+    min-width: 0;
+    padding: 27px 28px 18px;
+    overflow: hidden;
+    background: #e8ebe2;
+    border: 1px solid #d2d9ce;
+    box-shadow: 0 22px 55px rgba(37, 41, 35, .07);
+  }
+  .product-panel-heading, .product-panel-footer { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .panel-kicker, .panel-edition, .product-panel-footer { color: #647365; font-size: 8px; font-weight: 850; letter-spacing: 1.35px; }
+  .product-panel-heading h2 { margin: 13px 0 0; color: var(--ink); font: 500 clamp(25px, 2.6vw, 34px)/1.12 var(--serif); letter-spacing: -.7px; }
+  .panel-edition { white-space: nowrap; }
+  .panel-edition i { color: #9aa397; font-style: normal; }
+  .hero-search-link {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 13px;
+    min-height: 56px; margin-top: 29px; padding: 0 15px;
+    color: #667064; background: rgba(255, 254, 250, .88);
+    border: 1px solid #d3d9cf; font-size: 10px; font-weight: 650;
+    transition: border-color .18s ease, background .18s ease, transform .18s ease;
+  }
+  .hero-search-link:hover { border-color: #8da493; background: #fffefa; transform: translateY(-1px); }
+  .hero-search-link svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--green); }
+  .search-action { margin-left: auto; color: var(--green); font-size: 15px; }
+  .hero-index-list { position: relative; z-index: 1; margin-top: 17px; border-top: 1px solid #cfd7cc; }
+  .hero-index-row { display: flex; align-items: center; gap: 15px; min-height: 79px; padding: 12px 4px; border-bottom: 1px solid #cfd7cc; transition: padding .18s ease, color .18s ease; }
+  .hero-index-row:hover { padding-inline: 9px; color: var(--green); }
+  .index-ordinal { align-self: flex-start; padding-top: 3px; color: #68816f; font: 500 17px var(--serif); }
+  .index-row-copy { display: flex; min-width: 0; flex-direction: column; gap: 5px; }
+  .index-row-copy strong { color: var(--ink); font: 500 19px/1.1 var(--serif); }
+  .index-row-copy small { color: #737b70; font-size: 9px; line-height: 1.5; }
+  .index-row-arrow { margin-left: auto; color: var(--green); font-size: 16px; }
+  .product-panel-footer { margin-top: 18px; font-size: 7px; letter-spacing: 1.1px; }
+  .product-panel-footer b { margin-left: 5px; font-size: 12px; font-weight: 400; }
+  .panel-watermark { position: absolute; z-index: 0; right: -8px; bottom: -77px; color: rgba(53, 107, 88, .045); font: 500 260px/.8 var(--serif); pointer-events: none; }
+  .home-method { display: grid; grid-template-columns: minmax(230px, .8fr) minmax(0, 1.4fr); gap: clamp(38px, 8vw, 112px); padding-block: 78px 92px; border-top: 1px solid var(--line); }
+  .method-intro h2 { margin: 19px 0 17px; color: var(--ink); font: 500 clamp(36px, 4vw, 49px)/1.08 var(--serif); letter-spacing: -1.4px; }
+  .method-intro h2 em { color: var(--green); font-weight: 400; }
+  .method-intro > p:last-child { max-width: 360px; margin: 0; color: #70766d; font-size: 11px; line-height: 1.9; }
+  .method-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-content: center; }
+  .method-step { min-width: 0; padding: 8px 19px 8px 21px; border-left: 1px solid #d4d8ce; }
+  .step-number { color: var(--green); font-size: 8px; font-weight: 850; letter-spacing: 1.2px; }
+  .step-number i { color: #9ba398; font-style: normal; }
+  .method-step h3 { margin: 20px 0 10px; color: var(--ink); font: 500 21px/1.16 var(--serif); }
+  .method-step p { margin: 0; color: #73796f; font-size: 10px; line-height: 1.8; }
+  .home-principle { background: #e7e9df; border-block: 1px solid #d8ddd1; }
+  .home-principle .principle-inner { min-height: 145px; }
+  .home-principle .principle-inner > a { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; color: var(--green); font-size: 9px; font-weight: 850; letter-spacing: .7px; white-space: nowrap; }
+  .home-principle .principle-inner > a:hover { color: var(--green-dark); }
+  @media (max-width: 1050px) {
+    .home-hero { grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: 34px; min-height: 590px; padding-block: 64px 72px; }
+    .hero-product-panel { padding-inline: 22px; }
+    .hero-copy h1 { font-size: clamp(45px, 5.1vw, 62px); }
+    .home-method { gap: 42px; }
+    .method-step { padding-inline: 14px; }
+  }
+  @media (max-width: 760px) {
+    .home-hero { grid-template-columns: 1fr; gap: 38px; min-height: 0; padding-block: 58px 62px; }
+    .hero-copy h1 { max-width: 620px; font-size: clamp(48px, 9vw, 68px); }
+    .hero-product-panel { max-width: 620px; }
+    .home-method { grid-template-columns: 1fr; gap: 33px; padding-block: 57px 66px; }
+    .method-intro h2 { font-size: 42px; }
+    .method-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .home-principle .principle-inner { flex-wrap: wrap; gap: 10px 15px; padding-block: 24px; }
+    .home-principle .principle-inner > a { margin-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .home-hero { gap: 31px; padding-block: 48px 48px; }
+    .hero-copy h1 { margin-top: 22px; font-size: clamp(43px, 11.5vw, 59px); letter-spacing: -2px; }
+    .hero-description { font-size: 12px; line-height: 1.85; }
+    .hero-actions { gap: 9px 16px; margin-top: 22px; }
+    .hero-footnote { margin-top: 26px; font-size: 8px; }
+    .hero-product-panel { padding: 21px 17px 15px; }
+    .product-panel-heading h2 { font-size: 27px; }
+    .hero-search-link { min-height: 52px; gap: 9px; margin-top: 22px; padding-inline: 11px; font-size: 9px; }
+    .hero-index-row { min-height: 73px; gap: 11px; }
+    .index-row-copy strong { font-size: 18px; }
+    .index-row-copy small { font-size: 8px; }
+    .product-panel-footer { font-size: 6px; letter-spacing: .8px; }
+    .home-method { gap: 28px; padding-block: 48px 53px; }
+    .method-intro h2 { margin-block: 15px 12px; font-size: 37px; }
+    .method-steps { grid-template-columns: 1fr; }
+    .method-step { display: grid; grid-template-columns: 105px minmax(0, 1fr); gap: 8px 12px; padding: 17px 0; border-left: 0; border-top: 1px solid #d4d8ce; }
+    .step-number { grid-row: span 2; padding-top: 4px; }
+    .method-step h3 { margin: 0; font-size: 20px; }
+    .method-step p { grid-column: 2; }
+    .home-principle .principle-inner { min-height: 112px; gap: 8px 12px; }
+    .home-principle .principle-mark { font-size: 45px; }
+    .home-principle .principle-inner p { font-size: 23px; }
+  }
+  @media (max-width: 370px) {
+    .hero-copy h1 { font-size: 42px; }
+    .hero-product-panel { padding-inline: 13px; }
+    .hero-index-row { gap: 8px; }
+    .index-row-copy strong { font-size: 17px; }
+    .index-row-copy small { font-size: 7px; }
+    .method-step { grid-template-columns: 88px minmax(0, 1fr); }
+  }
+</style>
