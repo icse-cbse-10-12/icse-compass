@@ -31,11 +31,13 @@
     <div class="hero-copy">
       <p class="eyebrow"><span class="eyebrow-rule"></span> AN INDEPENDENT ACADEMIC INDEX <span class="eyebrow-year">FOR ICSE LEARNERS</span></p>
       <h1 id="home-title">Your ICSE study sources,<br /><em>in one clear index.</em></h1>
-      <p class="hero-description">Find learning material by subject and chapter, discover the educators behind original sources, and move towards useful practice — without losing track of where it came from.</p>
+      <p class="hero-description">Find learning material by subject and chapter, discover the educators behind original sources, and prepare with clearer source attribution and permission context.</p>
+
       <div class="hero-actions">
         <a class="button button-primary home-primary" href={`${siteBase}/materials/`}>Browse materials <span aria-hidden="true">↗</span></a>
         <a class="text-action" href={`${siteBase}/creators/`}>Explore educators <span aria-hidden="true">→</span></a>
       </div>
+
       <div class="hero-footnote"><span class="footnote-mark" aria-hidden="true">✳</span> Independent discovery. Original sources. Clear attribution.</div>
     </div>
 
@@ -51,7 +53,7 @@
       <form class="hero-search-form" onsubmit={handleSearch}>
         <label class="hero-search-label" for="homepage-search">Find a topic, chapter or source</label>
         <div class="hero-search-field">
-          <input id="homepage-search" type="search" bind:value={searchQuery} placeholder="Search the materials library…" aria-label="Search by subject, chapter or source" />
+          <input id="homepage-search" type="search" bind:value={searchQuery} placeholder="Search chapter, subject, or source…" aria-label="Search by subject, chapter or source" />
           <button type="submit">Search <span aria-hidden="true">↗</span></button>
         </div>
       </form>
@@ -276,4 +278,104 @@
     .hero-product-panel { padding-inline: 13px; }
     .method-step { grid-template-columns: 88px minmax(0, 1fr); }
   }
+
+  /* Homepage-only Pistachio, Cream & Espresso palette */
+  .home-page {
+    --navy: #1B3B2B;
+    --terracotta: #B85D3B;
+    --green: #4A7039;
+    --green-dark: #1B3B2B;
+    color: #3B281E;
+  }
+  .home-page::before {
+    opacity: .48;
+    background-image: radial-gradient(circle, rgba(59, 40, 30, .12) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .home-hero { padding-block: 58px 66px; }
+  .hero-copy h1 { color: #3B281E; }
+  .hero-copy h1 em { color: #4A7039; }
+  .hero-description { color: #57453A; }
+  .home-primary {
+    color: #FAF6EE;
+    background: #3B281E;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 #8FB378;
+  }
+  .home-primary:hover { color: #FAF6EE; background: #2A1C15; }
+  .hero-product-panel {
+    color: #FAF6EE;
+    background: #1B3B2B;
+    border: 2px solid #3B281E;
+    border-radius: 24px;
+    box-shadow: 8px 8px 0 #C5D6B5;
+  }
+  .panel-kicker { color: #B5D69C; }
+  .panel-edition { color: #D9E8CD; }
+  .product-panel-heading h2 { color: #FAF6EE; }
+  .hero-search-label { color: #D4E3C8; }
+  .hero-search-field {
+    background: #FAF6EE;
+    border-color: rgba(250, 246, 238, .4);
+    border-radius: 13px;
+  }
+  .hero-search-field input { color: #3B281E; }
+  .hero-search-field input::placeholder { color: #7A685D; }
+  .hero-search-field button { min-height: 44px; color: #fff; background: #5C8347; }
+  .hero-search-field button:hover { background: #4A6D38; }
+  .hero-search-field input:focus-visible { outline-color: #9EC484; }
+  .hero-search-field button:focus-visible,
+  .subject-shortcuts a:focus-visible,
+  .hero-deck-card:focus-visible { outline-color: #B5D69C; }
+  .subject-shortcuts a {
+    min-height: 44px;
+    padding: 8px 11px;
+    color: #3B281E;
+    background: #EFE8D8;
+    border: 1px solid rgba(59, 40, 30, .2);
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .subject-shortcuts .subject-physics { color: #2E6F73; background: #E6EFEB; border-color: #C7DCD6; }
+  .subject-shortcuts .subject-chemistry { color: #3B5948; background: #E8F0E4; border-color: #CFDEC7; }
+  .subject-shortcuts .subject-mathematics { color: #8F432C; background: #F5E8DE; border-color: #E8CFC0; }
+  .subject-shortcuts .subject-biology { color: #4A7039; background: #EDF2E5; border-color: #D5E2C8; }
+  .subject-shortcuts .subject-history { color: #805A35; background: #F2EBDD; border-color: #E3D5BC; }
+  .subject-shortcuts .subject-computer { color: #3B5948; background: #E8EEE8; border-color: #D0DCD0; }
+  .hero-deck-card {
+    min-height: 105px;
+    color: #FAF6EE;
+    background: #234936;
+    border-color: rgba(181, 214, 156, .25);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(9, 25, 17, .18);
+  }
+  .hero-deck-card:hover, .hero-deck-card:focus-visible {
+    color: #FAF6EE;
+    background: #2B5741;
+    border-color: #B5D69C;
+    box-shadow: 0 8px 18px rgba(9, 25, 17, .22);
+  }
+  .deck-card-top, .deck-card-bottom { color: #D4E3C8; }
+  .deck-card-top b, .deck-card-top > span:last-child,
+  .deck-card-arrow, .product-panel-footer b { color: #B5D69C; }
+  .deck-card-title { color: #FAF6EE; }
+  .deck-card-description { color: #C7D6BE; }
+  .deck-card-bottom { color: #D9E8CD; }
+  .product-panel-footer { color: #D4E3C8; }
+  .panel-watermark { color: rgba(250, 246, 238, .035); }
+  .hero-footnote { color: #6E5A4F; }
+  .home-method { border-top-color: rgba(59, 40, 30, .16); }
+  .method-intro h2 { color: #3B281E; }
+  .method-intro h2 em, .step-number { color: #4A7039; }
+  .method-intro > p:last-child, .method-step p { color: #6E5A4F; }
+  .method-step { border-left-color: #D8D0C2; }
+  .home-principle { background: #EFE8D8; border-block-color: #DDD2BF; }
+  .home-principle .principle-inner > a { color: #1B3B2B; }
+  .home-principle .principle-inner > a:hover { color: #4A7039; }
+  @media (max-width: 600px) {
+    .home-hero { padding-block: 48px 52px; }
+    .hero-product-panel { box-shadow: 5px 5px 0 #C5D6B5; }
+  }
+
 </style>
