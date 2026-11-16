@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { siteBase } from '#lib/site.ts';
-  import { filterResources, formatResourceTitle, formatResourceType, type Creator, type Resource, type Subject, type Chapter } from '#lib/catalogue.ts';
+  import { filterResources, formatResourceTitle, formatResourceType, getResourcePreviewUrl, getResourceActionLabel, type Creator, type Resource, type Subject, type Chapter } from '#lib/catalogue.ts';
 
   let resources: Resource[] = [];
   let creators: Creator[] = [];
@@ -16,6 +16,20 @@
   let loading = true;
   let loadError = false;
   let filtered: Resource[] = [];
+  let openedPreviewIds: string[] = [];
+  let failedPreviewIds: string[] = [];
+
+  function showPreview(resourceId: string) {
+    openedPreviewIds = openedPreviewIds.includes(resourceId) ? openedPreviewIds : [...openedPreviewIds, resourceId];
+  }
+
+  function hidePreview(resourceId: string) {
+    openedPreviewIds = openedPreviewIds.filter((id) => id !== resourceId);
+  }
+
+  function markPreviewFailed(resourceId: string) {
+    failedPreviewIds = failedPreviewIds.includes(resourceId) ? failedPreviewIds : [...failedPreviewIds, resourceId];
+  }
 
   $: filtered = filterResources(resources, query, { subjectId, chapterId, creatorId, resourceType, sort }, creators, subjects, chapters);
   $: availableChapters = chapters.filter((chapter) => !subjectId || chapter.subjectId === subjectId);
@@ -114,37 +128,68 @@
       {#if resources.length > 0}<button type="button" class="retry-button" onclick={clearFilters}>Clear search and filters</button>{/if}
     </div>
   {:else}
+    <p class="resource-grid-intro">Start with the subject and file type. Select <strong>Show preview</strong> to load a thumbnail from the original source, or open the full resource.</p>
     <div class="resource-grid">
       {#each filtered as resource (resource.id)}
         {@const displayTitle = formatResourceTitle(resource.title)}
         {@const subjectName = subjects.find((subject) => subject.id === resource.subjectId)?.name ?? 'General'}
         {@const originalSource = resource.creatorId ? creatorById.get(resource.creatorId)?.name : undefined}
+        {@const previewUrl = getResourcePreviewUrl(resource)}
+        {@const actionLabel = getResourceActionLabel(resource, displayTitle.extension)}
         <article class="resource-card">
           <div class="resource-card-top">
             <span class="resource-subject">{subjectName}</span>
             <span class="resource-format" aria-label={displayTitle.extension ? `${displayTitle.extension} file` : `Resource type: ${resource.resourceType}`}>{displayTitle.extension ?? formatResourceType(resource.resourceType)}</span>
           </div>
+
+          <div class="resource-preview" aria-label="Resource preview area">
+            {#if openedPreviewIds.includes(resource.id)}
+              {#if failedPreviewIds.includes(resource.id)}
+                <div class="resource-preview-fallback" role="status">
+                  <span class="preview-file-icon">{displayTitle.extension ?? formatResourceType(resource.resourceType)}</span>
+                  <span>Preview unavailable. Open the original file to view it.</span>
+                </div>
+              {:else if previewUrl}
+                <img class="resource-preview-image" src={previewUrl} alt={`Thumbnail preview for ${displayTitle.title}`} loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror={() => markPreviewFailed(resource.id)} />
+                <span class="preview-origin">Thumbnail from original source</span>
+              {/if}
+              <button type="button" class="preview-toggle preview-toggle-open" onclick={() => hidePreview(resource.id)}>Hide preview</button>
+            {:else}
+              <div class="resource-preview-placeholder">
+                <span class="preview-file-icon" aria-hidden="true">{displayTitle.extension ?? formatResourceType(resource.resourceType)}</span>
+                <span class="preview-copy"><strong>File preview</strong><small>{previewUrl ? 'Load a thumbnail from the original file' : 'No thumbnail is available for this resource yet'}</small></span>
+              </div>
+              {#if previewUrl}
+                <button type="button" class="preview-toggle" onclick={() => showPreview(resource.id)}>Show preview</button>
+              {:else}
+                <span class="preview-unavailable">Preview not available</span>
+              {/if}
+            {/if}
+          </div>
+
           <h2>{displayTitle.title}</h2>
+          {#if resource.description}<p class="resource-description">{resource.description}</p>{/if}
           <div class="resource-byline">
-            {#if resource.description}<span>{resource.description}</span><span class="metadata-separator" aria-hidden="true">•</span>{/if}
-            <span>Source: <strong>{originalSource ?? 'Original publisher'}</strong></span>
+            <span>From <strong>{originalSource ?? 'Original publisher'}</strong></span>
             {#if resource.chapterId}<span class="metadata-separator" aria-hidden="true">•</span><span>{chapters.find((chapter) => chapter.id === resource.chapterId)?.name ?? 'Chapter'}</span>{/if}
           </div>
+
           <details class="resource-details">
-            <summary><span>Info</span><span class="info-plus" aria-hidden="true">+</span></summary>
+            <summary><span>More details</span><span class="details-hint">File information</span></summary>
             <dl>
-              <div><dt>Format</dt><dd>{displayTitle.extension ?? formatResourceType(resource.resourceType)}</dd></div>
-              <div><dt>Access</dt><dd>{resource.accessMethod === 'hosted' ? 'Hosted with permission' : resource.accessMethod === 'embed' ? 'Permitted embed' : 'Original external source'}</dd></div>
+              <div><dt>Subject</dt><dd>{subjectName}</dd></div>
+              <div><dt>Resource type</dt><dd>{formatResourceType(resource.resourceType)}</dd></div>
+              <div><dt>File format</dt><dd>{displayTitle.extension ?? 'Not specified'}</dd></div>
+              <div><dt>Original source</dt><dd>{originalSource ?? 'Not listed'}</dd></div>
+              <div><dt>Access</dt><dd>{resource.accessMethod === 'hosted' ? 'Hosted with permission' : resource.accessMethod === 'embed' ? 'Permitted external embed' : 'Opens at the original source'}</dd></div>
               {#if resource.fileSizeBytes}<div><dt>File size</dt><dd>{(resource.fileSizeBytes / 1048576).toFixed(2)} MB</dd></div>{/if}
               {#if resource.pageCount}<div><dt>Pages</dt><dd>{resource.pageCount}</dd></div>{/if}
               {#if resource.updatedAt}<div><dt>Updated</dt><dd>{resource.updatedAt}</dd></div>{/if}
             </dl>
-            {#if resource.accessMethod === 'embed'}
-              <div class="resource-embed"><iframe src={resource.sourceUrl} title={displayTitle.title} loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-presentation" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-            {/if}
           </details>
+
           <a class="resource-link" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer">
-            Open Resource <span aria-hidden="true">↗</span>
+            {actionLabel} <span aria-hidden="true">↗</span>
           </a>
         </article>
       {/each}
