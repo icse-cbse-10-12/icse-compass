@@ -44,13 +44,13 @@ export interface FormattedResourceTitle { title: string; extension: 'PDF' | 'PNG
 
 /** Converts a stored filename into a readable card title and a separate file-format badge. */
 export function formatResourceTitle(rawTitle: string): FormattedResourceTitle {
-  const cleaned = rawTitle.trim().replace(/^#+_+/, '').replace(/^[\\W_]+/, '');
-  const extensionMatch = cleaned.match(/\\.(pdf|png)$/i);
+  const cleaned = rawTitle.trim().replace(/^#+_+/, '').replace(/^[\W_]+/, '');
+  const extensionMatch = cleaned.match(/\.(pdf|png)$/i);
   const extension = extensionMatch ? extensionMatch[1].toUpperCase() as 'PDF' | 'PNG' : null;
   const title = cleaned
-    .replace(/\\.(pdf|png)$/i, '')
+    .replace(/\.(pdf|png)$/i, '')
     .replace(/_+/g, ' ')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
   return { title: title || rawTitle.trim(), extension };
 }
