@@ -4,12 +4,6 @@
 
   let searchQuery = $state('');
 
-  const indexCards = [
-    { num: '01', label: 'RESOURCE INDEX', title: 'Materials library', desc: 'Browse notes, worksheets and learning resources by subject and chapter.', cta: 'EXPLORE MATERIALS', href: `${siteBase}/materials/` },
-    { num: '02', label: 'SOURCE PROFILES', title: 'Educator sources', desc: 'Discover educator profiles and trace learning back to its original source.', cta: 'MEET EDUCATORS', href: `${siteBase}/creators/` },
-    { num: '03', label: 'PRACTICE INDEX', title: 'School papers', desc: 'Find school-level practice and exam papers when published in the index.', cta: 'VIEW PRACTICE', href: `${siteBase}/school-papers/` }
-  ];
-
   function handleSearch(event: SubmitEvent) {
     event.preventDefault();
     const query = searchQuery.trim();
@@ -18,42 +12,42 @@
 </script>
 
 <svelte:head>
-  <title>ICSE Compass | Find your next study source</title>
-  <meta name="description" content="An independent academic index for discovering ICSE learning resources, educator sources and school-level practice." />
+  <title>ICSE Compass | One clear next step for ICSE study</title>
+  <meta name="description" content="When the ICSE syllabus feels big, start with one subject or topic. Find learning resources and plan your next small study step with ICSE Compass." />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
   <meta property="og:title" content="ICSE Compass | Find your next study source" />
-  <meta property="og:description" content="Discover ICSE learning resources, original educator sources and school-level practice in one independent academic index." />
+  <meta property="og:description" content="Start with one subject or topic. Find learning resources and choose your next small study step." />
   <meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/" />
 </svelte:head>
 
 <main class="home-page">
   <section class="home-hero page-width" aria-labelledby="home-title">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="eyebrow-rule"></span> AN INDEPENDENT ACADEMIC INDEX <span class="eyebrow-year">FOR ICSE LEARNERS</span></p>
-      <h1 id="home-title">Your ICSE study sources,<br /><em>in one clear index.</em></h1>
-      <p class="hero-description">Find learning material by subject and chapter, discover the educators behind original sources, and prepare with clearer source attribution and permission context.</p>
+      <p class="eyebrow"><span class="eyebrow-rule"></span> A CALMER PLACE TO BEGIN <span class="eyebrow-year">FOR ICSE LEARNERS</span></p>
+      <h1 id="home-title">You don't have to study it all today.<br /><em>Start with one topic.</em></h1>
+      <p class="hero-description">When the syllabus feels big, don't begin with the whole thing. Pick one subject or search one topic. Find a useful resource, then decide what comes next.</p>
 
       <div class="hero-actions">
-        <a class="button button-primary home-primary" href={`${siteBase}/materials/`}>Browse materials <span aria-hidden="true">↗</span></a>
-        <a class="text-action" href={`${siteBase}/creators/`}>Explore educators <span aria-hidden="true">→</span></a>
+        <a class="button button-primary home-primary" href={`${siteBase}/materials/`}>Find a study resource <span aria-hidden="true">↗</span></a>
+        <a class="text-action" href={`${siteBase}/syllabus/`}>Set up my syllabus <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="hero-footnote"><span class="footnote-mark" aria-hidden="true">✳</span> Independent discovery. Original sources. Clear attribution.</div>
+      <div class="hero-footnote"><span class="footnote-mark" aria-hidden="true">✳</span> One subject. One resource. One next step.</div>
     </div>
 
     <aside class="hero-product-panel" aria-labelledby="hero-index-title">
       <div class="product-panel-heading">
         <div>
-          <span class="panel-kicker">THE ICSE COMPASS INDEX</span>
-          <h2 id="hero-index-title">A better place to begin.</h2>
+          <span class="panel-kicker">YOUR NEXT SMALL STEP</span>
+          <h2 id="hero-index-title">What are you studying today?</h2>
         </div>
-        <span class="panel-edition">01 <i>/</i> 03</span>
+        <span class="panel-edition">TAKE IT AT YOUR PACE</span>
       </div>
 
       <form class="hero-search-form" onsubmit={handleSearch}>
-        <label class="hero-search-label" for="homepage-search">Find a topic, chapter or source</label>
+        <label class="hero-search-label" for="homepage-search">Search a subject, chapter or resource</label>
         <div class="hero-search-field">
-          <input id="homepage-search" type="search" bind:value={searchQuery} placeholder="Search chapter, subject, or source…" aria-label="Search by subject, chapter or source" />
+          <input id="homepage-search" type="search" bind:value={searchQuery} placeholder="Try Physics, Biology, or a topic…" aria-label="Search by subject, chapter or source" />
           <button type="submit">Search <span aria-hidden="true">↗</span></button>
         </div>
       </form>
@@ -63,50 +57,38 @@
         <a class="subject-chemistry" href={`${siteBase}/materials/?q=Chemistry`}>Chemistry</a>
         <a class="subject-mathematics" href={`${siteBase}/materials/?q=Mathematics`}>Mathematics</a>
         <a class="subject-biology" href={`${siteBase}/materials/?q=Biology`}>Biology</a>
-        <a class="subject-history" href={`${siteBase}/materials/?q=History%20%26%20Civics`}>History &amp; Civics</a>
-        <a class="subject-computer" href={`${siteBase}/materials/?q=Computer`}>Computer</a>
+        <a class="subject-english" href={`${siteBase}/materials/?q=English%20Paper%202`}>English Paper 2</a>
       </nav>
 
-      <nav class="hero-card-deck" aria-label="Explore the ICSE Compass index">
-        {#each indexCards as card}
-          <a class="hero-deck-card" href={card.href}>
-            <span class="deck-card-top"><span><b>{card.num}</b> / {card.label}</span><span aria-hidden="true">↗</span></span>
-            <span class="deck-card-content">
-              <span class="deck-card-title">{card.title}</span>
-              <span class="deck-card-description">{card.desc}</span>
-            </span>
-            <span class="deck-card-bottom"><span>{card.cta}</span><span class="deck-card-arrow" aria-hidden="true">↗</span></span>
-          </a>
-        {/each}
-      </nav>
-
-      <div class="product-panel-footer"><span>INDEPENDENT BY DESIGN</span><span>FOLLOW THE SOURCE <b>↗</b></span></div>
-      <span class="panel-watermark" aria-hidden="true">C</span>
+      <div class="hero-quick-links" aria-label="Other ways to get started">
+        <a href={`${siteBase}/materials/`}>Browse all materials <span aria-hidden="true">↗</span></a>
+        <a href={`${siteBase}/syllabus/`}>Make a simple chapter list <span aria-hidden="true">↗</span></a>
+      </div>
     </aside>
   </section>
 
   <section class="home-method page-width" aria-labelledby="method-title">
     <div class="method-intro">
-      <p class="eyebrow"><span class="eyebrow-rule"></span> A MORE CONSIDERED WAY TO STUDY</p>
-      <h2 id="method-title">Find it. Trace it.<br /><em>Make it useful.</em></h2>
-      <p>Good study material is easier to use when its subject, context and original source are clear. Compass brings those details closer together.</p>
+      <p class="eyebrow"><span class="eyebrow-rule"></span> NO PERFECT PLAN REQUIRED</p>
+      <h2 id="method-title">Make the next step<br /><em>small and clear.</em></h2>
+      <p>If the whole syllabus feels too big, use Compass for one small decision: what subject, what resource, and what to do next.</p>
     </div>
 
     <div class="method-steps">
       <div class="method-step">
-        <span class="step-number">01 <i>—</i> DISCOVER</span>
-        <h3>Start with the subject.</h3>
-        <p>Browse the materials index by the topic, chapter or format you need.</p>
+        <span class="step-number">01 <i>—</i> CHOOSE</span>
+        <h3>Pick one subject.</h3>
+        <p>Start with the subject you have in front of you today.</p>
       </div>
       <div class="method-step">
-        <span class="step-number">02 <i>—</i> TRACE</span>
-        <h3>Know where it came from.</h3>
-        <p>Explore educator profiles and follow resources back to their original sources.</p>
+        <span class="step-number">02 <i>—</i> FIND</span>
+        <h3>Find one useful resource.</h3>
+        <p>Search by subject, topic, chapter or resource type.</p>
       </div>
       <div class="method-step">
         <span class="step-number">03 <i>—</i> CONTINUE</span>
-        <h3>Choose your next step.</h3>
-        <p>Move from discovery to school-level practice when verified papers are available.</p>
+        <h3>Decide what comes next.</h3>
+        <p>Use the syllabus tracker to record your own chapters and learning state on this device.</p>
       </div>
     </div>
   </section>
@@ -114,7 +96,7 @@
   <section class="home-principle" aria-label="ICSE Compass principle">
     <div class="page-width principle-inner">
       <span class="principle-mark" aria-hidden="true">“</span>
-      <p>Good study starts with <em>good sources.</em></p>
+      <p>You don't need the perfect plan. Just choose <em>a clear next step.</em></p>
       <a href={`${siteBase}/materials/`}>Explore the index <span aria-hidden="true">↗</span></a>
     </div>
   </section>
