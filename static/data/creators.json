@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "icse-masterclass",
+    "name": "ICSE MasterClass",
+    "description": "Original learning resources published by ICSE MasterClass for ICSE Class 10.",
+    "platform": "YouTube",
+    "profileUrl": "https://www.youtube.com/@ICSEMasterClass10",
+    "status": "published"
+  }
+]

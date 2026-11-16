@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "biology",
+    "name": "Biology",
+    "sortOrder": 1,
+    "status": "published"
+  },
+  {
+    "id": "chemistry",
+    "name": "Chemistry",
+    "sortOrder": 2,
+    "status": "published"
+  },
+  {
+    "id": "english-paper-2",
+    "name": "English Paper 2",
+    "sortOrder": 3,
+    "status": "published"
+  },
+  {
+    "id": "mathematics",
+    "name": "Mathematics",
+    "sortOrder": 4,
+    "status": "published"
+  },
+  {
+    "id": "physics",
+    "name": "Physics",
+    "sortOrder": 5,
+    "status": "published"
+  }
+]
