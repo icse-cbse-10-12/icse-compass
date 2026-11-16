@@ -11,11 +11,13 @@ ICSE Compass is not affiliated with, endorsed by, or an official product of CISC
 - Overview: https://icse-cbse-10-12.github.io/icse-compass/
 - Materials Library: https://icse-cbse-10-12.github.io/icse-compass/materials/
 - Educator directory: https://icse-cbse-10-12.github.io/icse-compass/creators/
+- Syllabus Tracker: https://icse-cbse-10-12.github.io/icse-compass/syllabus/
+- Chapter Player: https://icse-cbse-10-12.github.io/icse-compass/chapter-player/
 - Privacy information: https://icse-cbse-10-12.github.io/icse-compass/privacy/
 
 ## Content availability
 
-The Materials Library and Educator directory are catalogue interfaces. A listing appears only after an item has been reviewed and published. At the time this file was updated, the public catalogue JSON files contain no published records. Do not infer or invent resource titles, educator profiles, file sizes, school papers, download links, or availability.
+The Materials Library, Educator directory, Chapter Player and Syllabus Tracker are catalogue and local-study interfaces. A listing appears only after an item has been reviewed and published. At the time this file was updated, the public catalogue JSON files contain no published records. Do not infer or invent resource titles, educator profiles, file sizes, school papers, download links, or availability.
 
 The School Papers page is a foundation view and is intentionally excluded from search indexing and the XML sitemap until verified paper listings are available.
 
@@ -29,4 +31,4 @@ The app does not require student accounts or personal profile details. It does n
 
 ## Technical notes
 
-The site is statically rendered and hosted as a GitHub Pages project site. Public assets and catalogue feeds may be cached locally by the PWA service worker. Student-specific data is not sent to the server.
+The site is statically rendered and hosted as a GitHub Pages project site. Public assets and catalogue feeds may be cached locally by the PWA service worker. Student-specific syllabus structure and progress are stored only in browser local storage and are not sent to the server. The Syllabus Tracker starts without preloaded chapter records; learners add the chapter structure from their school's prescribed syllabus. The Chapter Player displays only published catalogue resources and permitted embeds.

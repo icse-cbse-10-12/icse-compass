@@ -75,8 +75,12 @@
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 3.5h10l4 4v13H5v-17Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 3.5v4h4M8 12h8M8 15.5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         {:else if route.shortLabel === 'Educators'}
           <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c.7-3.7 3.2-5.5 7.5-5.5s6.8 1.8 7.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        {:else}
+        {:else if route.shortLabel === 'Papers'}
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {:else if route.shortLabel === 'Syllabus'}
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 4.5h14v15H5zM8.5 9l1.8 1.8L14.5 7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {:else if route.shortLabel === 'Player'}
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4zM10 8l6 4-6 4V8Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         {/if}
       </span>
       <span>{route.shortLabel}</span>

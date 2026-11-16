@@ -59,6 +59,8 @@ jobs:
           test -s build/materials/index.html
           test -s build/creators/index.html
           test -s build/school-papers/index.html
+          test -s build/syllabus/index.html
+          test -s build/chapter-player/index.html
           test -s build/privacy/index.html
           test -s build/404.html
           test -s build/manifest.webmanifest
@@ -74,6 +76,8 @@ jobs:
           test -f build/.nojekyll
           grep -Fq 'ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE.' build/index.html
           grep -Fq 'Your study space should stay yours.' build/privacy/index.html
+          grep -Fq 'https://icse-cbse-10-12.github.io/icse-compass/syllabus/' build/sitemap.xml
+          grep -Fq 'https://icse-cbse-10-12.github.io/icse-compass/chapter-player/' build/sitemap.xml
           grep -Fq 'https://icse-cbse-10-12.github.io/icse-compass/privacy/' build/sitemap.xml
           grep -Fq 'https://icse-cbse-10-12.github.io/icse-compass/privacy/' build/llms.txt
           if grep -RniE 'fonts\.googleapis\.com|fonts\.gstatic\.com|hotjar|clarity\.ms|googletagmanager\.com|google-analytics\.com|doubleclick\.net|connect\.facebook\.net|segment\.io|fullstory\.com' src static; then echo 'External font or tracking endpoint found in first-party source.'; exit 1; fi
