@@ -11,7 +11,7 @@ export default defineConfig({
       {
         adapter: adapter({ pages: 'build', assets: 'build', fallback: '404.html', precompress: true, strict: true }),
         paths: { base: '/icse-compass' },
-        prerender: { entries: ['/', '/materials/', '/creators/', '/school-papers/', '/privacy/'] },
+        prerender: { entries: ['/', '/materials/', '/creators/', '/school-papers/', '/syllabus/', '/chapter-player/', '/privacy/'] },
         preprocess: vitePreprocess()
       },
       {

@@ -346,8 +346,8 @@ h1, h2, h3, p { text-wrap: pretty; }
   .privacy-page .privacy-intro { font-size: 13px; }
   .independence-notice { width: calc(100% - 36px); margin-bottom: 15px; }
   .footer { align-items: flex-start; flex-direction: column; gap: 6px; min-height: 95px; padding: 14px 18px; }
-  .mobile-nav { position: fixed; z-index: 40; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, 1fr); min-height: calc(64px + env(safe-area-inset-bottom)); padding: 5px 7px calc(5px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: rgba(255, 255, 255, .98); }
-  .mobile-nav a { display: flex; min-height: 50px; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #62695f; font-size: 8px; font-weight: 700; }
+  .mobile-nav { position: fixed; z-index: 40; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); min-height: calc(64px + env(safe-area-inset-bottom)); padding: 5px 7px calc(5px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: rgba(255, 255, 255, .98); }
+  .mobile-nav a { display: flex; min-height: 50px; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #62695f; font-size: 7px; font-weight: 700; }
   .mobile-nav a:hover, .mobile-nav a[aria-current="page"] { color: var(--green); }
   .mobile-nav a[aria-current="page"] .mobile-nav-icon { background: #e9ede5; border-radius: 50%; }
   .mobile-nav-icon { display: grid; width: 20px; height: 20px; place-items: center; }
