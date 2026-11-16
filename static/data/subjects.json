@@ -28,5 +28,29 @@
     "name": "Physics",
     "sortOrder": 5,
     "status": "published"
+  },
+  {
+    "id": "computer-applications",
+    "name": "Computer Applications",
+    "sortOrder": 6,
+    "status": "published"
+  },
+  {
+    "id": "english-paper-1",
+    "name": "English Paper 1",
+    "sortOrder": 7,
+    "status": "published"
+  },
+  {
+    "id": "geography",
+    "name": "Geography",
+    "sortOrder": 8,
+    "status": "published"
+  },
+  {
+    "id": "history-civics",
+    "name": "History & Civics",
+    "sortOrder": 9,
+    "status": "published"
   }
 ]

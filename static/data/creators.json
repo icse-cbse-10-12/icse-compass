@@ -6,5 +6,29 @@
     "platform": "YouTube",
     "profileUrl": "https://www.youtube.com/@ICSEMasterClass10",
     "status": "published"
+  },
+  {
+    "id": "wiseplex",
+    "name": "WisePlex",
+    "description": "Resources credited to WisePlex in the ICSE MasterClass Student OS resource database.",
+    "platform": "YouTube",
+    "profileUrl": "https://www.youtube.com/@WisePlexForICSE",
+    "status": "published"
+  },
+  {
+    "id": "cisce",
+    "name": "CISCE",
+    "description": "Resources credited to CISCE in the ICSE MasterClass Student OS resource database.",
+    "platform": "Web",
+    "profileUrl": "https://www.cisce.org/",
+    "status": "published"
+  },
+  {
+    "id": "nikita-singh",
+    "name": "Nikita Singh",
+    "description": "Resources credited to Nikita Singh in the ICSE MasterClass Student OS resource database.",
+    "platform": "YouTube",
+    "profileUrl": "https://www.youtube.com/channel/UCRxcUj_49Nhd3No1iwIVKlA",
+    "status": "published"
   }
 ]
