@@ -11,7 +11,7 @@
   <p class="eyebrow">ICSE COMPASS · PRIVACY</p>
   <h1>Your study space should stay yours.</h1>
   <p class="privacy-intro">ICSE Compass is designed for school learners, including students under 18. The app does not ask students to create accounts or submit personal details to use its public learning pages.</p>
-  <p class="privacy-updated">Last updated: 14 November 2026</p>
+  <p class="privacy-updated">Last updated: 16 November 2026</p>
 
   <section class="privacy-section">
     <h2>What the app does not collect</h2>
