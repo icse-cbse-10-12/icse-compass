@@ -321,20 +321,20 @@
   }
   .hero-search-field input { color: #3B281E; }
   .hero-search-field input::placeholder { color: #7A685D; }
-  .hero-search-field button { color: #fff; background: #5C8347; }
+  .hero-search-field button { min-height: 44px; color: #fff; background: #5C8347; }
   .hero-search-field button:hover { background: #4A6D38; }
   .hero-search-field input:focus-visible { outline-color: #9EC484; }
   .hero-search-field button:focus-visible,
   .subject-shortcuts a:focus-visible,
   .hero-deck-card:focus-visible { outline-color: #B5D69C; }
   .subject-shortcuts a {
-    min-height: 32px;
-    padding: 6px 11px;
+    min-height: 44px;
+    padding: 8px 11px;
     color: #3B281E;
     background: #EFE8D8;
     border: 1px solid rgba(59, 40, 30, .2);
     border-radius: 10px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .subject-shortcuts .subject-physics { color: #2E6F73; background: #E6EFEB; border-color: #C7DCD6; }
   .subject-shortcuts .subject-chemistry { color: #3B5948; background: #E8F0E4; border-color: #CFDEC7; }
