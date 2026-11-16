@@ -362,3 +362,70 @@ h1, h2, h3, p { text-wrap: pretty; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .state-spinner { animation: none; }
 }
+
+
+/* ICSE Compass student-first palette: warm paper, calm green, readable espresso. */
+:root {
+  color-scheme: light; color: #2B211A; background: #F7F3E8;
+  --paper:#F7F3E8; --paper-light:#FFFCF5; --white:#FFFFFF;
+  --ink:#2B211A; --ink-soft:#57493E; --navy:#2B211A; --terracotta:#C86D51;
+  --green:#527B5C; --green-dark:#38583F; --sage:#E4EBDD; --sage-deep:#C9D8C2;
+  --sand:#EFE9D8; --muted:#65584D; --muted-light:#817568;
+  --line:#E2DACA; --line-strong:#CEC4B2;
+  --shadow-soft:0 12px 32px rgba(43,33,26,.055);
+}
+body{color:var(--ink);background:var(--paper)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline-color:#527B5C}
+.topbar{background:rgba(247,243,232,.97);border-bottom-color:var(--line)}
+.brand-mark{color:var(--green)}.brand-name{color:var(--ink)}.brand-caption{color:var(--muted)}
+.nav-link{color:#65584D}.nav-link:hover,.nav-link[aria-current="page"]{color:var(--green-dark);background:rgba(82,123,92,.09)}
+.nav-link[aria-current="page"]{box-shadow:inset 0 -2px 0 var(--green)}.public-label{color:var(--green-dark)}
+.page-heading h1,.simple-page h1{color:var(--ink)}.page-intro{color:var(--muted)}
+.heading-aside{border-left-color:var(--sage-deep);color:var(--muted)}
+.heading-aside strong,.back-link,.footer-link{color:var(--green-dark)}
+.button-primary{background:var(--green)}.button-primary:hover{background:var(--green-dark)}
+.catalogue-tools{background:#F1EBDD;border-color:var(--line)}
+.search-row,.filter-grid select{background:#FFFCF5;border-color:#D8D0C1;color:var(--ink)}
+.search-row svg,.filter-grid label{color:var(--green-dark)}
+.filter-heading,.results-toolbar{color:var(--muted)}
+.clear-button,.retry-button{background:#E4EBDD;border-color:#C9D8C2;color:var(--green-dark)}
+.clear-button:hover,.retry-button:hover{background:#DCE8D7}
+.catalogue-state,.creator-state{background:#E9F0E4;border-color:#D2DECC}
+.catalogue-state strong,.creator-state strong{color:var(--ink)}
+.catalogue-state p,.creator-state p{color:var(--muted)}
+.state-kicker,.resource-type,.creator-card .platform,.resource-link{color:var(--green-dark)}
+.state-spinner{border-color:#D2DECC;border-top-color:var(--green)}
+.resource-card,.creator-card{background:#FFFCF5;border-color:var(--line)}
+.resource-card h2,.creator-card h2{color:var(--ink)}
+.resource-card>p,.creator-card>p:not(.platform){color:var(--muted)}
+.resource-details{border-color:var(--line)}.resource-details summary{color:var(--green-dark)}
+.resource-details dd{color:var(--ink)}
+.creator-monogram{color:var(--green-dark);background:#E9F0E4;border-color:#D2DECC}
+.creator-actions{border-top-color:var(--line)}.creator-actions a,.creator-state a{color:var(--green-dark)}
+.educator-hero{background:#E9F0E4;border-color:#D2DECC}
+.educator-hero h1{color:var(--ink)}.educator-hero .intro{color:var(--muted)}
+.educator-hero .platform{color:var(--green-dark)}
+.study-page{color:var(--ink)}.study-page .page-heading h1{color:var(--ink)}
+.study-page .page-intro{color:var(--muted)}.study-kicker{color:var(--green-dark)}
+.study-summary,.structure-panel,.revision-panel{background:#FFFCF5;border-color:var(--line)}
+.study-summary{background:#E9F0E4}
+.study-summary .summary-main strong,.chapter-workspace-heading h3{color:var(--ink)}
+.study-summary .summary-main>span:last-of-type{color:var(--muted)}
+.study-button{background:var(--green)}.study-button:hover{background:var(--green-dark)}
+.study-button.secondary{color:var(--green-dark);background:#E4EBDD;border-color:#C9D8C2}
+.player-selectors{background:#EFE9D8;border-color:var(--line)}
+.player-state,.study-state{background:#E9F0E4;border-color:#D2DECC;color:var(--ink)}
+.player-state p,.study-state p{color:var(--muted)}
+.chapter-context,.chapter-workspace-heading,.resource-section{border-color:var(--line)}
+.resource-section,.player-sidebar{background:#FFFCF5}
+.chapter-resource{border-color:var(--line)}.chapter-resource:hover{background:#F1EBDD}
+.revision-count{color:var(--green-dark);background:#E4EBDD}
+.revision-empty,.study-footnote{color:var(--muted)}
+.independence-notice{background:#EFE9D8;border-color:var(--line);color:var(--muted)}
+.independence-notice strong{color:var(--green-dark)}
+.footer{background:#F7F3E8;border-top-color:var(--line);color:var(--muted-light)}
+.footer-brand{color:var(--ink)}.footer-link:hover{color:var(--ink)}
+.mobile-nav{background:rgba(255,252,245,.98);border-top-color:var(--line)}
+.mobile-nav a{color:#65584D}
+.mobile-nav a:hover,.mobile-nav a[aria-current="page"]{color:var(--green-dark)}
+.mobile-nav a[aria-current="page"] .mobile-nav-icon{background:#E4EBDD;border-radius:10px}
