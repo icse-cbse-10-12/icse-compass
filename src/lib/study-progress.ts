@@ -23,6 +23,6 @@ export function getStudySummary(chapters:Chapter[],progress:Record<string,StudyS
  s.percent=s.total?Math.round(s.completed/s.total*100):0;return s;
 }
 export function createLocalId(prefix:string,name:string,existingIds:string[]):string{
- const slug=name.trim().toLocaleLowerCase('en-IN').normalize('NFKD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'item';
+ const slug=name.trim().toLocaleLowerCase('en-IN').normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'item';
  const base=prefix+'-'+slug;let id=base;let n=2;while(existingIds.includes(id)){id=base+'-'+n;n++;}return id;
 }

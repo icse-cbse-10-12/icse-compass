@@ -20,8 +20,8 @@
 
   <section class="privacy-section">
     <h2>Study data stays on your device</h2>
-    <p>When saved study links and paper checklists are introduced, they are intended to be stored in your browser on the device you use: IndexedDB for saved items and localStorage only for small preferences. They will not be sent to an ICSE Compass account or synchronised to a server. These student workspace features are not part of the current foundation release.</p>
-    <p>The installable app may cache public site files and public catalogue feeds on your device for offline access. The service-worker cache is for public content, not student profiles or personal study records. Clearing this site's browser storage removes its local app data and offline cache.</p>
+    <p>The Syllabus Tracker stores the subject names, chapter names and progress states you add in localStorage on the device you use. The Chapter Player stores the learning state you select for a chapter in the same way. This information is not sent to an ICSE Compass account or synchronised to a server. It remains in that browser until you clear the site's storage or remove the data yourself.</p>
+    <p>The installable app may cache public site files and public catalogue feeds on your device for offline access. The service-worker cache is for public content, not student progress. Local syllabus and learning-state data is separate from the public-content cache. Clearing this site's browser storage can remove your local study data and offline cache.</p>
   </section>
 
   <section class="privacy-section">
@@ -44,6 +44,6 @@
     <p>We avoid collecting children's personal data and do not use tracking, behavioural monitoring, or targeted advertising. Any future feature that would process personal data will require a separate privacy and legal review, clear purpose and data-minimisation controls, and any consent or safeguards required by applicable Indian law before release.</p>
   </section>
 
-  <p class="privacy-disclaimer">This page describes the current app design and planned device-only storage approach. It is not a legal certification or a guarantee about the separate services linked above.</p>
+  <p class="privacy-disclaimer">This page describes the current app design and device-only study-data storage approach. It is not a legal certification or a guarantee about the separate services linked above.</p>
   <a class="text-link" href="{siteBase}/">← Return to overview</a>
 </main>

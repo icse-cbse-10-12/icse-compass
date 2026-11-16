@@ -5,7 +5,7 @@
   import { STUDY_STORAGE_KEY, emptyStudySnapshot, getChapterStatus, mergeStudyStructure, parseStudySnapshot, type StudySnapshot, type StudyStatus } from '#lib/study-progress.ts';
 
   const statusOptions: { value: StudyStatus; label: string }[] = [
-    { value: 'learning', label: 'Learning' }, { value: 'practised', label: 'Practised' },
+    { value: 'not-started', label: 'Not started' }, { value: 'learning', label: 'Learning' }, { value: 'practised', label: 'Practised' },
     { value: 'completed', label: 'Completed' }, { value: 'needs-revision', label: 'Needs revision' }
   ];
   let catalogueSubjects = $state<Subject[]>([]);
