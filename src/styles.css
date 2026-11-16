@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap");\n@import "tailwindcss";
 
 :root {
   font-family: Inter, "Avenir Next", Avenir, "Segoe UI", sans-serif;
@@ -429,3 +429,141 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 .mobile-nav a{color:#65584D}
 .mobile-nav a:hover,.mobile-nav a[aria-current="page"]{color:var(--green-dark)}
 .mobile-nav a[aria-current="page"] .mobile-nav-icon{background:#E4EBDD;border-radius:10px}
+
+
+/* Resource index cards — tactile editorial treatment. */
+.catalogue-page { background: #F3EFE6; }
+.resource-grid { gap: 16px; }
+.resource-card {
+  min-height: 238px;
+  padding: 18px 18px 16px;
+  background: #FAF7F0;
+  border: 1px solid #D8D0C0;
+  border-bottom: 2px solid #C5BBA7;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: border-color .18s ease, transform .18s ease, background-color .18s ease;
+}
+.resource-card:hover,
+.resource-card:focus-within {
+  border-color: #7C9E7A;
+  border-bottom-color: #7C9E7A;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+.resource-card-top { min-height: 27px; }
+.resource-subject {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #E3ECE2;
+  color: #2B462A;
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: left;
+}
+.resource-format {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid #D8D0C0;
+  background: #F1EBDD;
+  color: #5C4F42;
+  font-family: "DM Sans", sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .9px;
+}
+.resource-card h2 {
+  display: -webkit-box;
+  min-height: 2.5em;
+  margin: 14px 0 8px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  color: #2B211A;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.35px;
+}
+.resource-byline {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  min-height: 30px;
+  margin-top: 4px;
+  color: #5C4F42;
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  line-height: 1.55;
+}
+.resource-byline strong { color: #2B211A; font-weight: 700; }
+.metadata-separator { color: #9A8E7E; }
+.resource-details {
+  align-self: flex-start;
+  margin-top: 12px;
+  border: 0;
+}
+.resource-details summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 29px;
+  padding: 0 10px;
+  border: 1px solid #D8D0C0;
+  border-radius: 999px;
+  background: #F1EBDD;
+  color: #5C4F42;
+  font-family: "DM Sans", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+}
+.resource-details summary::after { content: none; }
+.resource-details .info-plus { color: #527B5C; font-size: 13px; line-height: 1; }
+.resource-details[open] summary .info-plus { transform: rotate(45deg); }
+.resource-details dl { min-width: 0; margin: 10px 0 0; padding: 9px 11px; border: 1px solid #E4DDCF; background: #F6F1E7; }
+.resource-details dl div { font-family: "DM Sans", sans-serif; font-size: 9px; }
+.resource-details dt { color: #75695D; }
+.resource-details dd { color: #2B211A; }
+.resource-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 42px;
+  margin-top: 13px;
+  padding: 0 13px;
+  border: 1px solid #2B211A;
+  border-radius: 3px;
+  background: #2B211A;
+  color: #FAF7F0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1px;
+  transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+}
+.resource-link span { font-size: 14px; }
+.resource-link:hover { border-color: #38583F; background: #38583F; color: #FFFFFF; transform: translateY(-1px); }
+@media (max-width: 620px) {
+  .resource-grid { gap: 10px; }
+  .resource-card { min-height: 230px; padding: 13px 12px 12px; }
+  .resource-card h2 { min-height: 2.5em; margin-top: 12px; font-size: 14px; }
+  .resource-subject { max-width: 72%; padding-inline: 8px; font-size: 9px; }
+  .resource-format { padding-inline: 6px; font-size: 7px; }
+  .resource-byline { font-size: 9px; }
+  .resource-link { min-height: 44px; padding-inline: 10px; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .resource-card, .resource-link { transition: none; }
+}

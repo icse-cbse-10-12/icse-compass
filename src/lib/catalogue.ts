@@ -38,3 +38,31 @@ export function filterResources(resources: Resource[], query: string, filters: R
   });
   return scored.map(({ resource }) => resource);
 }
+
+
+export interface FormattedResourceTitle { title: string; extension: 'PDF' | 'PNG' | null }
+
+/** Converts a stored filename into a readable card title and a separate file-format badge. */
+export function formatResourceTitle(rawTitle: string): FormattedResourceTitle {
+  const cleaned = rawTitle.trim().replace(/^#+_+/, '').replace(/^[\\W_]+/, '');
+  const extensionMatch = cleaned.match(/\\.(pdf|png)$/i);
+  const extension = extensionMatch ? extensionMatch[1].toUpperCase() as 'PDF' | 'PNG' : null;
+  const title = cleaned
+    .replace(/\\.(pdf|png)$/i, '')
+    .replace(/_+/g, ' ')
+    .replace(/\\s+/g, ' ')
+    .trim();
+  return { title: title || rawTitle.trim(), extension };
+}
+
+export function formatResourceType(resourceType: ResourceType): string {
+  const labels: Record<ResourceType, string> = {
+    pdf: 'PDF',
+    video: 'VIDEO',
+    website: 'WEB',
+    notes: 'NOTES',
+    'practice-paper': 'PAPER',
+    other: 'RESOURCE'
+  };
+  return labels[resourceType];
+}

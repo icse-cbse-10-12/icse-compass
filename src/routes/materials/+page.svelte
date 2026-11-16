@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { siteBase } from '#lib/site.ts';
-  import { filterResources, type Creator, type Resource, type Subject, type Chapter } from '#lib/catalogue.ts';
+  import { filterResources, formatResourceTitle, formatResourceType, type Creator, type Resource, type Subject, type Chapter } from '#lib/catalogue.ts';
 
   let resources: Resource[] = [];
   let creators: Creator[] = [];
@@ -117,31 +117,34 @@
     <div class="resource-grid">
       {#each filtered as resource (resource.id)}
         <article class="resource-card">
+          {@const displayTitle = formatResourceTitle(resource.title)}
+          {@const subjectName = subjects.find((subject) => subject.id === resource.subjectId)?.name ?? 'General'}
+          {@const originalSource = resource.creatorId ? creatorById.get(resource.creatorId)?.name : undefined}
           <div class="resource-card-top">
-            <span class="resource-type">{resource.resourceType.replace('-', ' ')}</span>
-            {#if resource.subjectId}<span class="resource-subject">{subjects.find((subject) => subject.id === resource.subjectId)?.name ?? 'Subject'}</span>{/if}
+            <span class="resource-subject">{subjectName}</span>
+            <span class="resource-format" aria-label={displayTitle.extension ? `${displayTitle.extension} file` : `Resource type: ${resource.resourceType}`}>{displayTitle.extension ?? formatResourceType(resource.resourceType)}</span>
           </div>
-          <h2>{resource.title}</h2>
-          {#if resource.description}<p>{resource.description}</p>{/if}
+          <h2>{displayTitle.title}</h2>
           <div class="resource-byline">
-            {#if resource.creatorId && creatorById.has(resource.creatorId)}Original source: <strong>{creatorById.get(resource.creatorId)?.name}</strong>{:else}Original source attribution{/if}
-            {#if resource.chapterId}<span> · {chapters.find((chapter) => chapter.id === resource.chapterId)?.name ?? 'Chapter'}</span>{/if}
+            {#if resource.description}<span>{resource.description}</span><span class="metadata-separator" aria-hidden="true">•</span>{/if}
+            <span>Source: <strong>{originalSource ?? 'Original publisher'}</strong></span>
+            {#if resource.chapterId}<span class="metadata-separator" aria-hidden="true">•</span><span>{chapters.find((chapter) => chapter.id === resource.chapterId)?.name ?? 'Chapter'}</span>{/if}
           </div>
           <details class="resource-details">
-            <summary>Resource information</summary>
+            <summary><span>Info</span><span class="info-plus" aria-hidden="true">+</span></summary>
             <dl>
-              <div><dt>Format</dt><dd>{resource.resourceType.replace('-', ' ')}</dd></div>
+              <div><dt>Format</dt><dd>{displayTitle.extension ?? formatResourceType(resource.resourceType)}</dd></div>
               <div><dt>Access</dt><dd>{resource.accessMethod === 'hosted' ? 'Hosted with permission' : resource.accessMethod === 'embed' ? 'Permitted embed' : 'Original external source'}</dd></div>
               {#if resource.fileSizeBytes}<div><dt>File size</dt><dd>{(resource.fileSizeBytes / 1048576).toFixed(2)} MB</dd></div>{/if}
               {#if resource.pageCount}<div><dt>Pages</dt><dd>{resource.pageCount}</dd></div>{/if}
               {#if resource.updatedAt}<div><dt>Updated</dt><dd>{resource.updatedAt}</dd></div>{/if}
             </dl>
             {#if resource.accessMethod === 'embed'}
-              <div class="resource-embed"><iframe src={resource.sourceUrl} title={resource.title} loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-presentation" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+              <div class="resource-embed"><iframe src={resource.sourceUrl} title={displayTitle.title} loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-presentation" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
             {/if}
           </details>
           <a class="resource-link" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer">
-            {resource.accessMethod === 'hosted' ? 'Open authorised resource' : resource.accessMethod === 'embed' ? 'Open permitted resource' : 'Visit original source'} <span aria-hidden="true">↗</span>
+            Open Resource <span aria-hidden="true">↗</span>
           </a>
         </article>
       {/each}

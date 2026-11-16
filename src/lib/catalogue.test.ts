@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { filterResources } from './catalogue';
+import { filterResources, formatResourceTitle, formatResourceType } from './catalogue';
 import { validateCatalogue } from '../../scripts/catalogue-validation.mjs';
 import type { CatalogueData, Resource } from './catalogue';
 const creator = { id: 'c1', name: 'Verified Educator', description: '', platform: 'YouTube', profileUrl: 'https://example.com/channel', status: 'published' as const };
@@ -18,4 +18,18 @@ describe('public catalogue validation', () => {
   it('rejects duplicate IDs and missing references', () => { const errors = validateCatalogue({ ...catalogue, resources: [resource, resource], chapters: [{ ...chapter, subjectId: 'missing' }] }); expect(errors.some((error) => error.includes('Duplicate resource id'))).toBe(true); expect(errors.some((error) => error.includes('missing subject'))).toBe(true); });
   it('blocks unauthorised hosting and non-HTTPS links', () => { const bad = { ...resource, sourceUrl: 'http://example.com/file', accessMethod: 'hosted' as const, hostingPermission: 'not-authorized' as const }; const errors = validateCatalogue({ ...catalogue, resources: [bad] }); expect(errors.some((error) => error.includes('HTTPS'))).toBe(true); expect(errors.some((error) => error.includes('permission'))).toBe(true); });
   it('requires explicit permission for embeds', () => { const bad = { ...resource, accessMethod: 'embed' as const, embedAllowed: false }; expect(validateCatalogue({ ...catalogue, resources: [bad] }).some((error) => error.includes('embed permission'))).toBe(true); });
+});
+
+
+describe('resource card title formatting', () => {
+  it('cleans filename prefixes, underscores and PDF extensions', () => {
+    expect(formatResourceTitle('##_High_Priority_Topics.pdf')).toEqual({ title: 'High Priority Topics', extension: 'PDF' });
+  });
+  it('moves PNG extensions into a badge and preserves ordinary titles', () => {
+    expect(formatResourceTitle('##_Cell_Diagram.PNG')).toEqual({ title: 'Cell Diagram', extension: 'PNG' });
+    expect(formatResourceTitle('Algebra notes')).toEqual({ title: 'Algebra notes', extension: null });
+  });
+  it('uses a readable badge when no filename extension exists', () => {
+    expect(formatResourceType('notes')).toBe('NOTES');
+  });
 });
