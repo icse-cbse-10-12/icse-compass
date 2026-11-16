@@ -44,15 +44,15 @@ export interface FormattedResourceTitle { title: string; extension: string | nul
 
 /** Cleans common filenames while keeping a readable, separate format badge. */
 export function formatResourceTitle(rawTitle: string): FormattedResourceTitle {
-  const cleaned = rawTitle.trim().replace(/^#+_+/, '').replace(/^[\\W_]+/, '');
-  const extensionMatch = cleaned.match(/\\.([a-z0-9]{2,5})$/i);
+  const cleaned = rawTitle.trim().replace(/^#+_+/, '').replace(/^[\W_]+/, '');
+  const extensionMatch = cleaned.match(/\.([a-z0-9]{2,5})$/i);
   const knownExtensions = new Set(['pdf', 'png', 'jpg', 'jpeg', 'webp', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'mp3', 'm4a', 'mp4']);
   const extension = extensionMatch && knownExtensions.has(extensionMatch[1].toLowerCase())
     ? extensionMatch[1].toUpperCase()
     : null;
-  const title = (extension ? cleaned.replace(/\\.[a-z0-9]{2,5}$/i, '') : cleaned)
+  const title = (extension ? cleaned.replace(/\.[a-z0-9]{2,5}$/i, '') : cleaned)
     .replace(/_+/g, ' ')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
   return { title: title || rawTitle.trim(), extension };
 }
@@ -83,9 +83,9 @@ export function getResourcePreviewUrl(resource: Pick<Resource, 'thumbnailUrl' | 
   try {
     const source = new URL(resource.sourceUrl);
     if (source.protocol !== 'https:' || source.hostname !== 'drive.google.com') return null;
-    const fileId = source.pathname.match(/^\\/file\\/d\\/([^/]+)/)?.[1] ?? source.searchParams.get('id');
+    const fileId = source.pathname.match(/^\/file\/d\/([^/]+)/)?.[1] ?? source.searchParams.get('id');
     if (!fileId || !/^[A-Za-z0-9_-]{10,}$/.test(fileId)) return null;
-    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w640`;
+    return 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(fileId) + '&sz=w640';
   } catch {
     return null;
   }
