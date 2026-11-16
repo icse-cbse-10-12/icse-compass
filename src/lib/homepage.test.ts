@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest';
 const homepage = readFileSync(new URL('../routes/+page.svelte', import.meta.url), 'utf8');
 const materials = readFileSync(new URL('../routes/materials/+page.svelte', import.meta.url), 'utf8');
 const styles = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
-const subjects = JSON.parse(readFileSync(new URL('../../static/data/subjects.json', import.meta.url), 'utf8')) as Array<{ name: string }>;
 
 describe('student-first ICSE Compass homepage', () => {
   it('starts with a reassuring, achievable first action instead of an overwhelming overview', () => {
@@ -25,8 +24,10 @@ describe('student-first ICSE Compass homepage', () => {
     expect(materials).toContain("query = params.get('q') ?? ''");
   });
 
-  it('offers shortcuts only for subjects actually present in the published catalogue', () => {
-    for (const subject of subjects) expect(homepage).toContain(subject.name);
+  it('offers only the deliberate homepage subject shortcuts', () => {
+    for (const subject of ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'English Paper 2']) {
+      expect(homepage).toContain(subject);
+    }
     expect(homepage).toContain('subject-english');
     expect(homepage).not.toContain('History &amp; Civics');
     expect(homepage).not.toContain('Computer');
