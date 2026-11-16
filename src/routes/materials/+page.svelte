@@ -116,10 +116,10 @@
   {:else}
     <div class="resource-grid">
       {#each filtered as resource (resource.id)}
+        {@const displayTitle = formatResourceTitle(resource.title)}
+        {@const subjectName = subjects.find((subject) => subject.id === resource.subjectId)?.name ?? 'General'}
+        {@const originalSource = resource.creatorId ? creatorById.get(resource.creatorId)?.name : undefined}
         <article class="resource-card">
-          {@const displayTitle = formatResourceTitle(resource.title)}
-          {@const subjectName = subjects.find((subject) => subject.id === resource.subjectId)?.name ?? 'General'}
-          {@const originalSource = resource.creatorId ? creatorById.get(resource.creatorId)?.name : undefined}
           <div class="resource-card-top">
             <span class="resource-subject">{subjectName}</span>
             <span class="resource-format" aria-label={displayTitle.extension ? `${displayTitle.extension} file` : `Resource type: ${resource.resourceType}`}>{displayTitle.extension ?? formatResourceType(resource.resourceType)}</span>
