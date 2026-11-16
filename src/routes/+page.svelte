@@ -15,7 +15,7 @@
   <title>ICSE Compass | One clear next step for ICSE study</title>
   <meta name="description" content="When the ICSE syllabus feels big, start with one subject or topic. Find learning resources and plan your next small study step with ICSE Compass." />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
-  <meta property="og:title" content="ICSE Compass | Find your next study source" />
+  <meta property="og:title" content="ICSE Compass | One clear next step for ICSE study" />
   <meta property="og:description" content="Start with one subject or topic. Find learning resources and choose your next small study step." />
   <meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/" />
 </svelte:head>
