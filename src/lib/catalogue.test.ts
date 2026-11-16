@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { filterResources, formatResourceTitle, formatResourceType } from './catalogue';
+import { filterResources, formatResourceTitle, formatResourceType, getResourcePreviewUrl, getResourceActionLabel } from './catalogue';
 import { validateCatalogue } from '../../scripts/catalogue-validation.mjs';
 import type { CatalogueData, Resource } from './catalogue';
 const creator = { id: 'c1', name: 'Verified Educator', description: '', platform: 'YouTube', profileUrl: 'https://example.com/channel', status: 'published' as const };
@@ -31,5 +31,29 @@ describe('resource card title formatting', () => {
   });
   it('uses a readable badge when no filename extension exists', () => {
     expect(formatResourceType('notes')).toBe('NOTES');
+  });
+});
+
+
+describe('resource preview and action helpers', () => {
+  it('builds a thumbnail URL only for valid HTTPS Google Drive file links', () => {
+    expect(getResourcePreviewUrl({ sourceUrl: 'https://drive.google.com/file/d/1AbcdefghijkLMN_12345/view?usp=sharing' }))
+      .toBe('https://drive.google.com/thumbnail?id=1AbcdefghijkLMN_12345&sz=w640');
+    expect(getResourcePreviewUrl({ sourceUrl: 'https://example.com/resource.pdf' })).toBeNull();
+    expect(getResourcePreviewUrl({ sourceUrl: 'http://drive.google.com/file/d/1AbcdefghijkLMN_12345/view' })).toBeNull();
+  });
+
+  it('prefers a valid HTTPS thumbnail supplied in catalogue metadata', () => {
+    expect(getResourcePreviewUrl({ sourceUrl: 'https://example.com/file', thumbnailUrl: 'https://cdn.example.com/thumb.webp' }))
+      .toBe('https://cdn.example.com/thumb.webp');
+    expect(getResourcePreviewUrl({ sourceUrl: 'https://example.com/file', thumbnailUrl: 'http://cdn.example.com/thumb.webp' })).toBeNull();
+  });
+
+  it('cleans and labels common document, image, audio and video extensions', () => {
+    expect(formatResourceTitle('##_Chapter_Notes.docx')).toEqual({ title: 'Chapter Notes', extension: 'DOCX' });
+    expect(formatResourceTitle('Revision_Audio.mp3')).toEqual({ title: 'Revision Audio', extension: 'MP3' });
+    expect(getResourceActionLabel(resource, 'PDF')).toBe('Open PDF');
+    expect(getResourceActionLabel(resource, 'MP4')).toBe('Watch video');
+    expect(getResourceActionLabel(resource, null)).toBe('Open resource');
   });
 });

@@ -40,17 +40,19 @@ export function filterResources(resources: Resource[], query: string, filters: R
 }
 
 
-export interface FormattedResourceTitle { title: string; extension: 'PDF' | 'PNG' | null }
+export interface FormattedResourceTitle { title: string; extension: string | null }
 
-/** Converts a stored filename into a readable card title and a separate file-format badge. */
+/** Cleans common filenames while keeping a readable, separate format badge. */
 export function formatResourceTitle(rawTitle: string): FormattedResourceTitle {
-  const cleaned = rawTitle.trim().replace(/^#+_+/, '').replace(/^[\W_]+/, '');
-  const extensionMatch = cleaned.match(/\.(pdf|png)$/i);
-  const extension = extensionMatch ? extensionMatch[1].toUpperCase() as 'PDF' | 'PNG' : null;
-  const title = cleaned
-    .replace(/\.(pdf|png)$/i, '')
+  const cleaned = rawTitle.trim().replace(/^#+_+/, '').replace(/^[\\W_]+/, '');
+  const extensionMatch = cleaned.match(/\\.([a-z0-9]{2,5})$/i);
+  const knownExtensions = new Set(['pdf', 'png', 'jpg', 'jpeg', 'webp', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'mp3', 'm4a', 'mp4']);
+  const extension = extensionMatch && knownExtensions.has(extensionMatch[1].toLowerCase())
+    ? extensionMatch[1].toUpperCase()
+    : null;
+  const title = (extension ? cleaned.replace(/\\.[a-z0-9]{2,5}$/i, '') : cleaned)
     .replace(/_+/g, ' ')
-    .replace(/\s+/g, ' ')
+    .replace(/\\s+/g, ' ')
     .trim();
   return { title: title || rawTitle.trim(), extension };
 }
@@ -65,4 +67,36 @@ export function formatResourceType(resourceType: ResourceType): string {
     other: 'RESOURCE'
   };
   return labels[resourceType];
+}
+
+/** Returns an HTTPS thumbnail URL only when an admin supplied one or the source is Google Drive. */
+export function getResourcePreviewUrl(resource: Pick<Resource, 'thumbnailUrl' | 'sourceUrl'>): string | null {
+  if (resource.thumbnailUrl) {
+    try {
+      const thumbnail = new URL(resource.thumbnailUrl);
+      if (thumbnail.protocol === 'https:') return thumbnail.toString();
+    } catch {
+      // Ignore malformed or insecure thumbnail URLs.
+    }
+  }
+
+  try {
+    const source = new URL(resource.sourceUrl);
+    if (source.protocol !== 'https:' || source.hostname !== 'drive.google.com') return null;
+    const fileId = source.pathname.match(/^\\/file\\/d\\/([^/]+)/)?.[1] ?? source.searchParams.get('id');
+    if (!fileId || !/^[A-Za-z0-9_-]{10,}$/.test(fileId)) return null;
+    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w640`;
+  } catch {
+    return null;
+  }
+}
+
+/** Uses plain-language actions that tell students what opens. */
+export function getResourceActionLabel(resource: Pick<Resource, 'resourceType'>, extension: string | null): string {
+  if (extension === 'PDF') return 'Open PDF';
+  if (['PNG', 'JPG', 'JPEG', 'WEBP'].includes(extension ?? '')) return 'View image';
+  if (extension === 'MP4' || resource.resourceType === 'video') return 'Watch video';
+  if (['MP3', 'M4A'].includes(extension ?? '')) return 'Play audio';
+  if (resource.resourceType === 'website') return 'Visit website';
+  return 'Open resource';
 }
