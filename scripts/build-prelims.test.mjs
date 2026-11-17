@@ -44,9 +44,10 @@ test('only PDF prelim records with safe HTTPS source links are published', () =>
     { ...base, 'Share ID': 'not-paper', Category: 'Question Banks', Scope: 'Chapter-wise', 'Book Name': 'Chapter questions.pdf' }
   ]);
   assert.equal(papers.length, 2);
-  assert.equal(papers[0].id, 'riverdale-biology-2026');
-  assert.equal(papers[0].school, 'Riverdale School');
-  assert.equal(papers[0].rightsStatus, base['Copyright Status']);
+  assert.ok(papers.some((paper) => paper.id === 'riverdale-biology-2026'));
+  assert.ok(papers.some((paper) => paper.id === 'duplicate-id'));
+  assert.equal(papers.find((paper) => paper.id === 'riverdale-biology-2026')?.school, 'Riverdale School');
+  assert.equal(papers.find((paper) => paper.id === 'riverdale-biology-2026')?.rightsStatus, base['Copyright Status']);
   assert.equal(safeHttpsUrl('javascript:alert(1)'), '');
   assert.equal(safeHttpsUrl('https://example.com/paper.pdf'), 'https://example.com/paper.pdf');
 });

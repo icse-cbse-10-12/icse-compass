@@ -8,7 +8,7 @@ export const DEFAULT_CSV_URL = 'https://docs.google.com/spreadsheets/d/181-RJFE5
 const clean = (value) => String(value ?? '').trim();
 
 export function parseCSV(input) {
-  const source = String(input ?? '').replace(/^\\uFEFF/, '');
+  const source = String(input ?? '').replace(/^\uFEFF/, '');
   if (!source.trim()) return [];
   const rows = [];
   let row = [];
@@ -27,8 +27,8 @@ export function parseCSV(input) {
     } else if (character === ',' && !quoted) {
       row.push(field.trim());
       field = '';
-    } else if ((character === '\\n' || character === '\\r') && !quoted) {
-      if (character === '\\r' && source[index + 1] === '\\n') index += 1;
+    } else if ((character === '\n' || character === '\r') && !quoted) {
+      if (character === '\r' && source[index + 1] === '\n') index += 1;
       row.push(field.trim());
       if (row.some((value) => value !== '')) rows.push(row);
       row = [];
@@ -52,7 +52,7 @@ export function parseCSV(input) {
 
 export function safeHttpsUrl(value) {
   const raw = clean(value);
-  if (!raw || /^(?:#|n\\/?a|none|null|undefined|not available)$/i.test(raw)) return '';
+  if (!raw || /^(?:#|n\/?a|none|null|undefined|not available)$/i.test(raw)) return '';
   try {
     const url = new URL(raw);
     if (url.protocol !== 'https:' || url.username || url.password) return '';
@@ -73,7 +73,7 @@ export function isPrelimPaper(row) {
 
 export function extractYear(row) {
   const text = [row.Edition, row['Book Name'], row.Scope].map(clean).join(' ');
-  const match = text.match(/\\b(20\\d{2})(?:\\s*[-–/]\\s*(\\d{2}|20\\d{2}))?\\b/);
+  const match = text.match(/\b(20\d{2})(?:\s*[-–/]\s*(\d{2}|20\d{2}))?\b/);
   if (!match) return '';
   if (!match[2]) return match[1];
   const end = match[2].length === 2 ? match[2] : match[2].slice(-2);
@@ -122,8 +122,8 @@ export function normalizePrelimRows(rows) {
   }
 
   return papers.sort((left, right) => {
-    const leftYear = Number(left.year.match(/^20\\d{2}/)?.[0] ?? 0);
-    const rightYear = Number(right.year.match(/^20\\d{2}/)?.[0] ?? 0);
+    const leftYear = Number(left.year.match(/^20\d{2}/)?.[0] ?? 0);
+    const rightYear = Number(right.year.match(/^20\d{2}/)?.[0] ?? 0);
     return rightYear - leftYear
       || left.subject.localeCompare(right.subject, 'en-IN')
       || left.title.localeCompare(right.title, 'en-IN');
@@ -150,7 +150,7 @@ export async function buildPrelims({ root = resolve(fileURLToPath(new URL('..', 
     papers
   };
   const outputPath = resolve(root, 'static/data/prelims.json');
-  await writeFile(outputPath, JSON.stringify(payload, null, 2) + '\\n', 'utf8');
+  await writeFile(outputPath, JSON.stringify(payload, null, 2) + '\n', 'utf8');
   return { count: papers.length, outputPath, generatedAt: payload.generatedAt };
 }
 
