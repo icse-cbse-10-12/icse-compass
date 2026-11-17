@@ -2,6 +2,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 2 * * *"
   workflow_dispatch:
 permissions:
   contents: read
@@ -26,11 +28,13 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Refresh prelim papers from the master Google Sheet
+        run: node scripts/build-prelims.mjs
       - name: Validate public catalogue JSON
         run: npm run validate:catalogue
       - name: Svelte and TypeScript checks
         run: npm run check
-      - name: Run Vitest
+      - name: Run Vitest and prelim builder tests
         run: npm test
       - name: Build static site and PWA
         run: npm run build

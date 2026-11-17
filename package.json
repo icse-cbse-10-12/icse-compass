@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "typecheck": "npm run check",
-    "test": "vitest run",
+    "test": "vitest run && node --test scripts/build-prelims.test.mjs",
     "test:watch": "vitest",
     "validate:catalogue": "node scripts/validate-catalogue.mjs"
   },
