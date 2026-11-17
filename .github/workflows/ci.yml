@@ -65,6 +65,7 @@ jobs:
           grep -Fq 'ICSE MasterClass' build/creators/index.html
           if grep -Fq 'PLEASE WAIT' build/creators/index.html; then echo 'Stuck educator loading state found'; exit 1; fi
           test -s build/school-papers/index.html
+          test -s build/saved/index.html
           test -s build/syllabus/index.html
           test -s build/chapter-player/index.html
           test -s build/privacy/index.html

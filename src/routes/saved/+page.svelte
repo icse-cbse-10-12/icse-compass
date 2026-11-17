@@ -59,6 +59,7 @@
 <svelte:head>
   <title>Saved Resources | ICSE Compass</title>
   <meta name="description" content="Your device-local collection of saved ICSE papers, notes, videos and educator resources." />
+  <meta name="robots" content="noindex,follow" />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/saved/" />
 </svelte:head>
 
