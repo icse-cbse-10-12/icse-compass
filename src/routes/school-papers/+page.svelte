@@ -23,6 +23,10 @@
   let year = '';
   let school = '';
   let paperType = '';
+  let bookmarkIds: string[] = [];
+  let showBookmarkedOnly = false;
+  let bookmarkStorageError = false;
+  let shareMessage = '';
   let loading = true;
   let loadError = false;
   let visibleCount = 24;
@@ -41,6 +45,7 @@
   $: paperTypes = ['School Prelims & Term', 'Pre-board & Mock', 'Specimen & Sample', 'Other Question Papers'];
   $: paperTypeCounts = paperTypes.map((label) => ({ label, count: papers.filter((paper) => paper.paperType === label).length }));
   $: filteredPapers = papers.filter((paper) => {
+    if (showBookmarkedOnly && !bookmarkIds.includes(paper.id)) return false;
     if (paperType && paper.paperType !== paperType) return false;
     if (subject && paper.subject !== subject) return false;
     if (year && paper.year !== year) return false;
@@ -94,11 +99,47 @@
 
   function clearFilters() {
     query = '';
+    showBookmarkedOnly = false;
     subject = '';
     year = '';
     school = '';
     paperType = '';
     visibleCount = 24;
+  }
+
+  const BOOKMARK_STORAGE_KEY = 'icse-compass:saved-school-papers:v1';
+
+  function toggleBookmark(id: string) {
+    const next = bookmarkIds.includes(id) ? bookmarkIds.filter((savedId) => savedId !== id) : [...bookmarkIds, id];
+    bookmarkIds = next;
+    try {
+      localStorage.setItem(BOOKMARK_STORAGE_KEY, JSON.stringify(next));
+      bookmarkStorageError = false;
+    } catch {
+      bookmarkStorageError = true;
+    }
+  }
+
+  async function sharePaper(paper: PrelimPaper) {
+    const shareData = {
+      title: paper.title,
+      text: [paper.subject, paper.school, paper.year].filter(Boolean).join(' · '),
+      url: paper.sourceUrl
+    };
+    try {
+      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+        await navigator.share(shareData);
+        shareMessage = 'Share sheet opened for ' + paper.title + '.';
+      } else if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(paper.sourceUrl);
+        shareMessage = 'Source link copied for ' + paper.title + '.';
+      } else {
+        shareMessage = 'Sharing is not available in this browser. Open the source link to share it manually.';
+      }
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') return;
+      shareMessage = 'Could not share this link. Open the source and share it manually.';
+    }
   }
 
   function updateSearch(value: string) {
@@ -107,6 +148,16 @@
   }
 
   onMount(() => {
+    try {
+      const stored = localStorage.getItem(BOOKMARK_STORAGE_KEY);
+      if (stored) {
+        const parsed: unknown = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.every((id) => typeof id === 'string')) bookmarkIds = [...new Set(parsed)];
+        else bookmarkStorageError = true;
+      }
+    } catch {
+      bookmarkStorageError = true;
+    }
     void loadPapers();
   });
 </script>
@@ -179,6 +230,9 @@
       <button class="prelims-clear" type="button" onclick={clearFilters}>Clear filters</button>
     </div>
 
+    {#if bookmarkStorageError}
+      <p class="bookmark-storage-warning" role="status">Bookmarks could not be saved in this browser. They may not remain after you leave this page.</p>
+    {/if}
     <div class="prelims-results" aria-live="polite">
       {#if loading}
         <div class="prelims-state" role="status"><span class="prelims-spinner" aria-hidden="true"></span><strong>Loading school papers</strong><p>Fetching the latest published sheet catalogue.</p></div>
@@ -192,7 +246,11 @@
         <div class="prelims-results-bar">
           <span><strong>{filteredPapers.length.toLocaleString('en-IN')}</strong> {filteredPapers.length === 1 ? 'paper' : 'papers'} found</span>
           <span>Showing {visiblePapers.length.toLocaleString('en-IN')}</span>
+          <button class:active={showBookmarkedOnly} class="saved-papers-toggle" type="button" aria-pressed={showBookmarkedOnly} onclick={() => { showBookmarkedOnly = !showBookmarkedOnly; visibleCount = 24; }}>
+            {showBookmarkedOnly ? 'Show all papers' : 'Saved papers'} <span>{bookmarkIds.length}</span>
+          </button>
         </div>
+        <p class="share-status" role="status" aria-live="polite">{shareMessage}</p>
         <div class="prelims-grid">
           {#each visiblePapers as paper (paper.id)}
             {@const preview = previewUrl(paper.sourceUrl)}
@@ -220,7 +278,13 @@
                 <p class="prelim-rights">Rights note: {paper.rightsStatus}</p>
                 <div class="prelim-card-footer">
                   <span class="prelim-format">{paper.format}</span>
-                  <a href={paper.sourceUrl} target="_blank" rel="noopener noreferrer">{actionLabel(paper)} <span aria-hidden="true">↗</span></a>
+                  <div class="prelim-card-actions">
+                    <button class:bookmarked={bookmarkIds.includes(paper.id)} class="paper-action paper-bookmark" type="button" aria-pressed={bookmarkIds.includes(paper.id)} aria-label={(bookmarkIds.includes(paper.id) ? 'Remove bookmark for ' : 'Bookmark ') + paper.title} onclick={() => toggleBookmark(paper.id)}>
+                      <span aria-hidden="true">{bookmarkIds.includes(paper.id) ? '★' : '☆'}</span> {bookmarkIds.includes(paper.id) ? 'Saved' : 'Bookmark'}
+                    </button>
+                    <button class="paper-action paper-share" type="button" onclick={() => void sharePaper(paper)}>Share</button>
+                    <a href={paper.sourceUrl} target="_blank" rel="noopener noreferrer">{actionLabel(paper)} <span aria-hidden="true">↗</span></a>
+                  </div>
                 </div>
               </div>
             </article>
@@ -283,6 +347,12 @@
   .prelims-results { margin-top: 18px; }
   .prelims-results-bar { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 12px; color: #9eafc5; font-size: 11px; }
   .prelims-results-bar strong { color: #f1f5f9; }
+  .saved-papers-toggle { min-height: 34px; padding: 0 10px; color: #c7f5e4; background: #132b2c; border: 1px solid #286451; border-radius: 5px; font-size: 10px; font-weight: 800; cursor: pointer; }
+  .saved-papers-toggle span { display: inline-grid; min-width: 20px; min-height: 20px; place-items: center; margin-left: 4px; color: #06281e; background: #10b981; border-radius: 3px; }
+  .saved-papers-toggle.active { color: #06281e; background: #10b981; }
+  .saved-papers-toggle.active span { color: #f1f5f9; background: #15372f; }
+  .bookmark-storage-warning { margin: 12px 0 0; padding: 10px 12px; color: #f5d8a8; background: #33291a; border: 1px solid #6b512b; font-size: 10px; line-height: 1.6; }
+  .share-status { min-height: 18px; margin: 0 0 8px; color: #9eafc5; font-size: 10px; }
   .prelims-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 14px; }
   .prelim-card { min-width: 0; overflow: hidden; background: #142137; border: 1px solid #2a3b56; border-bottom: 2px solid #354968; border-radius: 9px; }
   .prelim-cover { position: relative; display: grid; min-height: 172px; place-items: center; overflow: hidden; background: #0c1728; border-bottom: 1px solid #2a3b56; }
@@ -303,6 +373,10 @@
   .prelim-format { color: #9fb0c7; font-size: 9px; font-weight: 800; letter-spacing: .6px; }
   .prelim-card-footer a { display: inline-flex; min-height: 36px; align-items: center; gap: 8px; padding: 0 11px; color: #06281e; background: #10b981; border: 1px solid #0da271; border-radius: 5px; font-size: 10px; font-weight: 850; }
   .prelim-card-footer a:hover { background: #34d399; }
+  .prelim-card-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 5px; }
+  .paper-action { display: inline-flex; min-height: 36px; align-items: center; justify-content: center; gap: 5px; padding: 0 8px; color: #d6e2f1; background: #1c2b42; border: 1px solid #40516a; border-radius: 5px; font-size: 9px; font-weight: 750; cursor: pointer; }
+  .paper-action:hover, .paper-action.bookmarked { color: #c7f5e4; border-color: #10b981; background: #15372f; }
+  .paper-action span { font-size: 13px; }
   .prelims-state { display: grid; min-height: 190px; place-content: center; justify-items: center; padding: 24px; color: #e7edf6; text-align: center; }
   .prelims-state strong { font-size: 15px; }
   .prelims-state p { max-width: 520px; color: #9eafc5; font-size: 11px; line-height: 1.7; }
@@ -325,6 +399,9 @@
     .prelims-search { grid-column: 1 / -1; }
   }
   @media (max-width: 560px) {
+    .prelims-results-bar { flex-wrap: wrap; align-items: center; }
+    .prelim-card-actions { width: 100%; justify-content: flex-start; }
+    .prelim-card-footer { align-items: flex-start; flex-direction: column; }
     .prelims-library-heading { flex-direction: column; }
     .paper-type-summary { grid-template-columns: 1fr 1fr; }
     .prelims-count { min-width: 0; text-align: left; }
