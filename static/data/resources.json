@@ -4079,31 +4079,6 @@
     "status": "published"
   },
   {
-    "id": "cisce-cfq-physics-2024",
-    "title": "ICSE Class X CFQ Item Bank — Physics (2024)",
-    "description": "Official CISCE competency-focused practice questions · Physics · 2024.",
-    "subjectId": "physics",
-    "chapterId": null,
-    "creatorId": "cisce",
-    "resourceType": "practice-paper",
-    "sourceUrl": "https://cisce.org/wp-content/uploads/2024/08/ICSE-Physics-X.pdf",
-    "accessMethod": "external",
-    "hostingPermission": "not-applicable",
-    "embedAllowed": false,
-    "keywords": [
-      "CISCE",
-      "ICSE Class 10",
-      "Official CISCE",
-      "CFQ",
-      "CFQs",
-      "Competency-Focused Practice Questions",
-      "Item Bank",
-      "2024",
-      "Physics"
-    ],
-    "status": "published"
-  },
-  {
     "id": "cisce-cfq-mathematics-2026",
     "title": "ICSE Class X CFQ Item Bank — Mathematics (2026)",
     "description": "Official CISCE competency-focused practice questions · Mathematics · 2026.",
