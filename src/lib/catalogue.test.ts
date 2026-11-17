@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { filterResources, formatResourceTitle, formatResourceType, getResourcePreviewUrl, getResourceActionLabel } from './catalogue';
 import { validateCatalogue } from '../../scripts/catalogue-validation.mjs';
@@ -55,5 +56,25 @@ describe('resource preview and action helpers', () => {
     expect(getResourceActionLabel(resource, 'PDF')).toBe('Open PDF');
     expect(getResourceActionLabel(resource, 'MP4')).toBe('Watch video');
     expect(getResourceActionLabel(resource, null)).toBe('Open resource');
+  });
+});
+
+
+describe('official CISCE resource coverage', () => {
+  const publicResources = JSON.parse(readFileSync(new URL('../../static/data/resources.json', import.meta.url), 'utf8')) as Resource[];
+  const cisceResources = publicResources.filter((item) => item.creatorId === 'cisce');
+
+  it('publishes the official syllabus, specimen, PYQ and CFQ collections as original-source links', () => {
+    expect(cisceResources.length).toBeGreaterThan(30);
+    const keywords = new Set(cisceResources.flatMap((item) => item.keywords.map((keyword) => keyword.toLowerCase())));
+    expect(keywords.has('pyq')).toBe(true);
+    expect(keywords.has('specimen')).toBe(true);
+    expect(keywords.has('cfq')).toBe(true);
+    expect(keywords.has('syllabus')).toBe(true);
+    for (const item of cisceResources) {
+      expect(new URL(item.sourceUrl).hostname).toBe('cisce.org');
+      expect(item.accessMethod).toBe('external');
+      expect(item.hostingPermission).toBe('not-applicable');
+    }
   });
 });
