@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, "feat/**"]
+    branches: [main, "feat/**", "fix/**"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -72,6 +72,12 @@ jobs:
           test -s build/data/creators.json
           test -s build/data/subjects.json
           test -s build/data/chapters.json
+          grep -Fq 'name="theme-color" content="#0B111E"' build/index.html
+          grep -Fq 'name="color-scheme" content="dark"' build/index.html
+          grep -Fq 'FOLLOW THE SOURCE' build/creators/index.html
+          grep -Fq 'All Educators' build/creators/index.html
+          ! grep -Fq 'Opening the educator directory' build/creators/index.html
+          node --input-type=module -e "import fs from 'node:fs'; const html=fs.readFileSync('build/index.html','utf8'); const nav=html.split('<nav class=\"mobile-nav\"')[1]?.split('</nav>')[0]; if (!nav || nav.split('<a ').length - 1 !== 4) throw new Error('Mobile navigation must contain exactly four tabs');"
           test -s build/data/catalogue-meta.json
           test -f build/.nojekyll
           grep -Fq 'ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE.' build/index.html
@@ -81,6 +87,6 @@ jobs:
           grep -Fq 'https://icse-cbse-10-12.github.io/icse-compass/privacy/' build/sitemap.xml
           grep -Fq 'https://icse-cbse-10-12.github.io/icse-compass/privacy/' build/llms.txt
           if grep -RniE 'fonts\.googleapis\.com|fonts\.gstatic\.com|hotjar|clarity\.ms|googletagmanager\.com|google-analytics\.com|doubleclick\.net|connect\.facebook\.net|segment\.io|fullstory\.com' src static; then echo 'External font or tracking endpoint found in first-party source.'; exit 1; fi
-          node --input-type=module -e "import fs from 'node:fs'; const m = JSON.parse(fs.readFileSync('build/manifest.webmanifest', 'utf8')); const expected = { name: 'ICSE Compass', short_name: 'ICSE Compass', theme_color: '#356B58', background_color: '#F5F1E8', display: 'standalone', scope: '/icse-compass/', start_url: '/icse-compass/' }; for (const [key, value] of Object.entries(expected)) { if (m[key] !== value) throw new Error('Invalid manifest ' + key + ': ' + m[key]); }"
+          node --input-type=module -e "import fs from 'node:fs'; const m = JSON.parse(fs.readFileSync('build/manifest.webmanifest', 'utf8')); const expected = { name: 'ICSE Compass', short_name: 'ICSE Compass', theme_color: '#0B111E', background_color: '#0B111E', display: 'standalone', scope: '/icse-compass/', start_url: '/icse-compass/' }; for (const [key, value] of Object.entries(expected)) { if (m[key] !== value) throw new Error('Invalid manifest ' + key + ': ' + m[key]); }"
       - name: Enforce dependency audit
         run: test "$(cat npm-audit-exit-code)" = "0"
