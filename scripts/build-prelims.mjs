@@ -72,7 +72,12 @@ export function isPrelimPaper(row) {
 }
 
 export function classifyPaperType(row) {
-  const text = [row.Category, row.Scope, row['Book Name']].map(clean).join(' ').toLowerCase();
+  const scope = clean(row.Scope).toLowerCase();
+  if (/specimen|sample paper/.test(scope)) return 'Specimen & Sample';
+  if (/pre[- ]?board|mock(?: test| exam| paper)?/.test(scope)) return 'Pre-board & Mock';
+  if (/prelim|preliminary|term paper|term examination|unit[- ]?test/.test(scope)) return 'School Prelims & Term';
+
+  const text = [row.Category, row['Book Name']].map(clean).join(' ').toLowerCase();
   if (/pre[- ]?board|mock(?: test| exam| paper)?/.test(text)) return 'Pre-board & Mock';
   if (/specimen|sample paper/.test(text)) return 'Specimen & Sample';
   if (/prelim|preliminary|term paper|term examination|unit[- ]?test/.test(text)) return 'School Prelims & Term';
