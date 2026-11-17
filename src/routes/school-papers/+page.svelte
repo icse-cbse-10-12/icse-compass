@@ -47,7 +47,7 @@
     try {
       const source = new URL(sourceUrl);
       if (source.protocol !== 'https:' || source.hostname !== 'drive.google.com') return null;
-      const fileId = source.pathname.match(/^\\/file\\/d\\/([^/]+)/)?.[1] ?? source.searchParams.get('id');
+      const fileId = source.pathname.match(/^\/file\/d\/([^/]+)/)?.[1] ?? source.searchParams.get('id');
       if (!fileId || !/^[A-Za-z0-9_-]{10,}$/.test(fileId)) return null;
       return 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(fileId) + '&sz=w640';
     } catch {
@@ -163,7 +163,7 @@
       {:else if loadError}
         <div class="prelims-state" role="alert"><strong>The paper catalogue couldn't be loaded.</strong><p>Check your connection and try again. No papers have been removed from the source spreadsheet.</p><button type="button" onclick={loadPapers}>Try again</button></div>
       {:else if papers.length === 0}
-        <div class="prelims-state"><strong>No verified prelim listings are available yet.</strong><p>When the Prelims Papers tab contains valid PDF records with HTTPS source links, they will appear here after the next catalogue refresh.</p></div>
+        <div class="prelims-state"><strong>No prelim listings are available yet.</strong><p>When the Prelims Papers tab contains valid PDF records with HTTPS source links, they will appear here after the next catalogue refresh.</p></div>
       {:else if filteredPapers.length === 0}
         <div class="prelims-state"><strong>No matching papers found.</strong><p>Try another search or clear one or more filters.</p><button type="button" onclick={clearFilters}>Clear search and filters</button></div>
       {:else}
@@ -195,6 +195,7 @@
                 <p class="prelim-school">{paper.school}</p>
                 {#if paper.scope}<p class="prelim-scope">{paper.scope}</p>{/if}
                 {#if paper.sourceCredit}<p class="prelim-credit">Source credit: {paper.sourceCredit}</p>{/if}
+                <p class="prelim-rights">Rights note: {paper.rightsStatus}</p>
                 <div class="prelim-card-footer">
                   <span class="prelim-format">{paper.format}</span>
                   <a href={paper.sourceUrl} target="_blank" rel="noopener noreferrer">{actionLabel(paper)} <span aria-hidden="true">↗</span></a>
@@ -270,6 +271,7 @@
   .prelim-card h3 { margin: 10px 0 6px; color: #f1f5f9; font-size: 14px; font-weight: 750; line-height: 1.45; overflow-wrap: anywhere; }
   .prelim-school { margin: 0; color: #c2cee0; font-size: 11px; font-weight: 700; }
   .prelim-scope, .prelim-credit { margin: 6px 0 0; color: #91a3bd; font-size: 10px; line-height: 1.5; }
+  .prelim-rights { margin: 7px 0 0; color: #8fa0b7; font-size: 9px; line-height: 1.5; }
   .prelim-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 13px; }
   .prelim-format { color: #9fb0c7; font-size: 9px; font-weight: 800; letter-spacing: .6px; }
   .prelim-card-footer a { display: inline-flex; min-height: 36px; align-items: center; gap: 8px; padding: 0 11px; color: #06281e; background: #10b981; border: 1px solid #0da271; border-radius: 5px; font-size: 10px; font-weight: 850; }
