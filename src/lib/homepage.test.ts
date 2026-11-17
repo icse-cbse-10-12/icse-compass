@@ -7,11 +7,12 @@ const styles = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
 const subjects = JSON.parse(readFileSync(new URL('../../static/data/subjects.json', import.meta.url), 'utf8')) as Array<{ id: string; name: string; status: string }>;
 
 describe('ICSE Compass visual resource-library homepage', () => {
-  it('positions Compass as a searchable ICSE study library', () => {
+  it('positions Compass as an independent, rule-first ICSE study library', () => {
     expect(homepage).toContain('Your independent ICSE study library');
-    expect(homepage).toContain('Everything you need to study.');
-    expect(homepage).toContain('One shelf at a time.');
-    expect(homepage).toContain('What are you studying today?');
+    expect(homepage).toContain('THE ICSE COMPASS RULE');
+    expect(homepage).toContain('A study library should help you find the material');
+    expect(homepage).toContain('not sell you a seat.');
+    expect(homepage).toContain('Find your next resource.');
     expect(homepage).toContain('Browse the shelves.');
   });
 
@@ -26,12 +27,10 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(subjects.filter((subject) => subject.status === 'published').length).toBeGreaterThan(0);
   });
 
-  it('keeps search functional and sends the entered query to Materials Library', () => {
-    expect(homepage).toContain('onsubmit={handleSearch}');
-    expect(homepage).toContain('bind:value={searchQuery}');
-    expect(homepage).toContain('event.preventDefault()');
-    expect(homepage).toContain('void goto(query ?');
-    expect(homepage).toContain('encodeURIComponent(query)');
+  it('provides one clear library entry action while Materials retains query search', () => {
+    expect(homepage).toContain('home-enter-button');
+    expect(homepage).toContain("siteBase + '/materials/'");
+    expect(homepage).not.toContain('home-search-v2');
     expect(materials).toContain("new URLSearchParams(window.location.search)");
     expect(materials).toContain("query = params.get('q') ?? ''");
   });
@@ -53,11 +52,12 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).not.toMatch(/student testimonial|verified review/i);
   });
 
-  it('keeps library preview counts data-backed and explains source attribution', () => {
+  it('keeps library preview counts data-backed and explains original-source access', () => {
     expect(homepage).toContain('sampleResources');
     expect(homepage).toContain('original source');
-    expect(homepage).toContain('Where a source provides a preview image');
+    expect(homepage).toContain('Follow its source.');
     expect(homepage).not.toMatch(/\b\d{2,}[+]?\s+(resources|downloads|students|educators)\b/i);
+    expect(homepage).not.toContain('↗');
   });
 
   it('uses document thumbnails when available and an honest fallback otherwise', () => {

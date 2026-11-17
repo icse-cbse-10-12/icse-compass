@@ -53,7 +53,7 @@
       <p class="eyebrow"><span class="eyebrow-rule"></span> THE ICSE COMPASS RULE</p>
       <h1 id="home-title">A study library should help you find the material — <em>not sell you a seat.</em></h1>
       <p class="home-rule-lede">ICSE Compass is an independent library for discovering notes, question papers, lessons and other learning resources. Find what you need, then open it at its original source.</p>
-      <a class="home-enter-button" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">↗</span></a>
+      <a class="home-enter-button" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">→</span></a>
       <p class="home-rule-footnote">No student account. No admission gate. Just a clear route to study resources.</p>
     </div>
 
@@ -75,7 +75,7 @@
             <a href={siteBase + '/materials/?q=' + encodeURIComponent(title.title)}>
               <span>{title.extension ?? formatResourceType(resource.resourceType)}</span>
               <strong>{title.title}</strong>
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">→</span>
             </a>
           {/each}
         {:else}
@@ -90,7 +90,7 @@
     <div class="page-width">
       <div class="home-section-heading">
         <div><p class="eyebrow"><span class="eyebrow-rule"></span> FIND YOUR SUBJECT</p><h2 id="subjects-title">Browse the shelves.</h2></div>
-        <a href={siteBase + '/materials/'}>View the complete library <span aria-hidden="true">↗</span></a>
+        <a href={siteBase + '/materials/'}>View the complete library <span aria-hidden="true">→</span></a>
       </div>
       {#if loading}
         <div class="subject-grid-v2" aria-label="Loading subjects"><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div></div>
@@ -103,7 +103,7 @@
               <span class="subject-tile-index">{String(index + 1).padStart(2, '0')}</span>
               <span class="subject-tile-mark" aria-hidden="true">{subject.name.slice(0, 2).toUpperCase()}</span>
               <strong>{subject.name}</strong>
-              <small>{subject.count} {subject.count === 1 ? 'resource' : 'resources'} <span aria-hidden="true">↗</span></small>
+              <small>{subject.count} {subject.count === 1 ? 'resource' : 'resources'} <span aria-hidden="true">→</span></small>
             </a>
           {/each}
         </div>
@@ -117,30 +117,30 @@
       <p>Choose a starting point. Refine your search once you reach the library.</p>
     </div>
     <div class="discovery-grid-v2">
-      <a class="discovery-tile discovery-papers" href={siteBase + '/materials/?q=PYQ'}>
+      <a class="discovery-tile discovery-papers" href={siteBase + '/school-papers/'}>
         <span class="discovery-number">01 / EXAM PREP</span><span class="discovery-symbol" aria-hidden="true">▤</span>
-        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Explore papers ↗</span>
+        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Explore papers →</span>
       </a>
       <a class="discovery-tile discovery-notes" href={siteBase + '/materials/?q=Notes'}>
         <span class="discovery-number">02 / UNDERSTAND</span><span class="discovery-symbol" aria-hidden="true">▧</span>
-        <strong>Notes &amp; chapter resources</strong><p>Find topic-wise explanations, revision material and chapter support.</p><span class="discovery-link">Find notes ↗</span>
+        <strong>Notes &amp; chapter resources</strong><p>Find topic-wise explanations, revision material and chapter support.</p><span class="discovery-link">Find notes →</span>
       </a>
       <a class="discovery-tile discovery-lessons" href={siteBase + '/materials/?q=Video'}>
         <span class="discovery-number">03 / LEARN</span><span class="discovery-symbol" aria-hidden="true">▷</span>
-        <strong>Video lessons &amp; educators</strong><p>Discover lessons and resource collections from credited educators.</p><span class="discovery-link">Watch &amp; learn ↗</span>
+        <strong>Video lessons &amp; educators</strong><p>Discover lessons and resource collections from credited educators.</p><span class="discovery-link">Watch &amp; learn →</span>
       </a>
     </div>
   </section>
 
   <section class="home-sample-section" aria-labelledby="sample-title">
     <div class="page-width home-sample-inner">
-      <div><p class="eyebrow"><span class="eyebrow-rule"></span> YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">↗</span></a></div>
+      <div><p class="eyebrow"><span class="eyebrow-rule"></span> YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">→</span></a></div>
       <div class="sample-stack" aria-hidden="true"><div class="sample-sheet sample-sheet-back"><span>ICSE / STUDY INDEX</span><strong>Practice.<br />Revise.<br />Repeat.</strong></div><div class="sample-sheet sample-sheet-front"><span>YOUR NEXT RESOURCE</span><div class="sample-lines"></div><div class="sample-lines short"></div><div class="sample-stamp">SOURCE<br />LINKED</div></div></div>
     </div>
   </section>
 
   <section class="home-planner-band page-width">
     <div><p class="eyebrow"><span class="eyebrow-rule"></span> MAKE IT YOURS</p><h2>Turn a resource into a plan.</h2><p>Build your own subject and chapter list, then track your learning progress on this device.</p></div>
-    <a href={siteBase + '/syllabus/'}>Open the syllabus tracker <span aria-hidden="true">↗</span></a>
+    <a href={siteBase + '/syllabus/'}>Open the syllabus tracker <span aria-hidden="true">→</span></a>
   </section>
 </main>
