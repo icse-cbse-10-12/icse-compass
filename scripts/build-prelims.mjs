@@ -73,8 +73,8 @@ export function isPrelimPaper(row) {
 
 export function classifyPaperType(row) {
   const text = [row.Category, row.Scope, row['Book Name']].map(clean).join(' ').toLowerCase();
-  if (/specimen|sample paper/.test(text)) return 'Specimen & Sample';
   if (/pre[- ]?board|mock(?: test| exam| paper)?/.test(text)) return 'Pre-board & Mock';
+  if (/specimen|sample paper/.test(text)) return 'Specimen & Sample';
   if (/prelim|preliminary|term paper|term examination|unit[- ]?test/.test(text)) return 'School Prelims & Term';
   return 'Other Question Papers';
 }

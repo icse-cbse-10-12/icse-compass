@@ -57,6 +57,7 @@ test('paper type classification separates specimen, school exams, mocks and unca
   assert.equal(classifyPaperType({ ...base, Scope: 'Specimen / Sample Paper' }), 'Specimen & Sample');
   assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'School Prelim Examination', 'Book Name': 'School prelim paper.pdf' }), 'School Prelims & Term');
   assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'Pre-Board Examination' }), 'Pre-board & Mock');
+  assert.equal(classifyPaperType({ ...base, Category: 'Sample Papers', Scope: 'Pre-Board Examination', 'Book Name': 'Biology sample paper.pdf' }), 'Pre-board & Mock');
   assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'Board practice', 'Book Name': 'Board practice paper.pdf' }), 'Other Question Papers');
 });
 
