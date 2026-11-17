@@ -1,11 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
   import { siteBase } from '#lib/site.ts';
   import type { Resource, Subject } from '#lib/catalogue.ts';
   import { formatResourceTitle, formatResourceType } from '#lib/catalogue.ts';
 
-  let searchQuery = $state('');
   let resources = $state<Resource[]>([]);
   let subjects = $state<Subject[]>([]);
   let loading = $state(true);
@@ -16,12 +14,6 @@
     count: resources.filter((resource) => resource.subjectId === subject.id).length
   })));
   let sampleResources = $derived(resources.slice(0, 3));
-
-  function handleSearch(event: SubmitEvent) {
-    event.preventDefault();
-    const query = searchQuery.trim();
-    void goto(query ? siteBase + '/materials/?q=' + encodeURIComponent(query) : siteBase + '/materials/');
-  }
 
   async function loadHomeData() {
     loading = true;
@@ -56,51 +48,41 @@
 </svelte:head>
 
 <main class="home-page home-v2">
-  <section class="home-hero-v2 page-width" aria-labelledby="home-title">
-    <div class="home-hero-copy">
-      <p class="eyebrow"><span class="eyebrow-rule"></span> THE INDEPENDENT ICSE STUDY LIBRARY</p>
-      <h1 id="home-title">Everything you need to study.<br /><em>One shelf at a time.</em></h1>
-      <p class="home-lede">Find notes, board papers, practice resources and lessons from educators — organised by subject, chapter and original source.</p>
-      <form class="home-search-v2" onsubmit={handleSearch}>
-        <label for="homepage-search">What are you studying today?</label>
-        <div class="home-search-field-v2">
-          <span aria-hidden="true" class="search-glyph">⌕</span>
-          <input id="homepage-search" type="search" bind:value={searchQuery} placeholder="Search Physics, The Merchant of Venice, PYQs…" />
-          <button type="submit">Search library <span aria-hidden="true">↗</span></button>
-        </div>
-      </form>
-      <div class="home-hero-links">
-        <a href={siteBase + '/materials/'}>Browse all resources <span aria-hidden="true">→</span></a>
-        <a href={siteBase + '/school-papers/'}>Explore school papers <span aria-hidden="true">→</span></a>
-      </div>
+  <section class="home-rule-hero page-width" aria-labelledby="home-title">
+    <div class="home-rule-copy">
+      <p class="eyebrow"><span class="eyebrow-rule"></span> THE ICSE COMPASS RULE</p>
+      <h1 id="home-title">A study library should help you find the material — <em>not sell you a seat.</em></h1>
+      <p class="home-rule-lede">ICSE Compass is an independent library for discovering notes, question papers, lessons and other learning resources. Find what you need, then open it at its original source.</p>
+      <a class="home-enter-button" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">↗</span></a>
+      <p class="home-rule-footnote">No student account. No admission gate. Just a clear route to study resources.</p>
     </div>
 
-    <aside class="home-library-panel" aria-label="ICSE Compass library overview">
-      <div class="library-panel-top"><span>THE COMPASS COLLECTION</span><span>2026 / 27</span></div>
-      <div class="library-panel-title"><span class="panel-star" aria-hidden="true">✳</span><div><strong>Your study shelf</strong><small>One organised place to begin.</small></div></div>
-      <div class="library-stats">
-        <div><strong>{loading ? '—' : resources.length.toLocaleString('en-IN')}</strong><span>PUBLIC RESOURCES</span></div>
+    <aside class="home-rule-preview" aria-label="A preview of the study library">
+      <div class="home-rule-preview-top"><span>INSIDE THE LIBRARY</span><span>OPEN ACCESS</span></div>
+      <div class="home-rule-preview-title"><span class="home-rule-symbol" aria-hidden="true">✳</span><div><strong>Find your next resource.</strong><small>Browse by subject, paper or educator.</small></div></div>
+      <div class="home-rule-stats">
+        <div><strong>{loading ? '—' : resources.length.toLocaleString('en-IN')}</strong><span>PUBLISHED RESOURCES</span></div>
         <div><strong>{loading ? '—' : subjects.length}</strong><span>SUBJECT AREAS</span></div>
       </div>
-      <div class="library-shelf" aria-label="A sample of resources in the library">
+      <div class="home-rule-samples">
         {#if loading}
-          <div class="shelf-loading"><span></span><span></span><span></span></div>
+          <div class="home-rule-loading" role="status">Loading library preview…</div>
         {:else if loadError}
-          <div class="shelf-error"><strong>Library preview unavailable</strong><button type="button" onclick={loadHomeData}>Try again</button></div>
+          <div class="home-rule-error" role="alert"><strong>Preview unavailable.</strong><button type="button" onclick={loadHomeData}>Try again</button></div>
         {:else if sampleResources.length > 0}
-          {#each sampleResources as resource, index (resource.id)}
+          {#each sampleResources as resource (resource.id)}
             {@const title = formatResourceTitle(resource.title)}
-            <a class={'shelf-book shelf-book-' + (index + 1)} href={siteBase + '/materials/?q=' + encodeURIComponent(title.title)} aria-label={'Find ' + title.title + ' in the library'}>
-              <span class="shelf-book-type">{title.extension ?? formatResourceType(resource.resourceType)}</span>
+            <a href={siteBase + '/materials/?q=' + encodeURIComponent(title.title)}>
+              <span>{title.extension ?? formatResourceType(resource.resourceType)}</span>
               <strong>{title.title}</strong>
-              <small>{subjects.find((subject) => subject.id === resource.subjectId)?.name ?? 'ICSE RESOURCE'}</small>
+              <span aria-hidden="true">↗</span>
             </a>
           {/each}
         {:else}
-          <div class="shelf-error"><strong>Approved resources will appear here.</strong></div>
+          <p class="home-rule-error">Published resources will appear here.</p>
         {/if}
       </div>
-      <a class="panel-browse-link" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">↗</span></a>
+      <p class="home-rule-preview-foot">Preview a listing. Follow its source. Study at your pace.</p>
     </aside>
   </section>
 
