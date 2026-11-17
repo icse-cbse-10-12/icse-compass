@@ -49,7 +49,7 @@
 
     <nav class="desktop-nav" aria-label="Main navigation">
       {#each publicRoutes as route}
-        <a href="{siteBase}{route.path}" class="nav-link" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}>{route.label}<span aria-hidden="true">↗</span></a>
+        <a href="{siteBase}{route.path}" class="nav-link" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}>{route.label}<span aria-hidden="true">→</span></a>
       {/each}
     </nav>
     <span class="public-label"><span aria-hidden="true"></span> OPEN ACCESS</span>
@@ -61,12 +61,12 @@
   <footer class="footer">
     <a href="{siteBase}/" class="footer-brand">ICSE <strong>Compass</strong></a>
     <span>Independent educational workspace · Not affiliated with CISCE</span>
-    <a class="footer-link" href="{siteBase}{privacyPath}">Privacy <span aria-hidden="true">↗</span></a>
+    <a class="footer-link" href="{siteBase}{privacyPath}">Privacy <span aria-hidden="true">→</span></a>
   </footer>
 </div>
 
 <nav class="mobile-nav" aria-label="Quick navigation">
-  {#each publicRoutes as route}
+  {#each publicRoutes.filter((route) => route.shortLabel !== 'Educators' && route.shortLabel !== 'Player') as route}
     <a href="{siteBase}{route.path}" aria-label={route.label} aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}>
       <span class="mobile-nav-icon" aria-hidden="true">
         {#if route.shortLabel === 'Overview'}

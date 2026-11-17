@@ -77,7 +77,22 @@
   onMount(() => {
     const params = new URLSearchParams(window.location.search);
     query = params.get('q') ?? '';
-    void loadCatalogue();
+    const requestedSubject = params.get('subject') ?? '';
+    void loadCatalogue().then(() => {
+      if (!requestedSubject || loadError) return;
+      if (requestedSubject === 'english') {
+        subjectId = '';
+        query = 'English';
+        creatorId = '';
+        return;
+      }
+      if (subjects.some((subject) => subject.id === requestedSubject)) {
+        subjectId = requestedSubject;
+        chapterId = '';
+        creatorId = '';
+        resourceType = '';
+      }
+    });
   });
 </script>
 

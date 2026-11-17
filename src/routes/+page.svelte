@@ -11,10 +11,6 @@
   let loading = $state(true);
   let loadError = $state(false);
 
-  let subjectCards = $derived(subjects.map((subject) => ({
-    ...subject,
-    count: resources.filter((resource) => resource.subjectId === subject.id).length
-  })));
   let sampleResources = $derived(resources.slice(0, 3));
 
   function handleSearch(event: SubmitEvent) {
@@ -66,7 +62,7 @@
         <div class="home-search-field-v2">
           <span aria-hidden="true" class="search-glyph">⌕</span>
           <input id="homepage-search" type="search" bind:value={searchQuery} placeholder="Search Physics, The Merchant of Venice, PYQs…" />
-          <button type="submit">Search library <span aria-hidden="true">↗</span></button>
+          <button type="submit">Search library <span aria-hidden="true">→</span></button>
         </div>
       </form>
       <div class="home-hero-links">
@@ -77,10 +73,10 @@
 
     <aside class="home-library-panel" aria-label="ICSE Compass library overview">
       <div class="library-panel-top"><span>THE COMPASS COLLECTION</span><span>2026 / 27</span></div>
-      <div class="library-panel-title"><span class="panel-star" aria-hidden="true">✳</span><div><strong>Your study shelf</strong><small>One organised place to begin.</small></div></div>
+      <div class="library-panel-title"><span class="panel-star" aria-hidden="true">✳</span><div class="library-panel-title-copy"><strong>Your study shelf</strong><small>One organised place to begin.</small></div></div>
       <div class="library-stats">
-        <div><strong>{loading ? '—' : resources.length.toLocaleString('en-IN')}</strong><span>PUBLIC RESOURCES</span></div>
-        <div><strong>{loading ? '—' : subjects.length}</strong><span>SUBJECT AREAS</span></div>
+        <div><strong>On-Device</strong><span>SYLLABUS &amp; PROGRESS TRACKER</span></div>
+        <div><strong>Source-Linked</strong><span>VERIFIED ORIGINAL PUBLISHERS</span></div>
       </div>
       <div class="library-shelf" aria-label="A sample of resources in the library">
         {#if loading}
@@ -100,7 +96,7 @@
           <div class="shelf-error"><strong>Approved resources will appear here.</strong></div>
         {/if}
       </div>
-      <a class="panel-browse-link" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">↗</span></a>
+      <a class="panel-browse-link" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">→</span></a>
     </aside>
   </section>
 
@@ -108,24 +104,18 @@
     <div class="page-width">
       <div class="home-section-heading">
         <div><p class="eyebrow"><span class="eyebrow-rule"></span> FIND YOUR SUBJECT</p><h2 id="subjects-title">Browse the shelves.</h2></div>
-        <a href={siteBase + '/materials/'}>View the complete library <span aria-hidden="true">↗</span></a>
+        <a href={siteBase + '/materials/'}>View the complete library <span aria-hidden="true">→</span></a>
       </div>
-      {#if loading}
-        <div class="subject-grid-v2" aria-label="Loading subjects"><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div></div>
-      {:else if loadError}
-        <div class="home-data-state" role="alert"><strong>Subjects could not be loaded.</strong><p>Check your connection and try again.</p><button type="button" onclick={loadHomeData}>Reload library</button></div>
-      {:else}
-        <div class="subject-grid-v2">
-          {#each subjectCards as subject, index (subject.id)}
-            <a class={'subject-tile subject-tile-' + ((index % 6) + 1)} href={siteBase + '/materials/?q=' + encodeURIComponent(subject.name)}>
-              <span class="subject-tile-index">{String(index + 1).padStart(2, '0')}</span>
-              <span class="subject-tile-mark" aria-hidden="true">{subject.name.slice(0, 2).toUpperCase()}</span>
-              <strong>{subject.name}</strong>
-              <small>{subject.count} {subject.count === 1 ? 'resource' : 'resources'} <span aria-hidden="true">↗</span></small>
-            </a>
-          {/each}
-        </div>
-      {/if}
+      <div class="compass-subject-track" aria-label="Core ICSE subjects">
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=mathematics'}><span class="compass-subject-number">01</span><strong>Mathematics</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=physics'}><span class="compass-subject-number">02</span><strong>Physics</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=chemistry'}><span class="compass-subject-number">03</span><strong>Chemistry</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=biology'}><span class="compass-subject-number">04</span><strong>Biology</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=computer-applications'}><span class="compass-subject-number">05</span><strong>Computer Applications</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=english'}><span class="compass-subject-number">06</span><strong>English</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=history-civics'}><span class="compass-subject-number">07</span><strong>History &amp; Civics</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+        <a class="compass-subject-card" href={siteBase + '/materials/?subject=geography'}><span class="compass-subject-number">08</span><strong>Geography</strong><span class="compass-subject-arrow" aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 
@@ -137,28 +127,32 @@
     <div class="discovery-grid-v2">
       <a class="discovery-tile discovery-papers" href={siteBase + '/materials/?q=PYQ'}>
         <span class="discovery-number">01 / EXAM PREP</span><span class="discovery-symbol" aria-hidden="true">▤</span>
-        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Explore papers ↗</span>
+        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Explore papers →</span>
       </a>
       <a class="discovery-tile discovery-notes" href={siteBase + '/materials/?q=Notes'}>
         <span class="discovery-number">02 / UNDERSTAND</span><span class="discovery-symbol" aria-hidden="true">▧</span>
-        <strong>Notes &amp; chapter resources</strong><p>Find topic-wise explanations, revision material and chapter support.</p><span class="discovery-link">Find notes ↗</span>
+        <strong>Notes &amp; chapter resources</strong><p>Find topic-wise explanations, revision material and chapter support.</p><span class="discovery-link">Find notes →</span>
       </a>
-      <a class="discovery-tile discovery-lessons" href={siteBase + '/materials/?q=Video'}>
+      <a class="discovery-tile discovery-lessons" href={siteBase + '/creators/'}>
         <span class="discovery-number">03 / LEARN</span><span class="discovery-symbol" aria-hidden="true">▷</span>
-        <strong>Video lessons &amp; educators</strong><p>Discover lessons and resource collections from credited educators.</p><span class="discovery-link">Watch &amp; learn ↗</span>
+        <strong>Educator collections</strong><p>Explore resource collections and lessons from credited educators.</p><span class="discovery-link">Meet the educators →</span>
+      </a>
+      <a class="discovery-tile discovery-player" href={siteBase + '/chapter-player/'}>
+        <span class="discovery-number">04 / STUDY</span><span class="discovery-symbol" aria-hidden="true">▶</span>
+        <strong>Chapter Player</strong><p>Open a focused chapter workspace for structured study.</p><span class="discovery-link">Open Chapter Player →</span>
       </a>
     </div>
   </section>
 
   <section class="home-sample-section" aria-labelledby="sample-title">
     <div class="page-width home-sample-inner">
-      <div><p class="eyebrow"><span class="eyebrow-rule"></span> YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">↗</span></a></div>
+      <div><p class="eyebrow"><span class="eyebrow-rule"></span> YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">→</span></a></div>
       <div class="sample-stack" aria-hidden="true"><div class="sample-sheet sample-sheet-back"><span>ICSE / STUDY INDEX</span><strong>Practice.<br />Revise.<br />Repeat.</strong></div><div class="sample-sheet sample-sheet-front"><span>YOUR NEXT RESOURCE</span><div class="sample-lines"></div><div class="sample-lines short"></div><div class="sample-stamp">SOURCE<br />LINKED</div></div></div>
     </div>
   </section>
 
   <section class="home-planner-band page-width">
     <div><p class="eyebrow"><span class="eyebrow-rule"></span> MAKE IT YOURS</p><h2>Turn a resource into a plan.</h2><p>Build your own subject and chapter list, then track your learning progress on this device.</p></div>
-    <a href={siteBase + '/syllabus/'}>Open the syllabus tracker <span aria-hidden="true">↗</span></a>
+    <a href={siteBase + '/syllabus/'}>Open the syllabus tracker <span aria-hidden="true">→</span></a>
   </section>
 </main>
