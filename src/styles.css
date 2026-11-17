@@ -1049,7 +1049,7 @@ body { color: var(--ink); background: var(--paper); }
 
 /* Accessible, source-first preview dialog */
 .resource-preview-dialog { width: min(920px, calc(100% - 28px)); max-width: 920px; max-height: min(88vh, 820px); padding: 0; overflow: auto; color: #24352c; background: #fffaf1; border: 1px solid #cfc3b2; box-shadow: 0 24px 80px rgba(18,29,22,.35); }
-.resource-preview-dialog::backdrop { background: rgba(22,34,27,.72); backdrop-filter: blur(3px); }
+.resource-preview-dialog::backdrop { background: rgba(22,34,27,.72); backdrop-filter: none; }
 .preview-dialog-shell { display: flex; flex-direction: column; }
 .preview-dialog-header { position: sticky; top: 0; z-index: 2; display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; padding: 19px 22px; background: #f5efe4; border-bottom: 1px solid #ded4c5; }
 .preview-dialog-header span { color: #7b867a; font-size: 7px; letter-spacing: 1.2px; font-weight: 900; }
@@ -1208,4 +1208,62 @@ body { color: var(--ink); background: var(--paper); }
   .home-rule-preview { padding: 18px; box-shadow: 6px 7px 0 #d8c8b4; }
   .home-rule-preview-title { margin-top: 23px; }
   .home-rule-preview-title strong { font-size: 23px; }
+}
+
+
+/* Deep Oxford Midnight — final token layer for every route. */
+:root {
+  color-scheme: dark;
+  color: #F1F5F9;
+  background: #0B111E;
+  --paper: #0B111E;
+  --paper-light: #141E30;
+  --white: #141E30;
+  --ink: #F1F5F9;
+  --ink-soft: #CBD5E1;
+  --navy: #141E30;
+  --terracotta: #F59E0B;
+  --green: #10B981;
+  --green-dark: #059669;
+  --sage: #1C2942;
+  --sage-deep: #26334D;
+  --sand: #1C2942;
+  --muted: #94A3B8;
+  --muted-light: #94A3B8;
+  --line: #26334D;
+  --line-strong: #334466;
+  --shadow-soft: none;
+}
+html, body, .app-shell, .catalogue-page, .home-v2 { background: #0B111E !important; color: #F1F5F9; }
+.topbar, .footer { background: #0B111E !important; border-color: #26334D !important; color: #94A3B8; }
+.brand-name, .footer-brand, .page-heading h1, .simple-page h1, .hero-copy h1, .home-hero-copy h1, .home-rule-copy h1, .section-head h2, .destination-title, .creator-card h2, .resource-card h2, .resource-card-v2 h2, .educator-hero h1, .creator-pending h2 { color: #F1F5F9 !important; }
+.page-heading, .page-heading h1, .page-intro, .heading-aside, .heading-aside strong { border-color: #26334D; }
+.page-intro, .home-lede, .home-rule-lede, .hero-description, .destination-description, .resource-card > p, .creator-card > p:not(.platform), .creator-state p, .catalogue-state p, .simple-page > p:not(.eyebrow), .privacy-section p, .resource-item p, .home-rule-footnote { color: #94A3B8 !important; }
+.eyebrow, .eyebrow-rule, .platform, .resource-type, .footer-link, .text-link, .back-link, .creator-actions a, .resource-link, .official-link { color: #10B981 !important; }
+.destination-card, .principle-band, .catalogue-tools, .catalogue-tools-v2, .catalogue-state, .resource-card, .resource-card-v2, .creator-card, .creator-state, .educator-hero, .empty-state, .resource-item, .search-row, .home-search-field-v2, .resource-cover, .catalogue-count-panel, .subject-tile, .discovery-tile, .shelf-book, .home-rule-preview, .preview-dialog-shell, .preview-dialog-header, .preview-dialog-body, .status-note, .independence-notice { background: #141E30 !important; border-color: #26334D !important; color: #F1F5F9; }
+.resource-card, .resource-card-v2, .creator-card, .destination-card { border-bottom: 2px solid #334466 !important; box-shadow: none !important; }
+.resource-card:hover, .resource-card-v2:hover, .creator-card:hover, .destination-card:hover { transform: none !important; box-shadow: none !important; border-color: #10B981 !important; }
+.search-row input, .home-search-field-v2 input, .filter-grid select, input, select, textarea { background: #1C2942 !important; border-color: #334466 !important; color: #F1F5F9 !important; }
+.search-row input::placeholder, input::placeholder, textarea::placeholder { color: #94A3B8 !important; }
+.resource-subject, .resource-format, .creator-monogram, .mobile-nav a[aria-current="page"] .mobile-nav-icon { background: #1C2942 !important; color: #F1F5F9 !important; border-color: #334466 !important; }
+.button-primary, .home-enter-button { background: #10B981 !important; border-color: #10B981 !important; color: #06281E !important; box-shadow: none !important; }
+.button-primary:hover, .home-enter-button:hover { background: #059669 !important; }
+.independence-notice { color: #CBD5E1 !important; }
+.independence-notice strong { color: #10B981 !important; }
+.preview-dialog::backdrop { background: rgba(4, 9, 18, .84); backdrop-filter: none; }
+.mobile-nav { background: #0B111E !important; border-top-color: #26334D !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; min-height: calc(72px + env(safe-area-inset-bottom)) !important; padding: 4px 8px calc(4px + env(safe-area-inset-bottom)) !important; }
+.mobile-nav a { min-height: 56px !important; color: #94A3B8 !important; font-size: 10px !important; }
+.mobile-nav a:hover, .mobile-nav a[aria-current="page"] { color: #10B981 !important; }
+.mobile-nav a[aria-current="page"] .mobile-nav-icon { border-radius: 8px !important; }
+.subject-filter-track { scrollbar-color: #334466 #141E30; }
+.creator-card-discovery { background: #141E30 !important; }
+.creator-state a, .creator-pending-actions a { color: #06281E; }
+.creator-pending-actions a + a { color: #F1F5F9; }
+@media (max-width: 600px) {
+  body { padding-bottom: calc(78px + env(safe-area-inset-bottom)) !important; }
+  .mobile-nav { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .mobile-nav a { min-height: 56px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .subject-filter-track button, .creator-card, .resource-card, .resource-card-v2 { transition: none !important; }
 }
