@@ -7,6 +7,7 @@
     title: string;
     subject: string;
     category: string;
+    paperType: string;
     scope: string;
     school: string;
     year: string;
@@ -21,6 +22,7 @@
   let subject = '';
   let year = '';
   let school = '';
+  let paperType = '';
   let loading = true;
   let loadError = false;
   let visibleCount = 24;
@@ -30,11 +32,16 @@
   let subjects: string[] = [];
   let years: string[] = [];
   let schools: string[] = [];
+  let paperTypes: string[] = [];
+  let paperTypeCounts: { label: string; count: number }[] = [];
 
   $: subjects = [...new Set(papers.map((paper) => paper.subject).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'en-IN'));
   $: years = [...new Set(papers.map((paper) => paper.year).filter(Boolean))].sort((a, b) => b.localeCompare(a, 'en-IN'));
   $: schools = [...new Set(papers.map((paper) => paper.school).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'en-IN'));
+  $: paperTypes = ['School Prelims & Term', 'Pre-board & Mock', 'Specimen & Sample', 'Other Question Papers'];
+  $: paperTypeCounts = paperTypes.map((label) => ({ label, count: papers.filter((paper) => paper.paperType === label).length }));
   $: filteredPapers = papers.filter((paper) => {
+    if (paperType && paper.paperType !== paperType) return false;
     if (subject && paper.subject !== subject) return false;
     if (year && paper.year !== year) return false;
     if (school && paper.school !== school) return false;
@@ -90,6 +97,7 @@
     subject = '';
     year = '';
     school = '';
+    paperType = '';
     visibleCount = 24;
   }
 
@@ -104,34 +112,48 @@
 </script>
 
 <svelte:head>
-  <title>ICSE School Prelims &amp; Pre-board Papers | ICSE Compass</title>
-  <meta name="description" content="Browse ICSE Class 10 school prelim, pre-board and mock examination papers with subject, year and school filters. Each listing opens its recorded source." />
+  <title>ICSE School Papers, Specimen &amp; Sample Papers | ICSE Compass</title>
+  <meta name="description" content="Browse ICSE Class 10 school prelims, pre-board papers, specimen papers and sample papers with clear paper-type, subject, year and school filters." />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/school-papers/" />
-  <meta property="og:title" content="ICSE School Prelims &amp; Pre-board Papers | ICSE Compass" />
+  <meta property="og:title" content="ICSE School Papers, Specimen &amp; Sample Papers | ICSE Compass" />
   <meta property="og:description" content="A searchable collection of school prelim and pre-board question papers." />
 </svelte:head>
 
 <main class="page-content school-papers-page">
   <header class="school-papers-heading">
     <p class="eyebrow">ICSE COMPASS · SCHOOL-LEVEL PRACTICE</p>
-    <h1>School Prelims &amp; Question Papers</h1>
-    <p>Browse school prelims, pre-board examinations and mock papers from the master resource sheet. Search by school, subject or year, then open the recorded source.</p>
+    <h1>ICSE School &amp; Practice Papers</h1>
+    <p>Browse school prelims and term papers alongside specimen papers, sample papers and pre-board practice. Every listing is labelled by type and links to its recorded source.</p>
   </header>
 
   <section class="prelims-library" aria-labelledby="prelims-library-title">
     <div class="prelims-library-heading">
       <div>
         <span class="prelims-kicker">THE PAPER COLLECTION</span>
-        <h2 id="prelims-library-title">Prelims Papers</h2>
-        <p>Listings are refreshed from the Prelims Papers tab in the ICSE MasterClass Student OS resource spreadsheet. Files remain with their listed sources; ICSE Compass does not mirror third-party papers.</p>
+        <h2 id="prelims-library-title">School &amp; Practice Paper Catalogue</h2>
+        <p>Listings are refreshed from the Prelims Papers tab in the ICSE MasterClass Student OS resource spreadsheet. School examinations and specimen/sample practice are separated below; files remain with their listed sources.</p>
       </div>
       <div class="prelims-count" aria-live="polite">
         <strong>{loading ? '—' : papers.length.toLocaleString('en-IN')}</strong>
-        <span>listed papers</span>
+        <span>all catalogue listings</span>
       </div>
     </div>
 
-    <div class="prelims-filters" aria-label="Search and filter prelim papers">
+    <div class="paper-type-summary" aria-label="Catalogue counts by paper type">
+      {#each paperTypeCounts as item}
+        <button type="button" class:active={paperType === item.label} onclick={() => { paperType = paperType === item.label ? '' : item.label; visibleCount = 24; }} aria-pressed={paperType === item.label}>
+          <strong>{item.count.toLocaleString('en-IN')}</strong><span>{item.label}</span>
+        </button>
+      {/each}
+    </div>
+
+    <div class="prelims-filters" aria-label="Search and filter school and practice papers">
+      <label>Paper type
+        <select bind:value={paperType} onchange={() => visibleCount = 24}>
+          <option value="">All paper types</option>
+          {#each paperTypes as item}<option value={item}>{item}</option>{/each}
+        </select>
+      </label>
       <label class="prelims-search" for="prelims-search">
         <span aria-hidden="true">⌕</span>
         <input id="prelims-search" type="search" value={query} oninput={(event) => updateSearch((event.currentTarget as HTMLInputElement).value)} placeholder="Search paper, school or subject…" autocomplete="off" />
@@ -190,10 +212,10 @@
                 {/if}
               </div>
               <div class="prelim-card-content">
-                <div class="prelim-card-meta"><span>{paper.subject}</span><span>{paper.year || 'Year not stated'}</span></div>
+                <div class="prelim-card-meta"><span>{paper.paperType}</span><span>{paper.year || 'Year not stated'}</span></div>
                 <h3>{paper.title}</h3>
-                <p class="prelim-school">{paper.school}</p>
-                {#if paper.scope}<p class="prelim-scope">{paper.scope}</p>{/if}
+                <p class="prelim-school">{paper.school === 'School not stated' ? 'School not stated' : paper.school}</p>
+                <p class="prelim-scope">{paper.paperType}{paper.scope ? ' · ' + paper.scope : ''}</p>
                 {#if paper.sourceCredit}<p class="prelim-credit">Source credit: {paper.sourceCredit}</p>{/if}
                 <p class="prelim-rights">Rights note: {paper.rightsStatus}</p>
                 <div class="prelim-card-footer">
@@ -209,7 +231,7 @@
         {/if}
       {/if}
     </div>
-    <p class="prelims-rights-note">Third-party ownership and reuse rights are not implied by a listing. Open each source and follow the original provider's terms. ICSE Compass does not host these papers.</p>
+    <p class="prelims-rights-note">Some records do not identify a school or year; those gaps are shown rather than inferred. Third-party ownership and reuse rights are not implied by a listing. Open each source and follow the original provider's terms. ICSE Compass does not host these papers.</p>
   </section>
 
   <section class="school-papers-collection" aria-labelledby="school-papers-collection-title">
@@ -245,7 +267,12 @@
   .prelims-count { flex: 0 0 auto; min-width: 104px; padding: 12px 14px; background: #16243a; border: 1px solid #2b3d59; border-radius: 8px; text-align: right; }
   .prelims-count strong { display: block; color: #f1f5f9; font-size: 24px; font-variant-numeric: tabular-nums; }
   .prelims-count span { color: #91a2bb; font-size: 10px; }
-  .prelims-filters { display: grid; grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(130px, 1fr)) auto; align-items: end; gap: 10px; padding: 14px; background: #0b1423; border: 1px solid #263750; border-radius: 9px; }
+  .paper-type-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; margin-bottom: 12px; }
+  .paper-type-summary button { display: grid; gap: 5px; min-height: 68px; padding: 11px 12px; color: #a6b3c6; background: #0b1423; border: 1px solid #263750; border-radius: 7px; text-align: left; cursor: pointer; }
+  .paper-type-summary button strong { color: #f1f5f9; font-size: 19px; font-variant-numeric: tabular-nums; }
+  .paper-type-summary button span { font-size: 10px; line-height: 1.35; }
+  .paper-type-summary button.active { border-color: #10b981; background: #132b2c; }
+  .prelims-filters { display: grid; grid-template-columns: minmax(220px, 1.5fr) repeat(4, minmax(130px, 1fr)) auto; align-items: end; gap: 10px; padding: 14px; background: #0b1423; border: 1px solid #263750; border-radius: 9px; }
   .prelims-filters label { display: grid; gap: 6px; color: #aab8cb; font-size: 10px; font-weight: 700; }
   .prelims-search { display: flex !important; min-height: 42px; align-items: center; gap: 8px !important; padding: 0 11px; background: #16243a; border: 1px solid #354966; border-radius: 6px; color: #8da0bb !important; }
   .prelims-search > span { font-size: 22px; line-height: 1; }
@@ -294,10 +321,12 @@
   .school-papers-back { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; margin-top: 22px; color: #73d6b0; font-size: 11px; font-weight: 800; }
   @media (max-width: 820px) {
     .prelims-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .paper-type-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .prelims-search { grid-column: 1 / -1; }
   }
   @media (max-width: 560px) {
     .prelims-library-heading { flex-direction: column; }
+    .paper-type-summary { grid-template-columns: 1fr 1fr; }
     .prelims-count { min-width: 0; text-align: left; }
     .prelims-filters { grid-template-columns: 1fr; }
     .prelims-search { grid-column: auto; }
