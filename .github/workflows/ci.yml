@@ -25,6 +25,8 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci
+      - name: Refresh prelim papers from the master Google Sheet
+        run: node scripts/build-prelims.mjs
       - name: Validate public catalogue JSON
         run: npm run validate:catalogue
       - name: Run full dependency audit
@@ -77,6 +79,8 @@ jobs:
           test -s build/data/subjects.json
           test -s build/data/chapters.json
           test -s build/data/catalogue-meta.json
+          test -s build/data/prelims.json
+          node --input-type=module -e "import fs from 'node:fs'; const data = JSON.parse(fs.readFileSync('build/data/prelims.json', 'utf8')); if (!Array.isArray(data.papers) || data.papers.length === 0 || data.count !== data.papers.length) throw new Error('Prelims catalogue is empty or inconsistent.');"
           test -f build/.nojekyll
           grep -Fq 'ICSE Compass is not affiliated with, endorsed by, or an official product of CISCE.' build/index.html
           grep -Fq 'Your study space should stay yours.' build/privacy/index.html
