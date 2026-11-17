@@ -1166,3 +1166,46 @@ body { color: var(--ink); background: var(--paper); }
   .subject-tile, .discovery-tile, .shelf-book, .resource-card-v2 { transition: none; }
   .subject-tile:hover, .discovery-tile:hover, .shelf-book:hover, .resource-card-v2:hover { transform: none; }
 }
+
+/* Homepage: rule first, then one clear entry to the library */
+.home-rule-hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: clamp(36px, 6vw, 84px); align-items: center; padding-block: clamp(64px, 9vw, 112px); }
+.home-rule-copy { max-width: 720px; }
+.home-rule-copy h1 { margin: 24px 0 20px; color: #202a25; font: 500 clamp(43px, 5.4vw, 72px)/1.04 var(--serif); letter-spacing: -2.5px; }
+.home-rule-copy h1 em { color: #2e624a; font-weight: 450; }
+.home-rule-lede { max-width: 590px; margin: 0; color: #5d6a60; font-size: 14px; line-height: 1.9; }
+.home-enter-button { display: inline-flex; min-height: 54px; align-items: center; gap: 28px; margin-top: 30px; padding: 0 22px; color: #fffaf1; background: #2e624a; border: 1px solid #214b38; font-size: 12px; font-weight: 850; text-decoration: none; transition: background .16s ease; }
+.home-enter-button:hover { background: #214b38; }
+.home-enter-button:focus-visible { outline: 3px solid #a56a45; outline-offset: 4px; }
+.home-rule-footnote { margin: 14px 0 0; color: #778076; font-size: 10px; line-height: 1.7; }
+.home-rule-preview { position: relative; padding: clamp(20px, 3vw, 28px); color: #fffaf1; background: #244a39; border: 1px solid #1d3e30; box-shadow: 10px 12px 0 #d8c8b4; }
+.home-rule-preview-top { display: flex; justify-content: space-between; gap: 12px; color: #c3d2c2; font-size: 8px; font-weight: 850; letter-spacing: 1.2px; }
+.home-rule-preview-title { display: flex; align-items: center; gap: 13px; margin-top: 30px; }
+.home-rule-symbol { display: grid; width: 42px; height: 42px; flex: 0 0 auto; place-items: center; color: #254a38; background: #e5c69f; border-radius: 50%; font-size: 20px; }
+.home-rule-preview-title strong { display: block; font: 500 25px/1.1 var(--serif); }
+.home-rule-preview-title small { display: block; margin-top: 6px; color: #c7d5c6; font-size: 10px; }
+.home-rule-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 25px; padding-block: 17px; border-top: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(255,255,255,.18); }
+.home-rule-stats strong { display: block; color: #f0d4b0; font: 500 29px/1 var(--serif); }
+.home-rule-stats span { display: block; margin-top: 6px; color: #c3d2c2; font-size: 8px; font-weight: 800; letter-spacing: .8px; }
+.home-rule-samples { display: grid; gap: 0; margin-top: 10px; }
+.home-rule-samples a { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 10px; min-height: 47px; border-bottom: 1px solid rgba(255,255,255,.14); color: #fffaf1; text-decoration: none; }
+.home-rule-samples a:last-child { border-bottom: 0; }
+.home-rule-samples a:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.home-rule-samples a span:first-child { padding: 4px 5px; color: #254a38; background: #e5c69f; font-size: 8px; font-weight: 900; }
+.home-rule-samples a strong { overflow: hidden; font-size: 10px; line-height: 1.5; text-overflow: ellipsis; }
+.home-rule-loading, .home-rule-error { padding: 15px 0; color: #d6e0d4; font-size: 10px; }
+.home-rule-error button { margin-left: 10px; padding: 5px 8px; color: #244a39; background: #f0d4b0; border: 0; cursor: pointer; }
+.home-rule-preview-foot { margin: 13px 0 0; color: #c3d2c2; font-size: 9px; line-height: 1.6; }
+.home-rule-samples a:focus-visible { outline: 3px solid #f0d4b0; outline-offset: 3px; }
+@media (max-width: 760px) {
+  .home-rule-hero { grid-template-columns: 1fr; gap: 38px; padding-block: 55px 62px; }
+  .home-rule-preview { max-width: 620px; }
+}
+@media (max-width: 600px) {
+  .home-rule-hero { padding-block: 42px 48px; gap: 30px; }
+  .home-rule-copy h1 { margin-top: 19px; font-size: clamp(39px, 10vw, 52px); letter-spacing: -1.5px; }
+  .home-rule-lede { font-size: 12px; }
+  .home-enter-button { width: 100%; justify-content: space-between; min-height: 52px; }
+  .home-rule-preview { padding: 18px; box-shadow: 6px 7px 0 #d8c8b4; }
+  .home-rule-preview-title { margin-top: 23px; }
+  .home-rule-preview-title strong { font-size: 23px; }
+}
