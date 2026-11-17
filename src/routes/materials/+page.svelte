@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { siteBase } from '#lib/site.ts';
+  import { readSavedItems, toggleSavedItem, createResourceSavedItem, shareLink, type SavedItem } from '#lib/bookmarks.ts';
   import { filterResources, formatResourceTitle, formatResourceType, getResourcePreviewUrl, getResourceActionLabel, type Creator, type Resource, type Subject, type Chapter } from '#lib/catalogue.ts';
 
   let resources: Resource[] = [];
@@ -20,6 +21,12 @@
   let failedPreviewIds: string[] = [];
   let activePreview: Resource | null = null;
   let previewDialog: HTMLDialogElement;
+  let savedItems: SavedItem[] = [];
+  let bookmarkStorageError = false;
+  let shareMessage = '';
+  function isSaved(resourceId: string) { return savedItems.some((item) => item.id === 'resource:' + resourceId); }
+  function toggleResourceBookmark(resource: Resource) { const result = toggleSavedItem(createResourceSavedItem(resource, siteBase + '/materials/?q=' + encodeURIComponent(resource.title)), savedItems); savedItems = result.items; bookmarkStorageError = result.error; }
+  async function shareResource(resource: Resource) { shareMessage = await shareLink(resource.title, resource.description, resource.sourceUrl); }
 
   function markPreviewFailed(resourceId: string) {
     failedPreviewIds = failedPreviewIds.includes(resourceId) ? failedPreviewIds : [...failedPreviewIds, resourceId];
@@ -75,6 +82,7 @@
   }
 
   onMount(() => {
+    const stored = readSavedItems(); savedItems = stored.items; bookmarkStorageError = stored.error;
     const params = new URLSearchParams(window.location.search);
     query = params.get('q') ?? '';
     void loadCatalogue();
@@ -212,6 +220,8 @@
             </details>
             <div class="resource-card-actions">
               <button type="button" class="resource-preview-action" onclick={() => openPreview(resource)}>Preview details</button>
+              <button type="button" class="resource-preview-action" aria-pressed={isSaved(resource.id)} onclick={() => toggleResourceBookmark(resource)}>{isSaved(resource.id) ? '★ Saved' : '☆ Bookmark'}</button>
+              <button type="button" class="resource-preview-action" onclick={() => void shareResource(resource)}>Share</button>
               <a class="resource-link" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer">{actionLabel} <span aria-hidden="true">↗</span></a>
             </div>
           </div>
@@ -220,6 +230,8 @@
     </div>
   {/if}
 
+  {#if bookmarkStorageError}<p class="catalogue-note" role="status">Bookmarks could not be saved in this browser.</p>{/if}
+  <p class="catalogue-note" role="status" aria-live="polite">{shareMessage}</p>
   <p class="catalogue-note"><strong>Source first.</strong> ICSE Compass is an independent discovery index. Third-party materials remain with their original publishers unless hosting permission has been granted. A preview image is not a substitute for the original document.</p>
   <a class="text-link" href={siteBase + '/'}>← Return to overview</a>
 
