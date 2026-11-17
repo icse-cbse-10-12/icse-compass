@@ -45,7 +45,7 @@
     {:else}
       <div class="resource-list">
         {#each data.resources as resource (resource.id)}
-          <article class="resource-item">
+          <article id={'resource-' + resource.id} class="resource-item">
             <div><span class="resource-type">{resource.resourceType.replace('-', ' ')}</span><h3>{resource.title}</h3>{#if resource.description}<p>{resource.description}</p>{/if}</div>
             <a href={resource.sourceUrl} target="_blank" rel="noopener noreferrer">{resource.accessMethod === 'hosted' ? 'Open authorised resource' : 'Visit original source'} ↗</a>
           </article>
@@ -54,3 +54,7 @@
     {/if}
   </section>
 </main>
+
+<style>
+  .resource-item[id] { scroll-margin-top: 24px; }
+</style>
