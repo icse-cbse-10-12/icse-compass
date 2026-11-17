@@ -2,7 +2,7 @@
   import type { PageData } from './$types';
   import { siteBase } from '#lib/site.ts';
   import { formatResourceTitle, formatResourceType } from '#lib/catalogue.ts';
-  import { creatorSubjectFilters, filterCreatorResources, filterCreatorsBySubject, type CreatorSubjectFilter } from '#lib/creator-directory';
+  import { creatorSubjectFilters, filterCreatorResources, filterCreatorsBySubject, type CreatorSubjectFilter } from '#lib/creator-directory.ts';
 
   export let data: PageData;
   let selectedSubject: CreatorSubjectFilter = 'All Educators';
