@@ -41,7 +41,7 @@
       </div>
     </section>
   {:else}
-    <nav class="subject-filter-track" aria-label="Filter educators by subject">
+    <nav class="compass-track" aria-label="Filter educators by subject">
       {#each creatorSubjectFilters as subject (subject)}
         <button type="button" class:active={selectedSubject === subject} aria-pressed={selectedSubject === subject} onclick={() => (selectedSubject = subject)}>{subject}</button>
       {/each}
@@ -90,6 +90,8 @@
 </main>
 
 <style>
+  .heading-aside strong { display: block; margin-bottom: 8px; font-size: .75rem; letter-spacing: .08em; }
+  .heading-aside span { display: block; }
   .creator-card-discovery { display: flex; flex-direction: column; min-width: 0; }
   .creator-card-discovery > p:not(.platform) { min-height: 2.8em; }
   .creator-resource-preview { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); }
@@ -104,10 +106,10 @@
   .creator-actions-discovery { margin-top: auto; padding-top: 13px; }
   .creator-actions-discovery a:first-child { color: #10B981; font-weight: 850; }
   .creator-resource-link:focus-visible, .creator-actions-discovery a:focus-visible { outline: 3px solid #10B981; outline-offset: 3px; }
-  .subject-filter-track { display: flex; gap: 8px; overflow-x: auto; margin: 22px 0 0; padding: 3px 2px 10px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
-  .subject-filter-track button { flex: 0 0 auto; min-height: 48px; padding: 0 16px; border: 1px solid #26334D; background: #141E30; color: #CBD5E1; font-size: 11px; font-weight: 700; cursor: pointer; scroll-snap-align: start; }
-  .subject-filter-track button.active, .subject-filter-track button[aria-pressed="true"] { border-color: #10B981; background: #1C2942; color: #F1F5F9; box-shadow: inset 0 -2px 0 #10B981; }
-  .subject-filter-track button:focus-visible { outline: 3px solid #10B981; outline-offset: 2px; }
+  .compass-track { display: flex; gap: 8px; overflow-x: auto; margin: 22px 0 0; padding: 3px 2px 10px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .compass-track button { flex: 0 0 auto; min-height: 48px; padding: 0 16px; border: 1px solid #26334D; background: #141E30; color: #CBD5E1; font-size: 11px; font-weight: 700; cursor: pointer; scroll-snap-align: start; }
+  .compass-track button.active, .compass-track button[aria-pressed="true"] { border-color: #10B981; background: #1C2942; color: #F1F5F9; box-shadow: inset 0 -2px 0 #10B981; }
+  .compass-track button:focus-visible { outline: 3px solid #10B981; outline-offset: 2px; }
   .creator-pending { min-height: 280px; }
   .creator-pending h2 { max-width: 720px; margin: 0; color: #F1F5F9; font: 500 clamp(25px, 3vw, 34px)/1.2 var(--serif); }
   .creator-pending-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 22px; }

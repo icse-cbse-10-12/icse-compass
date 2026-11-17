@@ -1255,7 +1255,7 @@ html, body, .app-shell, .catalogue-page, .home-v2 { background: #0B111E !importa
 .mobile-nav a { min-height: 56px !important; color: #94A3B8 !important; font-size: 10px !important; }
 .mobile-nav a:hover, .mobile-nav a[aria-current="page"] { color: #10B981 !important; }
 .mobile-nav a[aria-current="page"] .mobile-nav-icon { border-radius: 8px !important; }
-.subject-filter-track { scrollbar-color: #334466 #141E30; }
+.compass-track { scrollbar-color: #334466 #141E30; }
 .creator-card-discovery { background: #141E30 !important; }
 .creator-state a, .creator-pending-actions a { color: #06281E; }
 .creator-pending-actions a + a { color: #F1F5F9; }
@@ -1265,5 +1265,5 @@ html, body, .app-shell, .catalogue-page, .home-v2 { background: #0B111E !importa
   .mobile-nav a { min-height: 56px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .subject-filter-track button, .creator-card, .resource-card, .resource-card-v2 { transition: none !important; }
+  .compass-track button, .creator-card, .resource-card, .resource-card-v2 { transition: none !important; }
 }
