@@ -5,7 +5,7 @@
   import { page } from '$app/state';
 
   const homeUrl = siteOrigin + siteBase + '/';
-  const mobileRoutes = publicRoutes.filter((route) => ['Overview', 'Materials', 'Papers', 'Syllabus'].includes(route.shortLabel));
+  const mobileRoutes = publicRoutes.filter((route) => ['Overview', 'Materials', 'Papers', 'Saved', 'Syllabus'].includes(route.shortLabel));
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -78,6 +78,8 @@
           <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c.7-3.7 3.2-5.5 7.5-5.5s6.8 1.8 7.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         {:else if route.shortLabel === 'Papers'}
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {:else if route.shortLabel === 'Saved'}
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 3.5h12v17l-6-4-6 4v-17Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         {:else if route.shortLabel === 'Syllabus'}
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 4.5h14v15H5zM8.5 9l1.8 1.8L14.5 7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         {:else if route.shortLabel === 'Player'}

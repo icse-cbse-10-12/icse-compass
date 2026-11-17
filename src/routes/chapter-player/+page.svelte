@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { siteBase } from '#lib/site.ts';
+  import { readSavedItems, toggleSavedItem, createResourceSavedItem, shareLink, type SavedItem } from '#lib/bookmarks.ts';
   import type { Chapter, Resource, Subject } from '#lib/catalogue.ts';
   import { STUDY_STORAGE_KEY, emptyStudySnapshot, getChapterStatus, mergeStudyStructure, parseStudySnapshot, type StudySnapshot, type StudyStatus } from '#lib/study-progress.ts';
 
@@ -18,6 +19,9 @@
   let loadError = $state(false);
   let storageError = $state(false);
   let ready = $state(false);
+  let savedItems = $state<SavedItem[]>([]);
+  let bookmarkStorageError = $state(false);
+  let shareMessage = $state('');
 
   let subjects = $derived(mergeStudyStructure(catalogueSubjects, snapshot.customSubjects));
   let chapters = $derived(mergeStudyStructure(catalogueChapters, snapshot.customChapters));
@@ -50,6 +54,14 @@
     finally { loading = false; }
   }
 
+  function isSaved(resourceId: string) { return savedItems.some((item) => item.id === 'resource:' + resourceId); }
+  function toggleResourceBookmark(resource: Resource) {
+    const context = siteBase + '/chapter-player/?subject=' + encodeURIComponent(selectedSubjectId) + '&chapter=' + encodeURIComponent(selectedChapterId);
+    const result = toggleSavedItem(createResourceSavedItem(resource, context), savedItems);
+    savedItems = result.items; bookmarkStorageError = result.error;
+  }
+  async function shareResource(resource: Resource) { shareMessage = await shareLink(resource.title, resource.description, resource.sourceUrl); }
+
   function updateStatus(status: StudyStatus) {
     if (!selectedChapter) return;
     snapshot.progress = { ...snapshot.progress, [selectedSubjectId + '::' + selectedChapter.id]: status }; persist();
@@ -61,6 +73,7 @@
   }
 
   onMount(() => {
+    const saved = readSavedItems(); savedItems = saved.items; bookmarkStorageError = saved.error;
     try { snapshot = parseStudySnapshot(localStorage.getItem(STUDY_STORAGE_KEY)); }
     catch { snapshot = emptyStudySnapshot(); storageError = true; }
     ready = true;
@@ -85,6 +98,8 @@
     <aside class="heading-aside"><strong>FOLLOW THE SOURCE</strong>Only published catalogue resources and explicitly permitted embeds appear here.</aside>
   </header>
 
+  {#if bookmarkStorageError}<p class="study-alert" role="status">Bookmarks could not be saved in this browser.</p>{/if}
+  {#if shareMessage}<p class="study-alert" role="status" aria-live="polite">{shareMessage}</p>{/if}
   {#if storageError}<p class="study-alert" role="alert">This browser could not save your learning state. Check its storage settings before relying on this record.</p>{/if}
   <section class="player-selectors" aria-label="Choose a subject and chapter">
     <label>Subject<select value={selectedSubjectId} onchange={(event) => selectSubject((event.currentTarget as HTMLSelectElement).value)}><option value="">Choose a subject</option>{#each subjects as subject}<option value={subject.id}>{subject.name}</option>{/each}</select></label>
@@ -115,15 +130,15 @@
       <aside class="player-sidebar">
         <section class="resource-section"><div class="resource-section-heading"><h3>Videos</h3><span>{videos.length}</span></div>
           {#if videos.length === 0}<p class="resource-empty">No published video resources for this chapter yet.</p>{:else}
-            {#each videos as resource (resource.id)}<a class="chapter-resource" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer"><span class="resource-icon">▶</span><span><strong>{resource.title}</strong><small>{resource.accessMethod === 'embed' && resource.embedAllowed ? 'Permitted embed · Original source' : 'External video · Original source'}</small></span><span aria-hidden="true">↗</span></a>{/each}
+            {#each videos as resource (resource.id)}<div class="chapter-resource-row"><a class="chapter-resource" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer"><span class="resource-icon">▶</span><span><strong>{resource.title}</strong><small>{resource.accessMethod === 'embed' && resource.embedAllowed ? 'Permitted embed · Original source' : 'External video · Original source'}</small></span><span aria-hidden="true">↗</span></a><button type="button" aria-pressed={isSaved(resource.id)} onclick={() => toggleResourceBookmark(resource)}>{isSaved(resource.id) ? '★ Saved' : '☆ Save'}</button><button type="button" onclick={() => void shareResource(resource)}>Share</button></div>{/each}
           {/if}
         </section>
         <section class="resource-section"><div class="resource-section-heading"><h3>Notes &amp; PDFs</h3><span>{notes.length}</span></div>
           {#if notes.length === 0}<p class="resource-empty">No published notes or PDFs for this chapter yet.</p>{:else}
-            {#each notes as resource (resource.id)}<a class="chapter-resource" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer"><span class="resource-icon">▤</span><span><strong>{resource.title}</strong><small>{resource.resourceType === 'pdf' ? 'PDF · Original source' : 'Notes · Original source'}</small></span><span aria-hidden="true">↗</span></a>{/each}
+            {#each notes as resource (resource.id)}<div class="chapter-resource-row"><a class="chapter-resource" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer"><span class="resource-icon">▤</span><span><strong>{resource.title}</strong><small>{resource.resourceType === 'pdf' ? 'PDF · Original source' : 'Notes · Original source'}</small></span><span aria-hidden="true">↗</span></a><button type="button" aria-pressed={isSaved(resource.id)} onclick={() => toggleResourceBookmark(resource)}>{isSaved(resource.id) ? '★ Saved' : '☆ Save'}</button><button type="button" onclick={() => void shareResource(resource)}>Share</button></div>{/each}
           {/if}
         </section>
-        {#if otherResources.length > 0}<section class="resource-section"><div class="resource-section-heading"><h3>More resources</h3><span>{otherResources.length}</span></div>{#each otherResources as resource (resource.id)}<a class="chapter-resource" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer"><span class="resource-icon">↗</span><span><strong>{resource.title}</strong><small>{resource.resourceType.replace('-', ' ')} · Original source</small></span><span aria-hidden="true">↗</span></a>{/each}</section>{/if}
+        {#if otherResources.length > 0}<section class="resource-section"><div class="resource-section-heading"><h3>More resources</h3><span>{otherResources.length}</span></div>{#each otherResources as resource (resource.id)}<div class="chapter-resource-row"><a class="chapter-resource" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer"><span class="resource-icon">↗</span><span><strong>{resource.title}</strong><small>{resource.resourceType.replace('-', ' ')} · Original source</small></span><span aria-hidden="true">↗</span></a><button type="button" aria-pressed={isSaved(resource.id)} onclick={() => toggleResourceBookmark(resource)}>{isSaved(resource.id) ? '★ Saved' : '☆ Save'}</button><button type="button" onclick={() => void shareResource(resource)}>Share</button></div>{/each}</section>{/if}
       </aside>
     </section>
     <p class="study-footnote">Resources appear only after catalogue review. A public link is not proof that a file may be hosted or embedded; permissions are checked before publication.</p>
@@ -140,6 +155,7 @@
   .chapter-title-row{display:flex;align-items:end;justify-content:space-between;gap:15px;padding:20px 0 16px;border-bottom:1px solid #ddd5c5}.chapter-title-row h2{margin:6px 0 0;color:#2b211a;font:500 30px/1.15 var(--serif)}.chapter-subject{color:#65584d;font-size:9px}
   .learning-status{display:grid;gap:11px;padding:17px 0}.status-options{display:flex;flex-wrap:wrap;gap:7px}.status-options button{min-height:44px;padding:0 12px;color:#65584d;background:#fffdf7;border:1px solid #d5cdbd;font-size:9px;font-weight:750;cursor:pointer}.status-options button.chosen{color:#2f583a;background:#dce8d7;border-color:#a8c0a5}.learning-status p{margin:0;color:#82766a;font-size:9px;line-height:1.7}
   .player-sidebar{display:grid;gap:12px}.resource-section{padding:15px;background:#fffdf7;border:1px solid #ddd5c5}.resource-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:11px;border-bottom:1px solid #e7e0d2}.resource-section-heading h3{margin:0;color:#2b211a;font:500 19px/1.2 var(--serif)}.resource-section-heading>span{color:#65584d;font-size:9px}.resource-empty{margin:12px 0 0;color:#82766a;font-size:10px;line-height:1.7}
+  .chapter-resource-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:6px;border-bottom:1px solid #eee8dd}.chapter-resource-row .chapter-resource{border:0}.chapter-resource-row button{min-height:36px;padding:0 8px;color:#527b5c;background:#e7efe2;border:1px solid #c6d4c0;font-size:9px;font-weight:800;cursor:pointer}
   .chapter-resource{display:grid;grid-template-columns:27px minmax(0,1fr) auto;align-items:center;gap:9px;min-height:60px;padding:9px 0;border-bottom:1px solid #eee8dd}.chapter-resource:last-child{border-bottom:0}.resource-icon{display:grid;width:27px;height:27px;place-items:center;color:#527b5c;background:#e7efe2;font-size:12px}.chapter-resource>span:nth-child(2){display:grid;gap:4px;min-width:0}.chapter-resource strong{overflow-wrap:anywhere;color:#2b211a;font-size:10px;line-height:1.4}.chapter-resource small{color:#82766a;font-size:8px;line-height:1.4}.chapter-resource>span:last-child{color:#527b5c;font-size:12px}
   .study-footnote{margin:15px 0 0;color:#817568;font-size:9px;line-height:1.7}
   @media(max-width:760px){.player-workspace{grid-template-columns:1fr}.player-sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}.player-sidebar .resource-section:last-child:nth-child(odd){grid-column:1/-1}}

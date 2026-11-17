@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { siteBase } from '#lib/site.ts';
+  import { readSavedItems, toggleSavedItem, createPaperSavedItem, migrateLegacyPaperBookmarks, shareLink, type SavedItem } from '#lib/bookmarks.ts';
 
   type PrelimPaper = {
     id: string;
@@ -24,7 +25,7 @@
   let school = '';
   let paperType = '';
   let bookmarkIds: string[] = [];
-  let showBookmarkedOnly = false;
+  let savedItems: SavedItem[] = [];
   let bookmarkStorageError = false;
   let shareMessage = '';
   let loading = true;
@@ -45,7 +46,6 @@
   $: paperTypes = ['School Prelims & Term', 'Pre-board & Mock', 'Specimen & Sample', 'Other Question Papers'];
   $: paperTypeCounts = paperTypes.map((label) => ({ label, count: papers.filter((paper) => paper.paperType === label).length }));
   $: filteredPapers = papers.filter((paper) => {
-    if (showBookmarkedOnly && !bookmarkIds.includes(paper.id)) return false;
     if (paperType && paper.paperType !== paperType) return false;
     if (subject && paper.subject !== subject) return false;
     if (year && paper.year !== year) return false;
@@ -89,6 +89,10 @@
       const payload = await response.json() as { papers?: unknown };
       if (!Array.isArray(payload.papers)) throw new Error('Prelims catalogue format invalid');
       papers = payload.papers as PrelimPaper[];
+      const migrated = migrateLegacyPaperBookmarks(papers);
+      savedItems = migrated.items;
+      bookmarkIds = savedItems.filter((item) => item.kind === 'paper').map((item) => item.id.slice('paper:'.length));
+      bookmarkStorageError = migrated.error;
       failedPreviewIds = [];
     } catch {
       loadError = true;
@@ -99,7 +103,6 @@
 
   function clearFilters() {
     query = '';
-    showBookmarkedOnly = false;
     subject = '';
     year = '';
     school = '';
@@ -107,39 +110,17 @@
     visibleCount = 24;
   }
 
-  const BOOKMARK_STORAGE_KEY = 'icse-compass:saved-school-papers:v1';
-
   function toggleBookmark(id: string) {
-    const next = bookmarkIds.includes(id) ? bookmarkIds.filter((savedId) => savedId !== id) : [...bookmarkIds, id];
-    bookmarkIds = next;
-    try {
-      localStorage.setItem(BOOKMARK_STORAGE_KEY, JSON.stringify(next));
-      bookmarkStorageError = false;
-    } catch {
-      bookmarkStorageError = true;
-    }
+    const paper = papers.find((item) => item.id === id);
+    if (!paper) return;
+    const result = toggleSavedItem(createPaperSavedItem(paper, siteBase + '/school-papers/'), savedItems);
+    savedItems = result.items;
+    bookmarkIds = savedItems.filter((item) => item.kind === 'paper').map((item) => item.id.slice('paper:'.length));
+    bookmarkStorageError = result.error;
   }
 
   async function sharePaper(paper: PrelimPaper) {
-    const shareData = {
-      title: paper.title,
-      text: [paper.subject, paper.school, paper.year].filter(Boolean).join(' · '),
-      url: paper.sourceUrl
-    };
-    try {
-      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
-        await navigator.share(shareData);
-        shareMessage = 'Share sheet opened for ' + paper.title + '.';
-      } else if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(paper.sourceUrl);
-        shareMessage = 'Source link copied for ' + paper.title + '.';
-      } else {
-        shareMessage = 'Sharing is not available in this browser. Open the source link to share it manually.';
-      }
-    } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') return;
-      shareMessage = 'Could not share this link. Open the source and share it manually.';
-    }
+    shareMessage = await shareLink(paper.title, [paper.subject, paper.school, paper.year].filter(Boolean).join(' · '), paper.sourceUrl);
   }
 
   function updateSearch(value: string) {
@@ -148,16 +129,10 @@
   }
 
   onMount(() => {
-    try {
-      const stored = localStorage.getItem(BOOKMARK_STORAGE_KEY);
-      if (stored) {
-        const parsed: unknown = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.every((id) => typeof id === 'string')) bookmarkIds = [...new Set(parsed)];
-        else bookmarkStorageError = true;
-      }
-    } catch {
-      bookmarkStorageError = true;
-    }
+    const stored = readSavedItems();
+    savedItems = stored.items;
+    bookmarkIds = savedItems.filter((item) => item.kind === 'paper').map((item) => item.id.slice('paper:'.length));
+    bookmarkStorageError = stored.error;
     void loadPapers();
   });
 </script>
@@ -230,9 +205,7 @@
       <button class="prelims-clear" type="button" onclick={clearFilters}>Clear filters</button>
     </div>
     <div class="bookmark-filter-row">
-      <button class:active={showBookmarkedOnly} class="saved-papers-toggle" type="button" aria-pressed={showBookmarkedOnly} onclick={() => { showBookmarkedOnly = !showBookmarkedOnly; visibleCount = 24; }}>
-        {showBookmarkedOnly ? 'Show all papers' : 'Saved papers'} <span>{bookmarkIds.length}</span>
-      </button>
+      <a class="saved-papers-toggle" href={siteBase + '/saved/'}>Open Saved collection <span>{savedItems.length}</span></a>
     </div>
 
     {#if bookmarkStorageError}
@@ -245,8 +218,6 @@
         <div class="prelims-state" role="alert"><strong>The paper catalogue couldn't be loaded.</strong><p>Check your connection and try again. No papers have been removed from the source spreadsheet.</p><button type="button" onclick={loadPapers}>Try again</button></div>
       {:else if papers.length === 0}
         <div class="prelims-state"><strong>No prelim listings are available yet.</strong><p>When the Prelims Papers tab contains valid PDF records with HTTPS source links, they will appear here after the next catalogue refresh.</p></div>
-      {:else if filteredPapers.length === 0 && showBookmarkedOnly && bookmarkIds.length === 0}
-        <div class="prelims-state"><strong>No saved papers yet.</strong><p>Use the Bookmark control on any paper card to keep it in your personal list on this device.</p><button type="button" onclick={() => showBookmarkedOnly = false}>Browse all papers</button></div>
       {:else if filteredPapers.length === 0}
         <div class="prelims-state"><strong>No matching papers found.</strong><p>Try another search or clear one or more filters.</p><button type="button" onclick={clearFilters}>Clear search and filters</button></div>
       {:else}
@@ -354,8 +325,6 @@
   .bookmark-filter-row { display: flex; justify-content: flex-end; margin-top: 9px; }
   .saved-papers-toggle { min-height: 34px; padding: 0 10px; color: #c7f5e4; background: #132b2c; border: 1px solid #286451; border-radius: 5px; font-size: 10px; font-weight: 800; cursor: pointer; }
   .saved-papers-toggle span { display: inline-grid; min-width: 20px; min-height: 20px; place-items: center; margin-left: 4px; color: #06281e; background: #10b981; border-radius: 3px; }
-  .saved-papers-toggle.active { color: #06281e; background: #10b981; }
-  .saved-papers-toggle.active span { color: #f1f5f9; background: #15372f; }
   .bookmark-storage-warning { margin: 12px 0 0; padding: 10px 12px; color: #f5d8a8; background: #33291a; border: 1px solid #6b512b; font-size: 10px; line-height: 1.6; }
   .share-status { min-height: 18px; margin: 0 0 8px; color: #9eafc5; font-size: 10px; }
   .prelims-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 14px; }
