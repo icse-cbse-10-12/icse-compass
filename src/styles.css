@@ -1267,3 +1267,56 @@ html, body, .app-shell, .catalogue-page, .home-v2 { background: #0B111E !importa
 @media (prefers-reduced-motion: reduce) {
   .compass-track button, .creator-card, .resource-card, .resource-card-v2 { transition: none !important; }
 }
+
+
+/* Subject shelves: photographic covers with a consistent, readable overlay. */
+.subject-tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 178px;
+  background: #18283a !important;
+  border: 1px solid #334466 !important;
+  color: #f1f5f9 !important;
+}
+.subject-tile-image {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .78;
+  transition: transform .35s ease, opacity .25s ease;
+}
+.subject-tile::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(100deg, rgba(5, 12, 24, .88) 0%, rgba(5, 12, 24, .55) 58%, rgba(5, 12, 24, .2) 100%), linear-gradient(0deg, rgba(5, 12, 24, .52), transparent 65%);
+}
+.subject-tile:hover .subject-tile-image,
+.subject-tile:focus-visible .subject-tile-image {
+  transform: scale(1.045);
+  opacity: .95;
+}
+.subject-tile .subject-tile-index { color: rgba(241,245,249,.72); }
+.subject-tile .subject-tile-mark {
+  color: #f1f5f9 !important;
+  background: rgba(11,17,30,.48) !important;
+  border: 1px solid rgba(241,245,249,.28);
+}
+.subject-tile strong { color: #fff !important; text-shadow: 0 2px 12px rgba(0,0,0,.38); }
+.subject-tile small { color: rgba(241,245,249,.86) !important; }
+.subject-tile:focus-visible { outline: 3px solid #10B981; outline-offset: 3px; }
+@media (max-width: 600px) {
+  .subject-tile { min-height: 150px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .subject-tile-image { transition: none; }
+  .subject-tile:hover .subject-tile-image,
+  .subject-tile:focus-visible .subject-tile-image { transform: none; }
+}
