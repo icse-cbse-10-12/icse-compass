@@ -55,7 +55,7 @@ test('only PDF prelim records with safe HTTPS source links are published', () =>
 
 test('paper type classification separates specimen, school exams, mocks and uncategorised question papers', () => {
   assert.equal(classifyPaperType({ ...base, Scope: 'Specimen / Sample Paper' }), 'Specimen & Sample');
-  assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'School Prelim Examination' }), 'School Prelims & Term');
+  assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'School Prelim Examination', 'Book Name': 'School prelim paper.pdf' }), 'School Prelims & Term');
   assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'Pre-Board Examination' }), 'Pre-board & Mock');
   assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'Board practice' }), 'Other Question Papers');
 });
