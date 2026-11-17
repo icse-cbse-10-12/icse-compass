@@ -57,6 +57,15 @@
     }
   }
 
+  function applyQuickFilter(searchTerm: string) {
+    creatorId = 'cisce';
+    subjectId = '';
+    chapterId = '';
+    resourceType = '';
+    query = searchTerm;
+    sort = 'relevance';
+  }
+
   function clearFilters() {
     query = ''; subjectId = ''; chapterId = ''; creatorId = ''; resourceType = ''; sort = 'relevance';
   }
@@ -93,6 +102,14 @@
       <input id="resource-search" type="search" bind:value={query} placeholder="Search notes, chapters, topics or educators…" autocomplete="off" />
     </label>
     <div class="filter-heading"><span>REFINE YOUR SEARCH</span><span>FILTERS / 05</span></div>
+    <div class="catalogue-quick-filters" aria-label="Quick access to official CISCE resources">
+      <span class="quick-filter-label">QUICK ACCESS</span>
+      <button type="button" aria-pressed={creatorId === 'cisce' && query === ''} onclick={() => applyQuickFilter('')}>All CISCE resources</button>
+      <button type="button" aria-pressed={creatorId === 'cisce' && query === 'PYQ'} onclick={() => applyQuickFilter('PYQ')}>PYQs</button>
+      <button type="button" aria-pressed={creatorId === 'cisce' && query === 'Specimen'} onclick={() => applyQuickFilter('Specimen')}>Specimen papers</button>
+      <button type="button" aria-pressed={creatorId === 'cisce' && query === 'CFQ'} onclick={() => applyQuickFilter('CFQ')}>CFQs</button>
+      <button type="button" aria-pressed={creatorId === 'cisce' && query === 'Syllabus'} onclick={() => applyQuickFilter('Syllabus')}>Syllabus</button>
+    </div>
     <div class="filter-grid">
       <label>Subject
         <select value={subjectId} onchange={(event) => { subjectId = (event.currentTarget as HTMLSelectElement).value; chapterId = ''; }}><option value="">All subjects</option>{#each subjects as subject}<option value={subject.id}>{subject.name}</option>{/each}</select>

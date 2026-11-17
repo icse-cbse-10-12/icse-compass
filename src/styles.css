@@ -782,3 +782,46 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
   .resource-card { transition: none; }
   .resource-card:hover { transform: none; }
 }
+
+
+/* Fast paths for the official CISCE collections. */
+.catalogue-quick-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0 0 14px;
+}
+.quick-filter-label {
+  margin-right: 4px;
+  color: #756e61;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 1px;
+}
+.catalogue-quick-filters button {
+  min-height: 40px;
+  padding: 0 12px;
+  color: #405b43;
+  background: #f1f4ed;
+  border: 1px solid #d5dfd0;
+  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.catalogue-quick-filters button:hover,
+.catalogue-quick-filters button[aria-pressed="true"] {
+  color: #fff;
+  background: #355f43;
+  border-color: #355f43;
+}
+.catalogue-quick-filters button:focus-visible {
+  outline: 3px solid #527b5c;
+  outline-offset: 3px;
+}
+@media (max-width: 560px) {
+  .catalogue-quick-filters { gap: 6px; }
+  .catalogue-quick-filters button { flex: 1 1 calc(50% - 6px); }
+  .quick-filter-label { flex: 1 0 100%; }
+}

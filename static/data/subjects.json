@@ -52,5 +52,23 @@
     "name": "History & Civics",
     "sortOrder": 9,
     "status": "published"
+  },
+  {
+    "id": "economics",
+    "name": "Economics",
+    "sortOrder": 10,
+    "status": "published"
+  },
+  {
+    "id": "commercial-studies",
+    "name": "Commercial Studies",
+    "sortOrder": 11,
+    "status": "published"
+  },
+  {
+    "id": "robotics-artificial-intelligence",
+    "name": "Robotics & Artificial Intelligence",
+    "sortOrder": 12,
+    "status": "published"
   }
 ]
