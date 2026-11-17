@@ -137,7 +137,7 @@
       </label>
     </div>
     <div class="results-toolbar results-toolbar-v2">
-      <span aria-live="polite">{#if loading}Loading catalogue…{:else if loadError}Catalogue unavailable{:else}<strong>{filtered.length}</strong> {filtered.length === 1 ? 'resource' : 'resources'} found</span>
+      <span aria-live="polite">{#if loading}Loading catalogue…{:else if loadError}Catalogue unavailable{:else}<strong>{filtered.length}</strong> {filtered.length === 1 ? 'resource' : 'resources'} found{/if}</span>
       <div class="results-actions">
         <div class="view-switch" aria-label="Choose resource layout">
           <button type="button" aria-pressed={viewMode === 'grid'} onclick={() => viewMode = 'grid'}>Grid</button>
@@ -227,12 +227,13 @@
     {#if activePreview}
       {@const previewTitle = formatResourceTitle(activePreview.title)}
       {@const previewImage = getResourcePreviewUrl(activePreview)}
+      {@const previewResourceId = activePreview.id}
       <div class="preview-dialog-shell">
         <div class="preview-dialog-header"><div><span>ICSE COMPASS / RESOURCE PREVIEW</span><h2>{previewTitle.title}</h2></div><button type="button" class="preview-dialog-close" onclick={closePreview} aria-label="Close preview">×</button></div>
         <div class="preview-dialog-body">
           <div class="preview-dialog-image">
             {#if previewImage && !failedPreviewIds.includes(activePreview.id)}
-              <img src={previewImage} alt={'Source preview for ' + previewTitle.title} onerror={() => markPreviewFailed(activePreview!.id)} />
+              <img src={previewImage} alt={'Source preview for ' + previewTitle.title} onerror={() => markPreviewFailed(previewResourceId)} />
               <span>Preview image supplied by the original source</span>
             {:else}
               <div class="resource-cover-art dialog-cover-art"><span class="cover-brand">ICSE COMPASS / RESOURCE INDEX</span><span class="cover-format">{previewTitle.extension ?? formatResourceType(activePreview.resourceType)}</span><strong>{previewTitle.title}</strong><span class="cover-subject">{subjects.find((subject) => subject.id === activePreview!.subjectId)?.name ?? 'General'}</span></div>
