@@ -45,5 +45,5 @@
   </section>
 
   <p class="privacy-disclaimer">This page describes the current app design and device-only study-data storage approach. It is not a legal certification or a guarantee about the separate services linked above.</p>
-  <a class="text-link" href="{siteBase}/">← Return to overview</a>
+  <a class="text-link" href="{siteBase}/">Return to overview →</a>
 </main>
