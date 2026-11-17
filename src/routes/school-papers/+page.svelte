@@ -229,6 +229,11 @@
       </label>
       <button class="prelims-clear" type="button" onclick={clearFilters}>Clear filters</button>
     </div>
+    <div class="bookmark-filter-row">
+      <button class:active={showBookmarkedOnly} class="saved-papers-toggle" type="button" aria-pressed={showBookmarkedOnly} onclick={() => { showBookmarkedOnly = !showBookmarkedOnly; visibleCount = 24; }}>
+        {showBookmarkedOnly ? 'Show all papers' : 'Saved papers'} <span>{bookmarkIds.length}</span>
+      </button>
+    </div>
 
     {#if bookmarkStorageError}
       <p class="bookmark-storage-warning" role="status">Bookmarks could not be saved in this browser. They may not remain after you leave this page.</p>
@@ -240,15 +245,14 @@
         <div class="prelims-state" role="alert"><strong>The paper catalogue couldn't be loaded.</strong><p>Check your connection and try again. No papers have been removed from the source spreadsheet.</p><button type="button" onclick={loadPapers}>Try again</button></div>
       {:else if papers.length === 0}
         <div class="prelims-state"><strong>No prelim listings are available yet.</strong><p>When the Prelims Papers tab contains valid PDF records with HTTPS source links, they will appear here after the next catalogue refresh.</p></div>
+      {:else if filteredPapers.length === 0 && showBookmarkedOnly && bookmarkIds.length === 0}
+        <div class="prelims-state"><strong>No saved papers yet.</strong><p>Use the Bookmark control on any paper card to keep it in your personal list on this device.</p><button type="button" onclick={() => showBookmarkedOnly = false}>Browse all papers</button></div>
       {:else if filteredPapers.length === 0}
         <div class="prelims-state"><strong>No matching papers found.</strong><p>Try another search or clear one or more filters.</p><button type="button" onclick={clearFilters}>Clear search and filters</button></div>
       {:else}
         <div class="prelims-results-bar">
           <span><strong>{filteredPapers.length.toLocaleString('en-IN')}</strong> {filteredPapers.length === 1 ? 'paper' : 'papers'} found</span>
           <span>Showing {visiblePapers.length.toLocaleString('en-IN')}</span>
-          <button class:active={showBookmarkedOnly} class="saved-papers-toggle" type="button" aria-pressed={showBookmarkedOnly} onclick={() => { showBookmarkedOnly = !showBookmarkedOnly; visibleCount = 24; }}>
-            {showBookmarkedOnly ? 'Show all papers' : 'Saved papers'} <span>{bookmarkIds.length}</span>
-          </button>
         </div>
         <p class="share-status" role="status" aria-live="polite">{shareMessage}</p>
         <div class="prelims-grid">
@@ -347,6 +351,7 @@
   .prelims-results { margin-top: 18px; }
   .prelims-results-bar { display: flex; justify-content: space-between; gap: 12px; margin: 0 0 12px; color: #9eafc5; font-size: 11px; }
   .prelims-results-bar strong { color: #f1f5f9; }
+  .bookmark-filter-row { display: flex; justify-content: flex-end; margin-top: 9px; }
   .saved-papers-toggle { min-height: 34px; padding: 0 10px; color: #c7f5e4; background: #132b2c; border: 1px solid #286451; border-radius: 5px; font-size: 10px; font-weight: 800; cursor: pointer; }
   .saved-papers-toggle span { display: inline-grid; min-width: 20px; min-height: 20px; place-items: center; margin-left: 4px; color: #06281e; background: #10b981; border-radius: 3px; }
   .saved-papers-toggle.active { color: #06281e; background: #10b981; }
@@ -400,6 +405,7 @@
   }
   @media (max-width: 560px) {
     .prelims-results-bar { flex-wrap: wrap; align-items: center; }
+    .bookmark-filter-row { justify-content: flex-start; }
     .prelim-card-actions { width: 100%; justify-content: flex-start; }
     .prelim-card-footer { align-items: flex-start; flex-direction: column; }
     .prelims-library-heading { flex-direction: column; }
