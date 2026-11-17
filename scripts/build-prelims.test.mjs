@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { extractYear, isPrelimPaper, normalizePrelimRows, parseCSV, safeHttpsUrl } from './build-prelims.mjs';
+import { classifyPaperType, extractYear, isPrelimPaper, normalizePrelimRows, parseCSV, safeHttpsUrl } from './build-prelims.mjs';
 
 const base = {
   Subject: 'Biology',
@@ -50,4 +50,17 @@ test('only PDF prelim records with safe HTTPS source links are published', () =>
   assert.equal(papers.find((paper) => paper.id === 'riverdale-biology-2026')?.rightsStatus, base['Copyright Status']);
   assert.equal(safeHttpsUrl('javascript:alert(1)'), '');
   assert.equal(safeHttpsUrl('https://example.com/paper.pdf'), 'https://example.com/paper.pdf');
+});
+
+
+test('paper type classification separates specimen, school exams, mocks and uncategorised question papers', () => {
+  assert.equal(classifyPaperType({ ...base, Scope: 'Specimen / Sample Paper' }), 'Specimen & Sample');
+  assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'School Prelim Examination' }), 'School Prelims & Term');
+  assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'Pre-Board Examination' }), 'Pre-board & Mock');
+  assert.equal(classifyPaperType({ ...base, Category: 'Question Papers', Scope: 'Board practice' }), 'Other Question Papers');
+});
+
+test('generic contributor labels do not masquerade as named schools', () => {
+  const papers = normalizePrelimRows([{ ...base, 'Publisher/Company': 'School / teacher contribution' }]);
+  assert.equal(papers[0].school, 'School not stated');
 });

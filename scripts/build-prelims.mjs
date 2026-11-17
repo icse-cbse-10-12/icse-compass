@@ -71,6 +71,14 @@ export function isPrelimPaper(row) {
   return categoryIsPrelim || (paperCategory && paperIsPrelim);
 }
 
+export function classifyPaperType(row) {
+  const text = [row.Category, row.Scope, row['Book Name']].map(clean).join(' ').toLowerCase();
+  if (/specimen|sample paper/.test(text)) return 'Specimen & Sample';
+  if (/pre[- ]?board|mock(?: test| exam| paper)?/.test(text)) return 'Pre-board & Mock';
+  if (/prelim|preliminary|term paper|term examination|unit[- ]?test/.test(text)) return 'School Prelims & Term';
+  return 'Other Question Papers';
+}
+
 export function extractYear(row) {
   const text = [row.Edition, row['Book Name'], row.Scope].map(clean).join(' ');
   const match = text.match(/\b(20\d{2})(?:\s*[-–/]\s*(\d{2}|20\d{2}))?\b/);
@@ -102,7 +110,7 @@ export function normalizePrelimRows(rows) {
     seen.add(id);
 
     const publisher = clean(row['Publisher/Company']);
-    const school = !publisher || /^(not stated|not specified|other \/ unspecified)$/i.test(publisher)
+    const school = !publisher || /^(not stated|not specified|other \/ unspecified|school \/ teacher contribution)$/i.test(publisher)
       ? 'School not stated'
       : publisher;
 
@@ -111,6 +119,7 @@ export function normalizePrelimRows(rows) {
       title,
       subject,
       category: clean(row.Category),
+      paperType: classifyPaperType(row),
       scope: clean(row.Scope),
       school,
       year: extractYear(row),
