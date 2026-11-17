@@ -55,7 +55,7 @@ describe('ICSE Compass visual resource-library homepage', () => {
 
   it('keeps library preview counts data-backed and explains source attribution', () => {
     expect(homepage).toContain('sampleResources');
-    expect(homepage).toContain('Original source');
+    expect(homepage).toContain('original source');
     expect(homepage).toContain('Where a source provides a preview image');
     expect(homepage).not.toMatch(/\b\d{2,}[+]?\s+(resources|downloads|students|educators)\b/i);
   });
