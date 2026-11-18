@@ -32,7 +32,7 @@
   <a class="back-link" href="{siteBase}/creators/">← All educators</a>
   <section class="educator-hero">
     <div class="educator-hero-copy">
-      <p class="eyebrow"><span class="eyebrow-rule"></span> EDUCATOR PROFILE / ORIGINAL-SOURCE ATTRIBUTION</p>
+      <p class="eyebrow">EDUCATOR PROFILE / ORIGINAL-SOURCE ATTRIBUTION</p>
       <p class="platform">{data.creator.platform}</p>
       <h1>{data.creator.name}</h1>
       {#if data.creator.description}<p class="intro">{data.creator.description}</p>{/if}
@@ -46,7 +46,7 @@
 
   <section class="attributed-resources" aria-labelledby="resources-heading">
     <div class="section-head">
-      <div><p class="eyebrow"><span class="eyebrow-rule"></span> FROM THIS EDUCATOR</p><h2 id="resources-heading">Published resources</h2></div>
+      <div><p class="eyebrow">FROM THIS EDUCATOR</p><h2 id="resources-heading">Published resources</h2></div>
       <span>{data.resources.length} {data.resources.length === 1 ? 'RESOURCE' : 'RESOURCES'}</span>
     </div>
     {#if data.resources.length === 0}

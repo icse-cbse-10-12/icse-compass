@@ -101,10 +101,13 @@
 
 <svelte:head>
   <title>ICSE Compass | Your independent ICSE study library</title>
-  <meta name="description" content="Discover ICSE notes, question papers, video lessons and learning resources by subject, chapter and educator. Browse freely and follow each resource to its original source." />
+  <meta name="description" content="Discover ICSE notes, past papers, and video lessons by subject and chapter. Browse freely and follow each resource to its original source." />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
   <meta property="og:title" content="ICSE Compass | Your independent ICSE study library" />
   <meta property="og:description" content="A visual, searchable library for ICSE learners. Find notes, papers, videos and original educator sources." />
+  <meta property="og:image" content="https://icse-cbse-10-12.github.io/icse-compass/og-compass.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://icse-cbse-10-12.github.io/icse-compass/og-compass.png" />
 </svelte:head>
 
 <main class="home-page home-v2">
@@ -133,7 +136,7 @@
       </div>
       <section class="home-rule-samples" aria-label="Resource preview examples">
         {#if loading}
-          <div class="home-preview-skeletons" role="status" aria-label="Loading library preview"><span></span><span></span><span></span></div>
+          <p class="home-preview-skeletons" role="status">Loading library preview</p>
         {:else if loadError}
           <div class="home-rule-error" role="alert"><strong>Preview unavailable.</strong><button type="button" onclick={loadHomeData}>Try again</button></div>
         {:else if sampleResources.length > 0}
@@ -165,7 +168,7 @@
         {/each}
       </nav>
       {#if loading}
-        <div class="subject-grid-v2" aria-label="Loading subjects"><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div></div>
+        <p class="subject-grid-loading" role="status">Loading subjects…</p>
       {:else if loadError}
         <div class="home-data-state" role="alert"><strong>Subjects could not be loaded.</strong><p>Check your connection and try again.</p><button type="button" onclick={loadHomeData}>Reload library</button></div>
       {:else}
@@ -207,7 +210,7 @@
 
   <section class="home-sample-section" aria-labelledby="sample-title">
     <div class="page-width home-sample-inner">
-      <div><p class="eyebrow eyebrow-ruled">YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">→</span></a></div>
+      <div><p class="eyebrow eyebrow-ruled">YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore ICSE study materials <span aria-hidden="true">→</span></a></div>
       <figure class="sample-stack" aria-hidden="true"><div class="sample-sheet sample-sheet-back"><span>ICSE / STUDY INDEX</span><strong>Practice.<br />Revise.<br />Repeat.</strong></div><div class="sample-sheet sample-sheet-front"><span>YOUR NEXT RESOURCE</span><div class="sample-stamp">SOURCE<br />LINKED</div></div></figure>
     </div>
   </section>

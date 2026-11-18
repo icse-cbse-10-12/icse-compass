@@ -94,7 +94,7 @@
 
 <main class="page-content study-page player-page">
   <header class="page-heading">
-    <div><p class="eyebrow"><span class="eyebrow-rule"></span> FOCUSED LEARNING / 05</p><h1>Chapter Player</h1><p class="page-intro">Bring a chapter's approved videos, notes and original sources into one calm study view. Your learning state is yours to update.</p></div>
+    <div><p class="eyebrow">FOCUSED LEARNING / 05</p><h1>Chapter Player</h1><p class="page-intro">Bring a chapter's approved videos, notes and original sources into one calm study view. Your learning state is yours to update.</p></div>
     <aside class="heading-aside"><strong>FOLLOW THE SOURCE</strong>Only published catalogue resources and explicitly permitted embeds appear here.</aside>
   </header>
 
@@ -108,7 +108,7 @@
   </section>
 
   {#if loading}
-    <div class="player-state" role="status"><span class="state-spinner" aria-hidden="true"></span><strong>Preparing your chapter workspace…</strong><p>Checking published resources and your local chapter list.</p></div>
+    <div class="player-state" role="status"><strong>Preparing your chapter workspace…</strong><p>Checking published resources and your local chapter list.</p></div>
   {:else if loadError}
     <div class="player-state" role="alert"><strong>The chapter catalogue could not be loaded.</strong><p>Check your connection and try again. Your local learning state is not changed by a catalogue refresh.</p><button class="study-button secondary" type="button" onclick={loadPlayerData}>Try again</button></div>
   {:else if !selectedChapter}
