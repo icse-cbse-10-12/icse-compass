@@ -87,7 +87,7 @@
         <summary aria-haspopup="true">Library <span aria-hidden="true">⌄</span></summary>
         <div class="nav-dropdown-menu">
           {#each publicRoutes.filter((route) => ['/materials/','/creators/','/school-papers/'].includes(route.path)) as route}
-            <a href="{siteBase}{route.path}" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}><strong>{route.label}</strong><small>{route.path === '/materials/' ? 'Notes, lessons & resources' : route.path === '/creators/' ? 'Educator collections' : 'Prelims & board practice'}</small></a>
+            <a href="{siteBase}{route.path}" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}><span class="nav-dropdown-item-title">{route.label}</span><span class="nav-dropdown-item-description">{route.path === '/materials/' ? 'Notes, lessons & resources' : route.path === '/creators/' ? 'Educator collections' : 'Prelims & board practice'}</span></a>
           {/each}
         </div>
       </details>
