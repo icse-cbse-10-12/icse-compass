@@ -6,11 +6,14 @@ const homepage = readFileSync(new URL('../routes/+page.svelte', import.meta.url)
 const layout = readFileSync(new URL('../routes/+layout.svelte', import.meta.url), 'utf8');
 const materials = readFileSync(new URL('../routes/materials/+page.svelte', import.meta.url), 'utf8');
 const styles = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+const viteConfig = readFileSync(new URL('../../vite.config.ts', import.meta.url), 'utf8');
 const subjects = JSON.parse(readFileSync(new URL('../../static/data/subjects.json', import.meta.url), 'utf8')) as Array<{ id: string; name: string; status: string }>;
 const resources = JSON.parse(readFileSync(new URL('../../static/data/resources.json', import.meta.url), 'utf8')) as Array<{ status: string }>;
 
 describe('ICSE Compass visual resource-library homepage', () => {
-  it('sets a safe referrer policy and complete homepage social metadata', () => {
+  it('sets a safe referrer policy, complete social metadata and an Apple touch icon', () => {
+    expect(layout).toContain('rel="apple-touch-icon" sizes="180x180"');
+    expect(viteConfig).toContain("'apple-touch-icon.png'");
     expect(appShell).toContain('name="referrer" content="strict-origin-when-cross-origin"');
     expect(homepage).toContain('name="twitter:title"');
     expect(homepage).toContain('name="twitter:description"');
@@ -29,6 +32,16 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('.public-label::before');
   });
 
+
+  it('adds substantive study guidance, source transparency and useful FAQs', () => {
+    expect(homepage).toContain('A practical guide to using ICSE Compass.');
+    expect(homepage).toContain('Search by subject, topic or resource type');
+    expect(homepage).toContain('Follow the original source');
+    expect(homepage).toContain('Frequently asked questions');
+    expect(homepage).toContain('not affiliated with, authorised by or endorsed by CISCE');
+    expect(styles).toContain('.home-guide-grid');
+    expect(styles).toContain('@media (max-width: 760px)');
+  });
 
   it('positions Compass as an independent, rule-first ICSE study library', () => {
     expect(homepage).toContain('Your independent ICSE study library');
