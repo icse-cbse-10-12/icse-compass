@@ -47,7 +47,7 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).toContain('subjectCount = $state(12)');
     expect(homepage).toContain('resourceCount = resources.length');
     expect(homepage).toContain('subjectCount = subjects.length');
-    expect(homepage).toContain('stat-skeleton-inline');
+    expect(homepage).toContain('class="stat-value" class:loading={loading}');
     expect(homepage).toContain('subjectCards');
     expect(homepage).toContain('subject.count');
     expect(resources.filter((resource) => resource.status === 'published').length).toBe(155);
