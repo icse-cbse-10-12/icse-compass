@@ -24,8 +24,8 @@ const templates = [
 describe('HTML, SEO and static security cleanup', () => {
   it('contains no empty div, p or span scaffolding in the static shell or Svelte templates', () => {
     for (const source of templates) {
-      expect(source).not.toMatch(/<(?:div|p|span)\\b[^>]*>\\s*<\\/(?:div|p|span)\\s*>/i);
-      expect(source).not.toMatch(/<!--[\\s\\S]*?-->/);
+      expect(source).not.toMatch(new RegExp('<(div|p|span)[^>]*>[ ]*</(div|p|span)>', 'i'));
+      expect(source).not.toContain('<!--');
     }
   });
 
