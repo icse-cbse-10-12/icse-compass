@@ -6,6 +6,9 @@
 
   let resources = $state<Resource[]>([]);
   let subjects = $state<Subject[]>([]);
+  // Last committed catalogue counts are shown immediately, then refreshed from the live data.
+  let resourceCount = $state(155);
+  let subjectCount = $state(12);
   let loading = $state(true);
   let loadError = $state(false);
 
@@ -43,6 +46,8 @@
       if (!Array.isArray(resourceData) || !Array.isArray(subjectData)) throw new Error('Library data is invalid');
       resources = resourceData.filter((item: Resource) => item.status === 'published');
       subjects = subjectData.filter((item: Subject) => item.status === 'published').sort((a: Subject, b: Subject) => a.sortOrder - b.sortOrder);
+      resourceCount = resources.length;
+      subjectCount = subjects.length;
     } catch {
       loadError = true;
     } finally {
@@ -83,8 +88,8 @@
       <div class="home-rule-preview-top"><span>INSIDE THE LIBRARY</span><span>OPEN ACCESS</span></div>
       <div class="home-rule-preview-title"><span class="home-rule-symbol" aria-hidden="true">✳</span><div><strong>Find your next resource.</strong><small>Browse by subject, paper or educator.</small></div></div>
       <div class="home-rule-stats">
-        <div><strong>{#if loading}<span class="stat-skeleton" aria-hidden="true"></span><span class="visually-hidden">Loading resource count</span>{:else if loadError}—{:else}{resources.length.toLocaleString('en-IN')}{/if}</strong><span>PUBLISHED RESOURCES</span></div>
-        <div><strong>{#if loading}<span class="stat-skeleton short" aria-hidden="true"></span><span class="visually-hidden">Loading subject count</span>{:else if loadError}—{:else}{subjects.length}{/if}</strong><span>SUBJECT AREAS</span></div>
+        <div><strong>{resourceCount.toLocaleString('en-IN')}{#if loading}<span class="stat-skeleton stat-skeleton-inline" aria-hidden="true"></span>{/if}</strong><span>PUBLISHED RESOURCES</span></div>
+        <div><strong>{subjectCount}{#if loading}<span class="stat-skeleton stat-skeleton-inline short" aria-hidden="true"></span>{/if}</strong><span>SUBJECT AREAS</span></div>
       </div>
       <div class="home-rule-samples">
         {#if loading}
