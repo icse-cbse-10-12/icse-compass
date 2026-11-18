@@ -23,7 +23,7 @@
   let previewDialog: HTMLDialogElement;
   let savedItems: SavedItem[] = [];
   let bookmarkStorageError = false;
-  let bookmarkPopId = $state('');
+  let bookmarkPopId = '';
   let shareMessage = '';
   function isSaved(resourceId: string) { return savedItems.some((item) => item.id === 'resource:' + resourceId); }
   function toggleResourceBookmark(resource: Resource) { const result = toggleSavedItem(createResourceSavedItem(resource, siteBase + '/materials/?q=' + encodeURIComponent(resource.title)), savedItems); savedItems = result.items; bookmarkStorageError = result.error; bookmarkPopId = result.saved ? resource.id : ''; }
