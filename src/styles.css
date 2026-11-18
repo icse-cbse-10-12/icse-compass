@@ -1764,3 +1764,250 @@ body { background-color: #0B111E !important; }
   .home-guide-card { padding: 19px; }
   .home-guide-faq-grid { grid-template-columns: 1fr; gap: 15px; }
 }
+
+
+/* Site-wide design-system enforcement: one Oxford Midnight palette on every route. */
+:root {
+  color-scheme: dark;
+  color: #F1F5F9;
+  background: #0B111E;
+  --canvas: #0B111E;
+  --surface: #141E30;
+  --surface-raised: #1C2942;
+  --surface-hover: #26334D;
+  --text-primary: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --accent: #10B981;
+  --accent-strong: #059669;
+  --accent-warm: #F59E0B;
+  --paper: var(--canvas);
+  --paper-light: var(--surface);
+  --white: var(--surface);
+  --ink: var(--text-primary);
+  --ink-soft: var(--text-secondary);
+  --navy: var(--surface);
+  --terracotta: var(--accent-warm);
+  --green: var(--accent);
+  --green-dark: var(--accent-strong);
+  --sage: var(--surface-raised);
+  --sage-deep: var(--surface-hover);
+  --sand: var(--surface-raised);
+  --muted: var(--text-muted);
+  --muted-light: var(--text-muted);
+  --line: #26334D;
+  --line-strong: #334466;
+  --shadow-soft: 0 14px 36px rgba(0, 0, 0, .22);
+}
+html, body, .app-shell, main, .page-content, .page-width, .simple-page,
+.home-v2, .catalogue-page, .study-page, .privacy-page {
+  color: var(--text-primary);
+  background-color: var(--canvas);
+}
+body { background: var(--canvas) !important; }
+.topbar, .footer, .mobile-nav {
+  color: var(--text-secondary);
+  background: var(--canvas) !important;
+  border-color: var(--line) !important;
+}
+.brand-name, .footer-brand, h1, h2, h3, h4,
+.page-heading h1, .simple-page h1, .hero-copy h1, .home-hero-copy h1,
+.home-rule-copy h1, .section-head h2, .destination-title,
+.creator-card h2, .resource-card h2, .resource-card-v2 h2,
+.educator-hero h1, .creator-pending h2, .home-planner-band h2,
+.resource-shelf-heading strong, .home-section-heading h2,
+.home-discovery-section h2, .home-data-state strong {
+  color: var(--text-primary) !important;
+}
+p, .page-intro, .hero-description, .home-lede, .home-rule-lede,
+.home-rule-footnote, .destination-description, .resource-description,
+.resource-card > p, .creator-card > p:not(.platform), .creator-state p,
+.catalogue-state p, .simple-page > p:not(.eyebrow), .privacy-section p,
+.resource-item p, .home-discovery-section .home-section-heading > p,
+.home-planner-band p:not(.eyebrow), .resource-grid-intro {
+  color: var(--text-muted) !important;
+}
+small, dt, .resource-byline, .resource-subject, .resource-format,
+.resource-subject span, .resource-count, .section-head > span,
+.resource-shelf-heading span, .resource-shelf-heading small,
+.filter-heading, .results-toolbar, .quick-filter-label,
+.search-hint, .preview-origin, .preview-unavailable {
+  color: var(--text-muted) !important;
+}
+a:not(.button):not(.home-enter-button):not(.resource-link):not(.official-link):not(.preview-open-source),
+.text-action, .back-link, .footer-link, .resource-type, .platform,
+.eyebrow, .state-kicker, .index-number, .index-arrow,
+.resource-link, .creator-actions a, .creator-state a {
+  color: var(--accent) !important;
+}
+a:hover { color: #6EE7B7; }
+.topbar, .page-heading, .section-head, .chapter-context,
+.chapter-workspace-heading, .resource-section, .creator-actions,
+.resource-details, .privacy-section, .results-toolbar,
+.resource-shelf-heading, .home-rule-stats, .library-stats {
+  border-color: var(--line) !important;
+}
+.destination-card, .destination-featured, .principle-band,
+.catalogue-tools, .catalogue-tools-v2, .catalogue-state,
+.resource-card, .resource-card-v2, .creator-card, .creator-state,
+.educator-hero, .empty-state, .resource-item, .search-row,
+.home-search-field-v2, .resource-cover, .catalogue-count-panel,
+.subject-tile, .discovery-tile, .home-data-state, .status-note,
+.independence-notice, .study-summary, .structure-panel,
+.revision-panel, .player-selectors, .player-state, .study-state,
+.resource-section, .player-sidebar, .chapter-resource,
+.revision-empty, .catalogue-note, .resource-preview,
+.resource-preview-dialog, .preview-dialog-header, .preview-dialog-image,
+.preview-dialog-shell, .resource-details dl, .home-guide-card,
+.home-guide-faq, .home-rule-preview, .home-library-panel {
+  color: var(--text-primary);
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+}
+.destination-card:hover, .resource-card:hover, .resource-card:focus-within,
+.resource-card-v2:hover, .creator-card:hover, .subject-tile:hover,
+.discovery-tile:hover, .chapter-resource:hover {
+  border-color: var(--accent) !important;
+}
+.destination-featured, .principle-band, .catalogue-state,
+.creator-state, .study-summary, .player-state, .study-state,
+.home-subject-section, .home-guide-card {
+  background: var(--surface) !important;
+}
+.home-sample-section, .home-library-panel, .home-rule-preview {
+  color: var(--text-primary) !important;
+  background: #101A2B !important;
+  border-color: var(--line) !important;
+  box-shadow: none !important;
+}
+.home-sample-inner h2, .home-library-panel strong,
+.home-rule-preview-title strong, .home-rule-samples a,
+.home-sample-inner > div:first-child > p:not(.eyebrow) {
+  color: var(--text-primary) !important;
+}
+.home-sample-inner h2 em, .home-rule-stats strong,
+.library-stats strong, .panel-browse-link, .sample-cta {
+  color: var(--accent-warm) !important;
+}
+.library-panel-top, .library-panel-title small, .library-stats span,
+.home-rule-preview-top, .home-rule-preview-title small,
+.home-rule-stats span, .home-rule-preview-foot,
+.home-rule-loading, .home-rule-error {
+  color: var(--text-muted) !important;
+}
+.shelf-book, .sample-sheet, .sample-sheet-back, .sample-sheet-front {
+  color: var(--text-primary) !important;
+  background: var(--surface-raised) !important;
+  border-color: var(--line-strong) !important;
+  box-shadow: none !important;
+}
+.shelf-book-2, .shelf-book-3 { background: var(--surface-hover) !important; }
+.subject-tile, .discovery-tile, .discovery-papers, .discovery-notes,
+.discovery-lessons, .subject-tile-1, .subject-tile-2, .subject-tile-3,
+.subject-tile-4, .subject-tile-5, .subject-tile-6 {
+  color: var(--text-primary) !important;
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+}
+.subject-tile strong, .subject-tile small, .discovery-tile strong,
+.discovery-tile p, .discovery-number, .discovery-link,
+.home-planner-band h2, .home-planner-band p:not(.eyebrow) {
+  color: var(--text-primary) !important;
+}
+.subject-tile-mark, .discovery-symbol, .preview-file-icon {
+  color: #06281E !important;
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+.resource-cover, .resource-preview, .preview-dialog-image {
+  background: var(--surface-raised) !important;
+}
+.resource-cover-art {
+  color: var(--text-primary) !important;
+  background: var(--surface-raised) !important;
+  border-color: var(--line-strong) !important;
+  box-shadow: none !important;
+}
+.resource-cover-art strong, .cover-brand, .cover-format, .cover-subject {
+  color: var(--text-primary) !important;
+}
+.cover-source-label, .resource-subject, .resource-format,
+.resource-details summary, .resource-preview-action,
+.catalogue-quick-filters button, .view-switch {
+  color: var(--text-secondary) !important;
+  background: var(--surface-raised) !important;
+  border-color: var(--line-strong) !important;
+}
+.catalogue-quick-filters button[aria-pressed="true"],
+.view-switch button[aria-pressed="true"] {
+  color: #06281E !important;
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+.resource-link, .preview-open-source, .preview-toggle,
+.home-search-field-v2 button, .home-data-state button,
+.home-planner-band > a, .study-button, .button-primary,
+.home-enter-button, .official-link, .mobile-search-form button {
+  color: #06281E !important;
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+.resource-link:hover, .preview-open-source:hover, .preview-toggle:hover,
+.home-search-field-v2 button:hover, .home-data-state button:hover,
+.home-planner-band > a:hover, .study-button:hover,
+.button-primary:hover, .home-enter-button:hover, .official-link:hover,
+.mobile-search-form button:hover {
+  color: #041B14 !important;
+  background: #34D399 !important;
+  border-color: #34D399 !important;
+}
+.study-button.secondary, .clear-button, .retry-button,
+.resource-preview-action, .preview-dialog-close {
+  color: var(--text-primary) !important;
+  background: var(--surface-raised) !important;
+  border-color: var(--line-strong) !important;
+}
+input, select, textarea, .search-row, .search-row input,
+.home-search-field-v2, .home-search-field-v2 input,
+.mobile-search-form, .mobile-search-form input, .filter-grid select {
+  color: var(--text-primary) !important;
+  background: var(--surface-raised) !important;
+  border-color: var(--line-strong) !important;
+}
+input::placeholder, textarea::placeholder,
+.search-row input::placeholder, .home-search-field-v2 input::placeholder {
+  color: var(--text-muted) !important;
+}
+.resource-details dl, .resource-details dl div,
+.preview-dialog-info dl, .preview-dialog-info dl div {
+  background: var(--surface-raised) !important;
+  border-color: var(--line) !important;
+}
+.resource-details dt, .preview-dialog-info dt { color: var(--text-muted) !important; }
+.resource-details dd, .preview-dialog-info dd { color: var(--text-primary) !important; }
+.catalogue-count-panel { border-left: 3px solid var(--accent-warm) !important; }
+.catalogue-count-panel span, .catalogue-count-panel small { color: var(--text-muted) !important; }
+.catalogue-count-panel strong { color: var(--accent-warm) !important; }
+.independence-notice { color: var(--text-secondary) !important; }
+.independence-notice strong { color: var(--accent) !important; }
+.mobile-nav a, .mobile-nav > a { color: var(--text-muted) !important; }
+.mobile-nav a:hover, .mobile-nav a[aria-current="page"],
+.mobile-nav > a[aria-current="page"] { color: var(--accent) !important; }
+.mobile-nav a[aria-current="page"] .mobile-nav-icon,
+.mobile-nav > a[aria-current="page"]::before {
+  background: var(--accent) !important;
+}
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, summary:focus-visible {
+  outline-color: var(--accent) !important;
+}
+.resource-preview-dialog { color: var(--text-primary) !important; background: var(--surface) !important; border-color: var(--line-strong) !important; }
+.preview-dialog-header { background: var(--surface-raised) !important; border-color: var(--line) !important; }
+.preview-dialog-header h2 { color: var(--text-primary) !important; }
+.preview-dialog-info > p, .preview-dialog-image > p { color: var(--text-muted) !important; }
+@media (prefers-reduced-motion: reduce) {
+  .destination-card:hover, .resource-card:hover, .resource-card-v2:hover,
+  .creator-card:hover, .subject-tile:hover, .discovery-tile:hover {
+    transform: none !important;
+  }
+}
