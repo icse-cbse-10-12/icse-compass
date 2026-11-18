@@ -129,7 +129,7 @@
 
   <section class="structure-panel" aria-labelledby="structure-title">
     <div class="section-heading"><div><span class="study-kicker">BUILD YOUR CHAPTER LIST</span><h2 id="structure-title">Your syllabus, your sequence.</h2><span class="local-label">SAVED ON THIS DEVICE</span></div>
-      <div class="backup-actions"><button class="study-button secondary" type="button" onclick={exportBackup}>Export backup</button><label class="study-button secondary backup-import">Import backup<input type="file" accept="application/json,.json" onchange={importBackup} /></label></div>
+      <div id="backup-controls" class="backup-actions"><button class="study-button secondary" type="button" onclick={exportBackup}>Export backup</button><label class="study-button secondary backup-import">Import backup<input type="file" accept="application/json,.json" onchange={importBackup} /></label></div>
     </div>
     {#if backupMessage}<p class:backup-error={backupError} class="backup-message" role="status">{backupMessage}</p>{/if}
     <p class="structure-note">The public catalogue does not yet contain verified subject and chapter records. Add the names from your school's prescribed ICSE syllabus; these entries remain local to this browser.</p>
