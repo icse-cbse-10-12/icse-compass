@@ -157,6 +157,8 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('.mobile-nav > a[aria-current="page"]::before');
     expect(styles).toContain('background: var(--dark-highlight) !important');
     expect(styles).toContain('.mobile-search-form {');
+    expect(styles).toContain('background: var(--surface-soft);');
+    expect(styles).toContain('color: #16263E !important;');
   });
 
   it('keeps subject-card text readable and distinguishes the English shelves', () => {

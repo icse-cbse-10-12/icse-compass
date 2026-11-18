@@ -1717,3 +1717,27 @@ body { background-color: #0B111E !important; }
 @media (prefers-reduced-motion: reduce) {
   .mobile-nav > a::before { transition: none !important; }
 }
+
+
+/* Warm paper surfaces are limited to compact discovery/search controls. */
+.subject-quick-pill {
+  color: #244A39;
+  background: var(--surface-soft);
+  border-color: var(--surface-border);
+}
+.subject-quick-pill span { color: #536B5A; }
+.subject-quick-pill:hover,
+.subject-quick-pill:focus-visible {
+  background: #F5F1E8;
+  border-color: #A9B9A5;
+}
+.mobile-search-form {
+  background: var(--surface-soft) !important;
+  border-color: var(--surface-border) !important;
+}
+.mobile-search-form input {
+  color: #16263E !important;
+}
+.mobile-search-form input::placeholder {
+  color: #596477 !important;
+}
