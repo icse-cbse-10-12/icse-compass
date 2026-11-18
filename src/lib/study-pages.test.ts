@@ -5,6 +5,7 @@ const syllabus = readFileSync(new URL('../routes/syllabus/+page.svelte', import.
 const player = readFileSync(new URL('../routes/chapter-player/+page.svelte', import.meta.url), 'utf8');
 const layout = readFileSync(new URL('../routes/+layout.svelte', import.meta.url), 'utf8');
 const site = readFileSync(new URL('./site.ts', import.meta.url), 'utf8');
+const bookmarks = readFileSync(new URL('./bookmarks.ts', import.meta.url), 'utf8');
 const vite = readFileSync(new URL('../../vite.config.ts', import.meta.url), 'utf8');
 const sitemap = readFileSync(new URL('../../static/sitemap.xml', import.meta.url), 'utf8');
 const privacy = readFileSync(new URL('../routes/privacy/+page.svelte', import.meta.url), 'utf8');
