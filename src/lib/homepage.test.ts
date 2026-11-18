@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
+const appShell = readFileSync(new URL('../app.html', import.meta.url), 'utf8');
 const homepage = readFileSync(new URL('../routes/+page.svelte', import.meta.url), 'utf8');
 const layout = readFileSync(new URL('../routes/+layout.svelte', import.meta.url), 'utf8');
 const materials = readFileSync(new URL('../routes/materials/+page.svelte', import.meta.url), 'utf8');
@@ -9,6 +10,26 @@ const subjects = JSON.parse(readFileSync(new URL('../../static/data/subjects.jso
 const resources = JSON.parse(readFileSync(new URL('../../static/data/resources.json', import.meta.url), 'utf8')) as Array<{ status: string }>;
 
 describe('ICSE Compass visual resource-library homepage', () => {
+  it('sets a safe referrer policy and complete homepage social metadata', () => {
+    expect(appShell).toContain('name="referrer" content="strict-origin-when-cross-origin"');
+    expect(homepage).toContain('name="twitter:title"');
+    expect(homepage).toContain('name="twitter:description"');
+    expect(homepage).toContain('property="og:url"');
+    expect(homepage).toContain('Discover ICSE notes, question papers, video lessons');
+  });
+
+  it('uses semantic sections and CSS-drawn decoration instead of empty decorative markup', () => {
+    expect(homepage).toContain('<section class="home-rule-samples"');
+    expect(homepage).toContain('<figure class="sample-stack"');
+    expect(homepage).not.toContain('class="sample-lines');
+    expect(homepage).not.toContain('class="eyebrow-rule"');
+    expect(styles).toContain('.eyebrow-ruled::before');
+    expect(styles).toContain('.sample-sheet-front::before');
+    expect(styles).toContain('.sample-sheet-front::after');
+    expect(styles).toContain('.public-label::before');
+  });
+
+
   it('positions Compass as an independent, rule-first ICSE study library', () => {
     expect(homepage).toContain('Your independent ICSE study library');
     expect(homepage).toContain('THE ICSE COMPASS RULE');
