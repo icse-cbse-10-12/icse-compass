@@ -137,7 +137,7 @@
       </div>
       <nav class="subject-quick-links" aria-label="Browse resources by subject">
         {#each subjectQuickLinks as subject (subject.id)}
-          <a class="subject-quick-pill" href={siteBase + '/materials/?q=' + encodeURIComponent(subject.name)}>{subject.name}<span aria-hidden="true">↗</span></a>
+          <a class="subject-quick-pill" href={siteBase + '/materials/?q=' + encodeURIComponent(subject.name)}>{subject.name}<span aria-hidden="true">→</span></a>
         {/each}
       </nav>
       {#if loading}
