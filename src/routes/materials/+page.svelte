@@ -189,7 +189,6 @@
                 <span class="cover-format">{displayTitle.extension ?? formatResourceType(resource.resourceType)}</span>
                 <strong>{displayTitle.title}</strong>
                 <span class="cover-subject">{subjectName}</span>
-                
               </div>
               <span class="cover-source-label">{previewFailed ? 'SOURCE PREVIEW UNAVAILABLE' : 'COVER-STYLE FALLBACK'}</span>
             {/if}
