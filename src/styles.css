@@ -1408,3 +1408,11 @@ html, body, .app-shell, .catalogue-page, .home-v2 { background: #0B111E !importa
 @media (prefers-reduced-motion: reduce) {
   .mobile-menu-panel { transition: none; }
 }
+
+
+/* Final polish: blend the browser chrome, clarify dropdown subtitles and keep stats useful during slow loads. */
+body { background-color: #0B111E !important; }
+.mobile-nav { border-top: 1px solid rgba(255, 255, 255, 0.08) !important; }
+.nav-dropdown-menu small { display: block; margin-top: 3px; color: #94A3B8; font-size: 9px; line-height: 1.45; }
+.stat-skeleton-inline { width: 42px; height: 4px; margin-left: 8px; vertical-align: middle; }
+.stat-skeleton-inline.short { width: 28px; }
