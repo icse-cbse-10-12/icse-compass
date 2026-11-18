@@ -14,6 +14,8 @@
   let chapterName = $state('');
   let activeSubjectId = $state('');
   let ready = $state(false);
+  let backupMessage = $state('');
+  let backupError = $state(false);
 
   let subjects = $derived(mergeStudyStructure(catalogueSubjects, snapshot.customSubjects));
   let chapters = $derived(mergeStudyStructure(catalogueChapters, snapshot.customChapters));
@@ -63,6 +65,40 @@
     snapshot.progress = { ...snapshot.progress, [subjectId + '::' + chapterId]: status }; persist();
   }
 
+  function exportBackup() {
+    const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'icse-compass-syllabus-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    link.click();
+    URL.revokeObjectURL(url);
+    backupMessage = 'Backup file prepared. Keep it somewhere safe.';
+    backupError = false;
+  }
+
+  async function importBackup(event: Event) {
+    const input = event.currentTarget as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    try {
+      const value: unknown = JSON.parse(await file.text());
+      if (!value || typeof value !== 'object') throw new Error('Invalid backup');
+      const candidate = value as Partial<StudySnapshot>;
+      if (candidate.version !== 1 || !Array.isArray(candidate.customSubjects) || !Array.isArray(candidate.customChapters) || !candidate.progress || typeof candidate.progress !== 'object' || Array.isArray(candidate.progress)) throw new Error('Unsupported backup format');
+      if (!window.confirm('Import this backup and replace the syllabus data currently saved in this browser?')) return;
+      snapshot = parseStudySnapshot(JSON.stringify(candidate));
+      persist();
+      backupMessage = 'Backup imported. Your local syllabus data has been restored.';
+      backupError = false;
+    } catch {
+      backupMessage = 'This file is not a valid ICSE Compass syllabus backup.';
+      backupError = true;
+    } finally {
+      input.value = '';
+    }
+  }
+
   onMount(() => {
     try { snapshot = parseStudySnapshot(localStorage.getItem(STUDY_STORAGE_KEY)); }
     catch { snapshot = emptyStudySnapshot(); storageError = true; }
@@ -92,7 +128,10 @@
   {#if storageError}<p class="study-alert" role="alert">This browser could not save your changes. Check its storage settings before relying on this tracker.</p>{/if}
 
   <section class="structure-panel" aria-labelledby="structure-title">
-    <div class="section-heading"><div><span class="study-kicker">BUILD YOUR CHAPTER LIST</span><h2 id="structure-title">Your syllabus, your sequence.</h2></div><span class="local-label">SAVED ON THIS DEVICE</span></div>
+    <div class="section-heading"><div><span class="study-kicker">BUILD YOUR CHAPTER LIST</span><h2 id="structure-title">Your syllabus, your sequence.</h2><span class="local-label">SAVED ON THIS DEVICE</span></div>
+      <div class="backup-actions"><button class="study-button secondary" type="button" onclick={exportBackup}>Export backup</button><label class="study-button secondary backup-import">Import backup<input type="file" accept="application/json,.json" onchange={importBackup} /></label></div>
+    </div>
+    {#if backupMessage}<p class:backup-error={backupError} class="backup-message" role="status">{backupMessage}</p>{/if}
     <p class="structure-note">The public catalogue does not yet contain verified subject and chapter records. Add the names from your school's prescribed ICSE syllabus; these entries remain local to this browser.</p>
     {#if loading}<div class="study-state" role="status"><span class="state-spinner" aria-hidden="true"></span><strong>Checking the published syllabus index…</strong></div>
     {:else if loadError}<div class="study-state" role="alert"><strong>The published syllabus index could not be loaded.</strong><p>Your locally saved subjects and chapters remain available.</p><button class="study-button secondary" type="button" onclick={loadStructure}>Try again</button></div>{/if}
