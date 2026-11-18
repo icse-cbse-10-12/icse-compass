@@ -116,12 +116,12 @@
 
 <main class="page-content study-page syllabus-page">
   <header class="page-heading">
-    <div><p class="eyebrow"><span class="eyebrow-rule"></span> YOUR STUDY WORKSPACE / 04</p><h1>Syllabus Tracker</h1><p class="page-intro">Keep your chapter progress honest, see what needs another pass, and build a revision queue that reflects your actual work.</p></div>
+    <div><p class="eyebrow">YOUR STUDY WORKSPACE / 04</p><h1>Syllabus Tracker</h1><p class="page-intro">Keep your chapter progress honest, see what needs another pass, and build a revision queue that reflects your actual work.</p></div>
     <aside class="heading-aside"><strong>PRIVATE BY DEFAULT</strong>Your syllabus structure and progress stay in this browser. No student account or cloud sync.</aside>
   </header>
 
   <section class="study-summary" aria-label="Syllabus progress summary">
-    <div class="summary-main"><span class="study-kicker">YOUR TRACKED CHAPTERS</span><strong>{summary.percent}%</strong><span>{summary.completed} of {summary.total} completed</span><div class="progress-track" role="progressbar" aria-label="Completed chapter progress" aria-valuemin="0" aria-valuemax={summary.total} aria-valuenow={summary.completed}><span style="width: {summary.percent}%"></span></div></div>
+    <div class="summary-main"><span class="study-kicker">YOUR TRACKED CHAPTERS</span><strong>{summary.percent}%</strong><span>{summary.completed} of {summary.total} completed</span><div class="progress-track" role="progressbar" aria-label="Completed chapter progress" aria-valuemin="0" aria-valuemax={summary.total} aria-valuenow={summary.completed} style={`--progress: ${summary.percent}%`}><span class="visually-hidden">{summary.percent}% complete</span></div></div>
     <div class="summary-stats"><div><strong>{summary.learning}</strong><span>Learning</span></div><div><strong>{summary.practised}</strong><span>Practised</span></div><div><strong>{summary.needsRevision}</strong><span>Needs revision</span></div><div><strong>{summary.notStarted}</strong><span>Not started</span></div></div>
   </section>
 
@@ -133,7 +133,7 @@
     </div>
     {#if backupMessage}<p class:backup-error={backupError} class="backup-message" role="status">{backupMessage}</p>{/if}
     <p class="structure-note">The public catalogue does not yet contain verified subject and chapter records. Add the names from your school's prescribed ICSE syllabus; these entries remain local to this browser.</p>
-    {#if loading}<div class="study-state" role="status"><span class="state-spinner" aria-hidden="true"></span><strong>Checking the published syllabus index…</strong></div>
+    {#if loading}<div class="study-state" role="status"><strong>Checking the published syllabus index…</strong></div>
     {:else if loadError}<div class="study-state" role="alert"><strong>The published syllabus index could not be loaded.</strong><p>Your locally saved subjects and chapters remain available.</p><button class="study-button secondary" type="button" onclick={loadStructure}>Try again</button></div>{/if}
 
     <form class="add-row" onsubmit={addSubject}><label for="new-subject">Add a subject</label><div class="add-controls"><input id="new-subject" bind:value={subjectName} maxlength="70" placeholder="e.g. Mathematics" required /><button class="study-button" type="submit">Add subject</button></div></form>
@@ -182,7 +182,7 @@
   .study-summary,.structure-panel,.revision-panel{margin-top:22px;padding:22px;background:var(--study-card);border:1px solid var(--study-line)}
   .study-summary{display:grid;grid-template-columns:minmax(220px,.8fr) 1.2fr;gap:24px;align-items:center;background:var(--study-soft)}
   .summary-main{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:12px}.summary-main .study-kicker{grid-column:1/-1}.summary-main strong{color:var(--study-ink);font:500 42px/1.1 var(--serif)}.summary-main>span:last-of-type{color:var(--study-muted);font-size:11px}
-  .progress-track{grid-column:1/-1;height:8px;margin-top:11px;overflow:hidden;background:#ded8ca;border-radius:10px}.progress-track span{display:block;height:100%;background:var(--study-green);border-radius:inherit;transition:width .2s ease}
+  .progress-track{grid-column:1/-1;height:8px;margin-top:11px;overflow:hidden;background:#ded8ca;border-radius:10px}.progress-track::before{content:"";display:block;width:var(--progress,0%);height:100%;background:var(--study-green);border-radius:inherit;transition:width .2s ease}
   .summary-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.summary-stats div{display:flex;min-height:68px;flex-direction:column;justify-content:center;gap:5px;padding:10px 12px;background:rgba(255,255,255,.55);border:1px solid rgba(110,105,85,.14)}.summary-stats strong{color:var(--study-ink);font:500 24px/1 var(--serif)}.summary-stats span{color:var(--study-muted);font-size:9px}
   .study-alert{margin:15px 0 0;padding:12px 14px;color:#803f2d;background:#f9e9e2;border:1px solid #e8c5b6;font-size:11px;line-height:1.6}
   .section-heading,.chapter-workspace-heading{display:flex;align-items:center;justify-content:space-between;gap:14px}.section-heading h2{margin:7px 0 0;color:var(--study-ink);font:500 27px/1.15 var(--serif)}.local-label,.revision-count{color:var(--study-muted);font-size:8px;font-weight:800;letter-spacing:.9px}
@@ -197,5 +197,5 @@
   .study-footnote{margin:15px 0 0;color:#817568;font-size:9px;line-height:1.7}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   @media(max-width:760px){.study-summary{grid-template-columns:1fr;gap:17px}.subject-layout{grid-template-columns:1fr}.subject-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media(max-width:600px){.study-page .page-heading{padding-top:43px}.study-summary,.structure-panel,.revision-panel{padding:15px}.summary-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.section-heading{align-items:flex-start;flex-direction:column}.local-label{align-self:flex-start}.add-controls{flex-direction:column}.study-button{width:100%}.chapter-workspace{padding:12px}.chapter-row{grid-template-columns:minmax(0,1fr) 1fr;gap:7px 10px}.chapter-row>a{grid-column:1/-1;min-height:38px;border-top:1px solid var(--study-line)}.revision-list a{align-items:flex-start}}
-  @media(prefers-reduced-motion:reduce){.progress-track span{transition:none}}
+  @media(prefers-reduced-motion:reduce){.progress-track::before{transition:none}}
 </style>

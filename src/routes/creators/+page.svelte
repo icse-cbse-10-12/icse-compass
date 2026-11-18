@@ -23,7 +23,7 @@
 <main class="page-content">
   <header class="page-heading">
     <div>
-      <p class="eyebrow"><span class="eyebrow-rule"></span> THE PEOPLE BEHIND THE SOURCES / 02</p>
+      <p class="eyebrow">THE PEOPLE BEHIND THE SOURCES / 02</p>
       <h1>Learn from your educators</h1>
       <p class="page-intro">Choose an educator to see the notes, papers, videos and other materials attributed to them in the library. Every listing links to its resource details or original source.</p>
     </div>
