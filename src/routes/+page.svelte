@@ -9,6 +9,21 @@
   let loading = $state(true);
   let loadError = $state(false);
 
+  const subjectImages: Record<string, string> = {
+    biology: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=900&q=78',
+    chemistry: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=78',
+    'english-paper-2': 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=78',
+    mathematics: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=900&q=78',
+    physics: 'https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?auto=format&fit=crop&w=900&q=78',
+    'computer-applications': 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=78',
+    'english-paper-1': 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=78',
+    geography: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=78',
+    'history-civics': 'https://images.unsplash.com/photo-1461360228754-6e81c478b882?auto=format&fit=crop&w=900&q=78',
+    economics: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=78',
+    'commercial-studies': 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=78',
+    'robotics-artificial-intelligence': 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=78'
+  };
+
   let subjectCards = $derived(subjects.map((subject) => ({
     ...subject,
     count: resources.filter((resource) => resource.subjectId === subject.id).length
@@ -100,6 +115,7 @@
         <div class="subject-grid-v2">
           {#each subjectCards as subject, index (subject.id)}
             <a class={'subject-tile subject-tile-' + ((index % 6) + 1)} href={siteBase + '/materials/?q=' + encodeURIComponent(subject.name)}>
+              <img class="subject-tile-image" src={subjectImages[subject.id] ?? subjectImages.biology} alt="" loading="lazy" decoding="async" onerror={(event) => event.currentTarget.remove()} />
               <span class="subject-tile-index">{String(index + 1).padStart(2, '0')}</span>
               <span class="subject-tile-mark" aria-hidden="true">{subject.name.slice(0, 2).toUpperCase()}</span>
               <strong>{subject.name}</strong>
