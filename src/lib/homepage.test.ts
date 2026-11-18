@@ -20,7 +20,7 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).not.toContain('name="twitter:title"');
     expect(homepage).not.toContain('name="twitter:description"');
     expect(homepage).not.toContain('property="og:url"');
-    expect((homepage.match(/<meta\\b/g) ?? []).length + (layout.match(/<meta\\b/g) ?? []).length).toBeLessThanOrEqual(7);
+    expect((homepage.split('<meta ').length - 1) + (layout.split('<meta ').length - 1)).toBeLessThanOrEqual(7);
     expect(homepage).toContain('Discover ICSE notes, question papers, video lessons');
   });
 
