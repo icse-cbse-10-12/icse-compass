@@ -2011,3 +2011,39 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
     transform: none !important;
   }
 }
+
+
+/* Remaining illustration and section surfaces follow the same slate system. */
+.hero-art, .art-index, .art-note, .home-sample-section,
+.home-guide-faq, .home-planner-band, .principle-inner,
+.catalogue-note, .creator-pending, .creator-pending-actions,
+.study-footnote, .revision-empty {
+  color: var(--text-primary);
+  background-color: var(--surface) !important;
+  border-color: var(--line) !important;
+}
+.art-topline, .art-bottomline, .art-note .note-small,
+.compass-north, .compass-east, .compass-south, .compass-west,
+.principle-caption, .home-guide-faq-grid p, .study-footnote,
+.revision-empty { color: var(--text-muted) !important; }
+.art-grid {
+  background-image: linear-gradient(to right, rgba(148, 163, 184, .08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, .08) 1px, transparent 1px) !important;
+}
+.compass-ring, .compass-ring-inner { border-color: rgba(52, 211, 153, .3) !important; }
+.compass-axis, .compass-axis::after { background: rgba(52, 211, 153, .24) !important; }
+.compass-needle { background: linear-gradient(145deg, #10B981 0 49%, #1C2942 50% 100%) !important; }
+.compass-centre { background: var(--surface) !important; border-color: var(--accent) !important; }
+.art-index, .art-note { box-shadow: none !important; }
+.art-note strong, .art-index { color: var(--text-primary) !important; }
+.note-kicker, .index-number, .index-arrow, .note-line { color: var(--accent) !important; }
+.home-sample-inner > div:first-child > p:not(.eyebrow) { color: var(--text-secondary) !important; }
+.sample-sheet { border: 1px solid var(--line-strong) !important; }
+.sample-sheet-front::before, .sample-sheet-front::after {
+  background: rgba(148, 163, 184, .3) !important;
+  box-shadow: 0 12px 0 rgba(148, 163, 184, .3), 0 24px 0 rgba(148, 163, 184, .3),
+    0 36px 0 rgba(148, 163, 184, .3), 0 48px 0 rgba(148, 163, 184, .3);
+}
+.sample-stamp { color: var(--accent-warm) !important; border-color: var(--accent-warm) !important; }
+.creator-pending-actions a { color: var(--text-primary) !important; }
+.creator-pending-actions a:first-child { color: #06281E !important; background: var(--accent) !important; }
