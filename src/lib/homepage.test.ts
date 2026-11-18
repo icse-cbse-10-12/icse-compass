@@ -5,6 +5,7 @@ const homepage = readFileSync(new URL('../routes/+page.svelte', import.meta.url)
 const materials = readFileSync(new URL('../routes/materials/+page.svelte', import.meta.url), 'utf8');
 const styles = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
 const subjects = JSON.parse(readFileSync(new URL('../../static/data/subjects.json', import.meta.url), 'utf8')) as Array<{ id: string; name: string; status: string }>;
+const resources = JSON.parse(readFileSync(new URL('../../static/data/resources.json', import.meta.url), 'utf8')) as Array<{ status: string }>;
 
 describe('ICSE Compass visual resource-library homepage', () => {
   it('positions Compass as an independent, rule-first ICSE study library', () => {
@@ -16,15 +17,19 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).toContain('Browse the shelves.');
   });
 
-  it('loads published resources and subjects instead of hard-coding catalogue statistics', () => {
+  it('loads live catalogue counts while showing verified fallback totals immediately', () => {
     expect(homepage).toContain("fetch(siteBase + '/data/resources.json')");
     expect(homepage).toContain("fetch(siteBase + '/data/subjects.json')");
     expect(homepage).toContain("item.status === 'published'");
-    expect(homepage).toContain('resources.length.toLocaleString');
-    expect(homepage).toContain('subjects.length');
+    expect(homepage).toContain('resourceCount = $state(155)');
+    expect(homepage).toContain('subjectCount = $state(12)');
+    expect(homepage).toContain('resourceCount = resources.length');
+    expect(homepage).toContain('subjectCount = subjects.length');
+    expect(homepage).toContain('stat-skeleton-inline');
     expect(homepage).toContain('subjectCards');
     expect(homepage).toContain('subject.count');
-    expect(subjects.filter((subject) => subject.status === 'published').length).toBeGreaterThan(0);
+    expect(resources.filter((resource) => resource.status === 'published').length).toBe(155);
+    expect(subjects.filter((subject) => subject.status === 'published').length).toBe(12);
   });
 
   it('provides one clear library entry action while Materials retains query search', () => {
