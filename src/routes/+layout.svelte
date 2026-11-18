@@ -30,7 +30,8 @@
     refreshSavedCount();
     const handleStorage = (event: StorageEvent) => { if (!event.key || event.key === BOOKMARK_STORAGE_KEY) refreshSavedCount(); };
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    window.addEventListener('keydown', handleKeydown);
+    return () => { window.removeEventListener('storage', handleStorage); window.removeEventListener('keydown', handleKeydown); };
   });
 
   const homeUrl = siteOrigin + siteBase + '/';
@@ -128,7 +129,6 @@
       <p>Try “Physics”, “Julius Caesar” or “specimen papers”.</p>
     </div>
   {/if}
-  <svelte:window onkeydown={handleKeydown} />
 
   <slot />
 
@@ -151,6 +151,6 @@
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4.5h14v15H5zM8.5 9l1.8 1.8L14.5 7M8.5 15h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Syllabus</span>
   </a>
   <a href="{siteBase}/saved/" aria-label={savedCount ? 'Saved, ' + savedCount + ' items' : 'Saved'} aria-current={page.url.pathname.startsWith(siteBase + "/saved") ? "page" : undefined}>
-    <span class="mobile-saved-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4v-17Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>{#if savedCount > 0}<span class="saved-count-badge">{savedCount > 99 ? '99+' : savedCount}</span>{/if}</span><span>Saved</span>
+    <span class="mobile-saved-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4v-17Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span class="saved-count-badge" class:empty={savedCount === 0}>{savedCount > 99 ? '99+' : savedCount}</span></span><span>Saved</span>
   </a>
 </nav>

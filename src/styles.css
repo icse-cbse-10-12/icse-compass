@@ -1402,6 +1402,7 @@ html, body, .app-shell, .catalogue-page, .home-v2 { background: #0B111E !importa
   .mobile-nav > a[aria-current="page"]::before { position: absolute; top: -4px; width: 26px; height: 3px; content: ""; background: var(--terracotta); }
   .mobile-saved-icon { position: relative; display: inline-flex; }
   .saved-count-badge { position: absolute; top: -6px; right: -10px; display: grid; min-width: 16px; height: 16px; place-items: center; padding: 0 3px; color: #fff; background: var(--terracotta); border: 1px solid #fffefa; border-radius: 10px; font-size: 8px; font-weight: 850; line-height: 1; }
+  .saved-count-badge.empty { color: #687386; background: #e8eaf0; border-color: #fffefa; }
   body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 }
 @media (prefers-reduced-motion: reduce) {
