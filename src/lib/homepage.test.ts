@@ -133,13 +133,28 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).toContain("subject.name === 'English Paper 2' ? 'E2'");
   });
 
-  it('adds low-cost tactile feedback, staggered reveal and mobile preview-sheet motion', () => {
-    expect(styles).toContain('@keyframes subject-card-reveal');
-    expect(styles).toContain('.subject-tile:active { transform: scale(.97); }');
+  it('reveals subject cards on scroll with a visible-by-default fallback', () => {
+    expect(homepage).toContain('function revealSubjectCards(node: HTMLElement)');
+    expect(homepage).toContain("window.matchMedia('(prefers-reduced-motion: reduce)').matches");
+    expect(homepage).toContain("card.classList.add('reveal-card')");
+    expect(homepage).toContain("card.classList.add('is-visible')");
+    expect(homepage).toContain('use:revealSubjectCards');
+    expect(styles).toContain('.subject-tile.reveal-card.is-visible');
+    expect(styles).toContain('transition-delay: var(--reveal-delay, 0ms)');
+    expect(styles).toContain('.subject-tile:active,');
     expect(styles).toContain('.mobile-nav > a[aria-current="page"] > svg');
     expect(styles).toContain('@keyframes preview-sheet-enter');
     expect(styles).toContain('.resource-preview-dialog[open]');
-    expect(styles).toContain('@media (prefers-reduced-motion: reduce)');
+  });
+
+  it('adds accessible card lift, arrow nudges and a lightweight featured-card sheen', () => {
+    expect(styles).toContain('.subject-tile:focus-visible,');
+    expect(styles).toContain('.discovery-tile:focus-visible');
+    expect(styles).toContain('border-color: rgba(16, 185, 129, .58)');
+    expect(styles).toContain('transform: translateX(4px)');
+    expect(styles).toContain('.home-rule-preview::before');
+    expect(styles).toContain('transition: left .65s ease');
+    expect(homepage).toContain('<span class="discovery-link">Explore papers <span aria-hidden="true">→</span></span>');
   });
 
   it('animates bookmark feedback only on a newly saved resource', () => {

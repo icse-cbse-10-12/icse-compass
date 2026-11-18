@@ -1433,20 +1433,7 @@ body { background-color: #0B111E !important; }
 
 /* Lightweight Compass motion system: transform/opacity first, no persistent GPU layers. */
 .subject-tile {
-  transition: transform .16s cubic-bezier(.22, 1, .36, 1), box-shadow .16s ease;
-  animation: subject-card-reveal .35s cubic-bezier(.22, 1, .36, 1) backwards;
-}
-.subject-tile:nth-child(1) { animation-delay: .03s; }
-.subject-tile:nth-child(2) { animation-delay: .07s; }
-.subject-tile:nth-child(3) { animation-delay: .11s; }
-.subject-tile:nth-child(4) { animation-delay: .15s; }
-.subject-tile:nth-child(5) { animation-delay: .19s; }
-.subject-tile:nth-child(6) { animation-delay: .23s; }
-.subject-tile:nth-child(7) { animation-delay: .27s; }
-.subject-tile:nth-child(8) { animation-delay: .31s; }
-@keyframes subject-card-reveal {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  transition: transform .2s cubic-bezier(.22, 1, .36, 1), border-color .2s ease, box-shadow .2s ease;
 }
 .subject-tile::after {
   background: linear-gradient(to top, rgba(10, 15, 25, .88) 0%, rgba(10, 15, 25, .35) 55%, rgba(10, 15, 25, .1) 100%);
@@ -1555,10 +1542,80 @@ body { background-color: #0B111E !important; }
 @keyframes splash-fade-up { to { opacity: 1; transform: translateY(0); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .subject-tile { animation: none; }
   .subject-tile:active, .button-primary:active, .home-enter-button:active, .resource-preview-action:active { transform: none; }
+  .subject-tile.reveal-card, .subject-tile.reveal-card.is-visible { opacity: 1; transform: none; transition: none; }
   .mobile-nav > a::before, .mobile-nav > a > svg, .mobile-nav > a .mobile-saved-icon > svg,
   .catalogue-quick-filters button { transition: none; }
   .bookmark-symbol.bookmark-pop { animation: none; }
   .resource-preview-dialog[open] { animation: none; }
+}
+
+
+/* Dribbble-inspired card polish: restrained lift, crisp emerald edge and directional cues. */
+@media (hover: hover) and (pointer: fine) {
+  .subject-tile:hover,
+  .discovery-tile:hover {
+    transform: translateY(-4px);
+    border-color: rgba(16, 185, 129, .58);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, .45);
+  }
+  .home-rule-preview:hover::before,
+  .home-rule-preview:focus-within::before { left: 130%; }
+}
+.subject-tile:focus-visible,
+.discovery-tile:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(16, 185, 129, .72);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, .4);
+}
+.subject-tile small span,
+.discovery-link > span {
+  display: inline-block;
+  transition: transform .22s cubic-bezier(.22, 1, .36, 1);
+}
+.subject-tile:hover small span,
+.subject-tile:focus-visible small span,
+.discovery-tile:hover .discovery-link > span,
+.discovery-tile:focus-visible .discovery-link > span { transform: translateX(4px); }
+.subject-tile:active,
+.discovery-tile:active { transform: scale(.97); }
+
+/* A single observer reveals the existing subject grid as it enters the viewport.
+   Cards remain visible by default, so unsupported browsers and failed JS never hide content. */
+.subject-tile.reveal-card {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .4s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.22, 1, .36, 1), border-color .2s ease, box-shadow .2s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.subject-tile.reveal-card.is-visible { opacity: 1; transform: translateY(0); }
+@media (hover: hover) and (pointer: fine) {
+  .subject-tile.reveal-card.is-visible:hover { transform: translateY(-4px); }
+}
+.subject-tile.reveal-card.is-visible:focus-visible { transform: translateY(-4px); }
+
+/* One soft sheen on the featured library preview; no script or permanent compositing layer. */
+.home-rule-preview { overflow: hidden; }
+.home-rule-preview::before {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  content: "";
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .08), transparent);
+  transform: skewX(-20deg);
+  transition: left .65s ease;
+  pointer-events: none;
+}
+.home-rule-preview > * { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .subject-tile.reveal-card, .subject-tile.reveal-card.is-visible { opacity: 1; transform: none; transition: none; }
+  .subject-tile:focus-visible, .discovery-tile:focus-visible,
+  .subject-tile:active, .discovery-tile:active { transform: none; }
+  .subject-tile small span, .discovery-link > span, .home-rule-preview::before { transition: none; }
+  .subject-tile:hover small span, .subject-tile:focus-visible small span,
+  .discovery-tile:hover .discovery-link > span, .discovery-tile:focus-visible .discovery-link > span { transform: none; }
 }
