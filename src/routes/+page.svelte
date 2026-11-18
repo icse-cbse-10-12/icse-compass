@@ -49,6 +49,31 @@
   })));
   let sampleResources = $derived(resources.slice(0, 3));
 
+  function revealSubjectCards(node: HTMLElement) {
+    if (typeof IntersectionObserver === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const cards = Array.from(node.querySelectorAll<HTMLElement>('.subject-tile'));
+    if (cards.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const card = entry.target as HTMLElement;
+        const index = cards.indexOf(card);
+        card.style.setProperty('--reveal-delay', `${(index % 4) * 55}ms`);
+        card.classList.add('is-visible');
+        observer.unobserve(card);
+      });
+    }, { threshold: 0.12 });
+
+    cards.forEach((card) => {
+      card.classList.add('reveal-card');
+      observer.observe(card);
+    });
+
+    return { destroy: () => observer.disconnect() };
+  }
+
   async function loadHomeData() {
     loading = true;
     loadError = false;
@@ -145,7 +170,7 @@
       {:else if loadError}
         <div class="home-data-state" role="alert"><strong>Subjects could not be loaded.</strong><p>Check your connection and try again.</p><button type="button" onclick={loadHomeData}>Reload library</button></div>
       {:else}
-        <div class="subject-grid-v2">
+        <div class="subject-grid-v2" use:revealSubjectCards>
           {#each subjectCards as subject, index (subject.id)}
             <a class={'subject-tile subject-tile-' + ((index % 6) + 1)} href={siteBase + '/materials/?q=' + encodeURIComponent(subject.name)}>
               <img class="subject-tile-image" src={subjectImages[subject.id] ?? subjectImages.biology} alt="" loading="lazy" decoding="async" onerror={(event) => event.currentTarget.remove()} />
@@ -168,15 +193,15 @@
     <div class="discovery-grid-v2">
       <a class="discovery-tile discovery-papers" href={siteBase + '/school-papers/'}>
         <span class="discovery-number">01 / EXAM PREP</span><span class="discovery-symbol" aria-hidden="true">▤</span>
-        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Explore papers →</span>
+        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Explore papers <span aria-hidden="true">→</span></span>
       </a>
       <a class="discovery-tile discovery-notes" href={siteBase + '/materials/?q=Notes'}>
         <span class="discovery-number">02 / UNDERSTAND</span><span class="discovery-symbol" aria-hidden="true">▧</span>
-        <strong>Notes &amp; chapter resources</strong><p>Find topic-wise explanations, revision material and chapter support.</p><span class="discovery-link">Find notes →</span>
+        <strong>Notes &amp; chapter resources</strong><p>Find topic-wise explanations, revision material and chapter support.</p><span class="discovery-link">Find notes <span aria-hidden="true">→</span></span>
       </a>
       <a class="discovery-tile discovery-lessons" href={siteBase + '/materials/?q=Video'}>
         <span class="discovery-number">03 / LEARN</span><span class="discovery-symbol" aria-hidden="true">▷</span>
-        <strong>Video lessons &amp; educators</strong><p>Discover lessons and resource collections from credited educators.</p><span class="discovery-link">Watch &amp; learn →</span>
+        <strong>Video lessons &amp; educators</strong><p>Discover lessons and resource collections from credited educators.</p><span class="discovery-link">Watch &amp; learn <span aria-hidden="true">→</span></span>
       </a>
     </div>
   </section>
