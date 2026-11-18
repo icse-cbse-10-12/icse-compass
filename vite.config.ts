@@ -21,7 +21,7 @@ export default defineConfig({
           name: 'ICSE Compass',
           short_name: 'ICSE Compass',
           description: 'An independent academic workspace for ICSE learners.',
-          theme_color: '#10B981',
+          theme_color: '#0B111E',
           background_color: '#0B111E',
           display: 'standalone',
           scope: '/icse-compass/',

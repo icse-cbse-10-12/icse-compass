@@ -1339,7 +1339,7 @@ html, body, .app-shell, .catalogue-page, .home-v2 { background: #0B111E !importa
 .home-hero-search-row { display: flex; min-height: 52px; background: #141E30; border: 1px solid #334466; }
 .home-hero-search-row input { width: 100%; min-width: 0; padding: 0 14px; color: #F1F5F9; background: transparent !important; border: 0 !important; font-size: 12px; }
 .home-hero-search-row input::placeholder { color: #94A3B8; }
-.home-hero-search-row button { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 12px; padding: 0 17px; color: #06281E; background: #10B981; border: 0; font-size: 10px; font-weight: 850; cursor: pointer; }
+.home-hero-search-row button { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 12px; padding: 0 17px; color: #06281E; background: #10B981; border: 0; font-size: 10px; font-weight: 850; cursor: pointer; white-space: nowrap; }
 .home-hero-search-row button:hover { background: #34D399; }
 .stat-skeleton { display: inline-block; width: 76px; height: 27px; vertical-align: middle; background: linear-gradient(90deg,#26334D 25%,#334466 50%,#26334D 75%); background-size: 200% 100%; animation: compass-skeleton 1.25s ease-in-out infinite; border-radius: 3px; }
 .stat-skeleton.short { width: 42px; }
