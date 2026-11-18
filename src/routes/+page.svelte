@@ -105,9 +105,6 @@
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
   <meta property="og:title" content="ICSE Compass | Your independent ICSE study library" />
   <meta property="og:description" content="A visual, searchable library for ICSE learners. Find notes, papers, videos and original educator sources." />
-  <meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/" />
-  <meta name="twitter:title" content="ICSE Compass | Your independent ICSE study library" />
-  <meta name="twitter:description" content="Discover ICSE notes, question papers, video lessons and learning resources by subject, chapter and educator. Follow each resource to its original source." />
 </svelte:head>
 
 <main class="home-page home-v2">

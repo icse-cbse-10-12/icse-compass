@@ -1672,7 +1672,7 @@ body { background-color: #0B111E !important; }
 .bookmark-action.bookmark-saved,
 .nav-dropdown[open] > summary,
 .nav-dropdown > summary:hover {
-  color: var(--dark-highlight) !important;
+  color: var(--action-green) !important;
 }
 .mobile-open-access,
 .menu-feature-pill {

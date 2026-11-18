@@ -15,9 +15,12 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(layout).toContain('rel="apple-touch-icon" sizes="180x180"');
     expect(viteConfig).toContain("'apple-touch-icon.png'");
     expect(appShell).toContain('name="referrer" content="strict-origin-when-cross-origin"');
-    expect(homepage).toContain('name="twitter:title"');
-    expect(homepage).toContain('name="twitter:description"');
-    expect(homepage).toContain('property="og:url"');
+    expect(homepage).toContain('property="og:title"');
+    expect(homepage).toContain('property="og:description"');
+    expect(homepage).not.toContain('name="twitter:title"');
+    expect(homepage).not.toContain('name="twitter:description"');
+    expect(homepage).not.toContain('property="og:url"');
+    expect((homepage.match(/<meta\\b/g) ?? []).length + (layout.match(/<meta\\b/g) ?? []).length).toBeLessThanOrEqual(7);
     expect(homepage).toContain('Discover ICSE notes, question papers, video lessons');
   });
 
@@ -35,6 +38,8 @@ describe('ICSE Compass visual resource-library homepage', () => {
 
   it('adds substantive study guidance, source transparency and useful FAQs', () => {
     expect(homepage).toContain('A practical guide to using ICSE Compass.');
+    const guide = homepage.split('<section class="home-guide-section')[1]?.split('</section>')[0] ?? '';
+    expect((guide.match(/[A-Za-z0-9]+(?:[’'-][A-Za-z0-9]+)*/g) ?? []).length).toBeGreaterThan(500);
     expect(homepage).toContain('Search by subject, topic or resource type');
     expect(homepage).toContain('Follow the original source');
     expect(homepage).toContain('Frequently asked questions');
