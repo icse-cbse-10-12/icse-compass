@@ -12,6 +12,7 @@
   let splashVisible = $state(false);
   let splashLeaving = $state(false);
   let searchQuery = $state('');
+  let searchInput: HTMLInputElement;
 
   function refreshSavedCount() {
     try {
@@ -24,8 +25,20 @@
   }
 
   function closePanels() { menuOpen = false; searchOpen = false; }
+  function openSearch() {
+    menuOpen = false;
+    searchOpen = true;
+    requestAnimationFrame(() => searchInput?.focus());
+  }
   function handleKeydown(event: KeyboardEvent) {
-    if (event.key === 'Escape') closePanels();
+    if (event.key === 'Escape') { closePanels(); return; }
+    const target = event.target;
+    const isTyping = target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
+    if (isTyping) return;
+    if (event.key === '/' || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k')) {
+      event.preventDefault();
+      openSearch();
+    }
   }
 
   onMount(() => {
@@ -127,7 +140,7 @@
     </nav>
     <span class="public-label" title="Browse without creating a student account">OPEN ACCESS</span>
     <div class="mobile-header-actions">
-      <button class="mobile-header-button" type="button" aria-label="Search the library" onclick={() => { menuOpen = false; searchOpen = true; }}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      <button class="mobile-header-button" type="button" aria-label="Search the library" onclick={openSearch}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
       <button class="mobile-header-button" type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="mobile-menu-panel" onclick={() => { searchOpen = false; menuOpen = !menuOpen; }}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">{#if menuOpen}<path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>{:else}<path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>{/if}</svg></button>
     </div>
   </header>
@@ -156,10 +169,10 @@
       <div class="mobile-search-top"><strong id="mobile-search-title">Search ICSE Compass</strong><button type="button" class="mobile-search-close" aria-label="Close search" onclick={() => searchOpen = false}>×</button></div>
       <form class="mobile-search-form" action={siteBase + '/materials/'} method="get" role="search">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <input name="q" type="search" bind:value={searchQuery} placeholder="Search notes, subjects, papers…" aria-label="Search notes, subjects and papers" />
+        <input bind:this={searchInput} name="q" type="search" bind:value={searchQuery} placeholder="Search notes, subjects, papers…" aria-label="Search notes, subjects and papers" />
         <button type="submit" disabled={!searchQuery.trim()}>Search</button>
       </form>
-      <p>Try “Physics”, “Julius Caesar” or “specimen papers”.</p>
+      <p>Try “Physics”, “Julius Caesar” or “specimen papers”. Press / or Ctrl+K to search.</p>
     </div>
   {/if}
 
