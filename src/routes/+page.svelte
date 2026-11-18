@@ -69,6 +69,13 @@
       <h1 id="home-title">A study library should help you find the material — <em>not sell you a seat.</em></h1>
       <p class="home-rule-lede">ICSE Compass is an independent library for discovering notes, question papers, lessons and other learning resources. Find what you need, then open it at its original source.</p>
       <a class="home-enter-button" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">→</span></a>
+      <form class="home-hero-search" action={siteBase + '/materials/'} method="get" role="search" aria-label="Search the materials library">
+        <label for="home-library-search">Or search the library directly</label>
+        <div class="home-hero-search-row">
+          <input id="home-library-search" name="q" type="search" placeholder="Try Physics, Julius Caesar, specimen papers…" autocomplete="off" />
+          <button type="submit">Search <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
       <p class="home-rule-footnote">No student account. No admission gate. Just a clear route to study resources.</p>
     </div>
 
@@ -76,12 +83,12 @@
       <div class="home-rule-preview-top"><span>INSIDE THE LIBRARY</span><span>OPEN ACCESS</span></div>
       <div class="home-rule-preview-title"><span class="home-rule-symbol" aria-hidden="true">✳</span><div><strong>Find your next resource.</strong><small>Browse by subject, paper or educator.</small></div></div>
       <div class="home-rule-stats">
-        <div><strong>{loading ? '—' : resources.length.toLocaleString('en-IN')}</strong><span>PUBLISHED RESOURCES</span></div>
-        <div><strong>{loading ? '—' : subjects.length}</strong><span>SUBJECT AREAS</span></div>
+        <div><strong>{#if loading}<span class="stat-skeleton" aria-hidden="true"></span><span class="visually-hidden">Loading resource count</span>{:else if loadError}—{:else}{resources.length.toLocaleString('en-IN')}{/if}</strong><span>PUBLISHED RESOURCES</span></div>
+        <div><strong>{#if loading}<span class="stat-skeleton short" aria-hidden="true"></span><span class="visually-hidden">Loading subject count</span>{:else if loadError}—{:else}{subjects.length}{/if}</strong><span>SUBJECT AREAS</span></div>
       </div>
       <div class="home-rule-samples">
         {#if loading}
-          <div class="home-rule-loading" role="status">Loading library preview…</div>
+          <div class="home-preview-skeletons" role="status" aria-label="Loading library preview"><span></span><span></span><span></span></div>
         {:else if loadError}
           <div class="home-rule-error" role="alert"><strong>Preview unavailable.</strong><button type="button" onclick={loadHomeData}>Try again</button></div>
         {:else if sampleResources.length > 0}

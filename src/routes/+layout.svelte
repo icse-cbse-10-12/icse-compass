@@ -49,11 +49,20 @@
     </a>
 
     <nav class="desktop-nav" aria-label="Main navigation">
-      {#each publicRoutes as route}
+      <a href="{siteBase}/" class="nav-link" aria-current={page.url.pathname === siteBase + "/" ? "page" : undefined}>Overview</a>
+      <details class="nav-dropdown" open={['/materials/','/creators/','/school-papers/'].some((path) => page.url.pathname === siteBase + path)}>
+        <summary aria-haspopup="true">Library <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-dropdown-menu">
+          {#each publicRoutes.filter((route) => ['/materials/','/creators/','/school-papers/'].includes(route.path)) as route}
+            <a href="{siteBase}{route.path}" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}><strong>{route.label}</strong><small>{route.path === '/materials/' ? 'Notes, lessons & resources' : route.path === '/creators/' ? 'Educator collections' : 'Prelims & board practice'}</small></a>
+          {/each}
+        </div>
+      </details>
+      {#each publicRoutes.filter((route) => ['/saved/','/syllabus/','/chapter-player/'].includes(route.path)) as route}
         <a href="{siteBase}{route.path}" class="nav-link" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}>{route.label}</a>
       {/each}
     </nav>
-    <span class="public-label"><span aria-hidden="true"></span> OPEN ACCESS</span>
+    <span class="public-label" title="Browse without creating a student account"><span aria-hidden="true"></span> OPEN ACCESS</span>
   </header>
 
   <slot />
