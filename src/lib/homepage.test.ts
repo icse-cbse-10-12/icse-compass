@@ -6,15 +6,21 @@ const homepage = readFileSync(new URL('../routes/+page.svelte', import.meta.url)
 const layout = readFileSync(new URL('../routes/+layout.svelte', import.meta.url), 'utf8');
 const materials = readFileSync(new URL('../routes/materials/+page.svelte', import.meta.url), 'utf8');
 const styles = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+const viteConfig = readFileSync(new URL('../../vite.config.ts', import.meta.url), 'utf8');
 const subjects = JSON.parse(readFileSync(new URL('../../static/data/subjects.json', import.meta.url), 'utf8')) as Array<{ id: string; name: string; status: string }>;
 const resources = JSON.parse(readFileSync(new URL('../../static/data/resources.json', import.meta.url), 'utf8')) as Array<{ status: string }>;
 
 describe('ICSE Compass visual resource-library homepage', () => {
-  it('sets a safe referrer policy and complete homepage social metadata', () => {
+  it('sets a safe referrer policy, complete social metadata and an Apple touch icon', () => {
+    expect(layout).toContain('rel="apple-touch-icon" sizes="180x180"');
+    expect(viteConfig).toContain("'apple-touch-icon.png'");
     expect(appShell).toContain('name="referrer" content="strict-origin-when-cross-origin"');
-    expect(homepage).toContain('name="twitter:title"');
-    expect(homepage).toContain('name="twitter:description"');
-    expect(homepage).toContain('property="og:url"');
+    expect(homepage).toContain('property="og:title"');
+    expect(homepage).toContain('property="og:description"');
+    expect(homepage).not.toContain('name="twitter:title"');
+    expect(homepage).not.toContain('name="twitter:description"');
+    expect(homepage).not.toContain('property="og:url"');
+    expect((homepage.split('<meta ').length - 1) + (layout.split('<meta ').length - 1)).toBeLessThanOrEqual(7);
     expect(homepage).toContain('Discover ICSE notes, question papers, video lessons');
   });
 
@@ -29,6 +35,18 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('.public-label::before');
   });
 
+
+  it('adds substantive study guidance, source transparency and useful FAQs', () => {
+    expect(homepage).toContain('A practical guide to using ICSE Compass.');
+    const guide = homepage.split('<section class="home-guide-section')[1]?.split('</section>')[0] ?? '';
+    expect((guide.match(/[A-Za-z0-9]+(?:[’'-][A-Za-z0-9]+)*/g) ?? []).length).toBeGreaterThan(500);
+    expect(homepage).toContain('Search by subject, topic or resource type');
+    expect(homepage).toContain('Follow the original source');
+    expect(homepage).toContain('Frequently asked questions');
+    expect(homepage).toContain('not affiliated with, authorised by or endorsed by CISCE');
+    expect(styles).toContain('.home-guide-grid');
+    expect(styles).toContain('@media (max-width: 760px)');
+  });
 
   it('positions Compass as an independent, rule-first ICSE study library', () => {
     expect(homepage).toContain('Your independent ICSE study library');
@@ -145,6 +163,20 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('.compass-splash.is-leaving');
     expect(styles).toContain('.draw-circle');
     expect(styles).toContain('.draw-needle');
+  });
+
+  it('uses unified action/highlight greens and readable navigation contrast', () => {
+    expect(styles).toContain('--action-green: #15803D');
+    expect(styles).toContain('--dark-highlight: #34D399');
+    expect(styles).toContain('--surface-soft: #FCFBF7');
+    expect(styles).toContain('--surface-border: #E2DDD0');
+    expect(styles).toContain('--nav-inactive: #94A3B8');
+    expect(styles).toContain('rgba(11, 17, 30, 0.90)');
+    expect(styles).toContain('.mobile-nav > a[aria-current="page"]::before');
+    expect(styles).toContain('background: var(--dark-highlight) !important');
+    expect(styles).toContain('.mobile-search-form {');
+    expect(styles).toContain('background: var(--surface-soft);');
+    expect(styles).toContain('color: #16263E !important;');
   });
 
   it('keeps subject-card text readable and distinguishes the English shelves', () => {

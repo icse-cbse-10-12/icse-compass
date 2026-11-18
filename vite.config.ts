@@ -16,7 +16,7 @@ export default defineConfig({
       },
       {
         registerType: 'prompt',
-        includeAssets: ['robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.svg'],
+        includeAssets: ['robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.svg', 'apple-touch-icon.png'],
         manifest: {
           name: 'ICSE Compass',
           short_name: 'ICSE Compass',

@@ -1621,3 +1621,147 @@ body { background-color: #0B111E !important; }
   .subject-tile:hover small span, .subject-tile:focus-visible small span,
   .discovery-tile:hover .discovery-link > span, .discovery-tile:focus-visible .discovery-link > span { transform: none; }
 }
+
+
+/* Unified Compass colour tokens and contrast refinements. */
+:root {
+  --action-green: #15803D;
+  --dark-highlight: #34D399;
+  --surface-soft: #FCFBF7;
+  --surface-border: #E2DDD0;
+  --nav-inactive: #94A3B8;
+}
+
+/* Keep subject labels readable over every photograph, including bright covers. */
+.subject-tile::after {
+  background: linear-gradient(
+    to top,
+    rgba(11, 17, 30, 0.90) 0%,
+    rgba(11, 17, 30, 0.35) 55%,
+    rgba(11, 17, 30, 0.12) 100%
+  );
+}
+.subject-tile strong,
+.subject-tile small {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 3px rgba(11, 17, 30, .72);
+}
+
+/* Solid actions use the darker green; mint is reserved for dark-surface accents. */
+.button-primary,
+.home-enter-button,
+.home-hero-search-row button,
+.mobile-search-form button {
+  color: #FFFFFF !important;
+  background: var(--action-green) !important;
+  border-color: var(--action-green) !important;
+}
+.button-primary:hover,
+.home-enter-button:hover,
+.home-hero-search-row button:hover,
+.mobile-search-form button:hover {
+  background: #166534 !important;
+  border-color: #166534 !important;
+}
+.eyebrow,
+.eyebrow-rule,
+.eyebrow-ruled::before,
+.text-action,
+.back-link,
+.resource-link,
+.bookmark-action.bookmark-saved,
+.nav-dropdown[open] > summary,
+.nav-dropdown > summary:hover {
+  color: var(--action-green) !important;
+}
+.mobile-open-access,
+.menu-feature-pill {
+  color: var(--dark-highlight);
+  border-color: rgba(52, 211, 153, .38);
+}
+.mobile-open-access i {
+  background: var(--dark-highlight);
+}
+
+/* Dark mobile navigation: readable inactive destinations and a mint active marker. */
+.mobile-nav > a {
+  color: var(--nav-inactive) !important;
+}
+.mobile-nav > a[aria-current="page"] {
+  color: var(--dark-highlight) !important;
+}
+.mobile-nav > a[aria-current="page"]::before {
+  background: var(--dark-highlight) !important;
+}
+
+/* Soft slate surfaces replace stark white controls on the dark canvas. */
+.mobile-search-form {
+  background: #1C2942 !important;
+  border-color: #334466 !important;
+}
+.mobile-search-form input {
+  color: #F1F5F9 !important;
+}
+.mobile-search-form input::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Keep the one-time identity animation on the same highlight token. */
+.draw-circle,
+.draw-dot {
+  stroke: var(--dark-highlight);
+}
+.draw-dot { fill: var(--dark-highlight); }
+.splash-title span { color: var(--dark-highlight); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav > a::before { transition: none !important; }
+}
+
+
+/* Warm paper surfaces are limited to compact discovery/search controls. */
+.subject-quick-pill {
+  color: #244A39;
+  background: var(--surface-soft);
+  border-color: var(--surface-border);
+}
+.subject-quick-pill span { color: #536B5A; }
+.subject-quick-pill:hover,
+.subject-quick-pill:focus-visible {
+  background: #F5F1E8;
+  border-color: #A9B9A5;
+}
+.mobile-search-form {
+  background: var(--surface-soft) !important;
+  border-color: var(--surface-border) !important;
+}
+.mobile-search-form input {
+  color: #16263E !important;
+}
+.mobile-search-form input::placeholder {
+  color: #596477 !important;
+}
+
+/* Search-friendly study guidance: substantive content without a wall of text. */
+.home-guide-section { padding-block: 76px 82px; }
+.home-guide-heading { max-width: 720px; margin-bottom: 28px; }
+.home-guide-heading h2 { margin: 14px 0 12px; color: var(--ink); font: 500 clamp(30px, 3.8vw, 44px)/1.12 var(--serif); letter-spacing: -.8px; }
+.home-guide-heading > p:last-child { max-width: 650px; margin: 0; color: #687166; font-size: 13px; line-height: 1.85; }
+.home-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.home-guide-card { padding: 22px 23px; background: #fffefa; border: 1px solid var(--line); }
+.home-guide-index { color: var(--green); font-size: 8px; font-weight: 850; letter-spacing: 1.35px; }
+.home-guide-card h3 { margin: 12px 0 10px; color: var(--ink); font: 500 22px/1.2 var(--serif); }
+.home-guide-card p { margin: 0 0 10px; color: #687166; font-size: 11px; line-height: 1.8; }
+.home-guide-card p:last-child { margin-bottom: 0; }
+.home-guide-faq { margin-top: 28px; padding-top: 25px; border-top: 1px solid var(--line); }
+.home-guide-faq > h3 { margin: 0 0 16px; color: var(--ink); font: 500 26px/1.2 var(--serif); }
+.home-guide-faq-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.home-guide-faq-grid article { padding-left: 14px; border-left: 2px solid #a9b9a5; }
+.home-guide-faq-grid h4 { margin: 0 0 7px; color: var(--ink); font: 650 12px/1.45 var(--sans); }
+.home-guide-faq-grid p { margin: 0; color: #687166; font-size: 10px; line-height: 1.75; }
+@media (max-width: 760px) {
+  .home-guide-section { padding-block: 52px 58px; }
+  .home-guide-grid { grid-template-columns: 1fr; }
+  .home-guide-card { padding: 19px; }
+  .home-guide-faq-grid { grid-template-columns: 1fr; gap: 15px; }
+}

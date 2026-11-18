@@ -105,9 +105,6 @@
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
   <meta property="og:title" content="ICSE Compass | Your independent ICSE study library" />
   <meta property="og:description" content="A visual, searchable library for ICSE learners. Find notes, papers, videos and original educator sources." />
-  <meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/" />
-  <meta name="twitter:title" content="ICSE Compass | Your independent ICSE study library" />
-  <meta name="twitter:description" content="Discover ICSE notes, question papers, video lessons and learning resources by subject, chapter and educator. Follow each resource to its original source." />
 </svelte:head>
 
 <main class="home-page home-v2">
@@ -212,6 +209,61 @@
     <div class="page-width home-sample-inner">
       <div><p class="eyebrow eyebrow-ruled">YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">→</span></a></div>
       <figure class="sample-stack" aria-hidden="true"><div class="sample-sheet sample-sheet-back"><span>ICSE / STUDY INDEX</span><strong>Practice.<br />Revise.<br />Repeat.</strong></div><div class="sample-sheet sample-sheet-front"><span>YOUR NEXT RESOURCE</span><div class="sample-stamp">SOURCE<br />LINKED</div></div></figure>
+    </div>
+  </section>
+
+
+  <section class="home-guide-section page-width" aria-labelledby="guide-title">
+    <div class="home-guide-heading">
+      <p class="eyebrow eyebrow-ruled">A CLEARER WAY TO STUDY</p>
+      <h2 id="guide-title">A practical guide to using ICSE Compass.</h2>
+      <p>Good preparation starts with finding the right resource, understanding where it comes from and using it with a plan. This guide explains how to make the library useful without adding another complicated study system.</p>
+    </div>
+    <div class="home-guide-grid">
+      <article class="home-guide-card">
+        <span class="home-guide-index">01 / FIND</span>
+        <h3>Search by subject, topic or resource type</h3>
+        <p>Start with the subject you are studying, then narrow the search with a chapter name, text title, paper type or educator. The subject shortcuts are a quick route into the relevant shelf; the main library search is better when you already know a specific topic. Try a short phrase first. If the results are too broad, add a chapter or resource type rather than searching for an entire question.</p>
+        <p>ICSE Compass brings different kinds of learning material into one searchable place. Depending on what is available, you may find notes, revision material, question papers, specimen sets, video lessons and chapter support. Use filters to narrow the list and compare titles before opening a resource.</p>
+      </article>
+      <article class="home-guide-card">
+        <span class="home-guide-index">02 / CHECK</span>
+        <h3>Choose material that matches your current task</h3>
+        <p>Not every resource serves the same purpose. Use concise notes when you need to revisit a definition or process, worked examples when you are learning a method, and practice questions when you need to test whether you can apply it independently. For literature, check the prescribed text and paper component before choosing a guide. For science and mathematics, confirm that the chapter and question style match the syllabus you are following.</p>
+        <p>Before relying on a document, check its title, subject, class or examination context and publication details where those are provided. A familiar file name alone is not proof that a resource is current or complete. If a resource does not match your course or exam year, keep looking rather than forcing it into your plan.</p>
+      </article>
+      <article class="home-guide-card">
+        <span class="home-guide-index">03 / TRACE</span>
+        <h3>Follow the original source</h3>
+        <p>Compass is a discovery layer, not the publisher of every item listed. Resource cards identify whether an item opens at its original source, uses a permitted external embed or is hosted with permission. Follow the source link to check the publisher's own context, access conditions and latest version. A preview is only a way to inspect available information; it is not a replacement for the original document.</p>
+        <p>Educator collections help you discover lessons and material associated with named teachers or channels. They do not imply endorsement, sponsorship or a formal partnership. ICSE Compass is an independent educational project and is not affiliated with or endorsed by CISCE. Always use the official council and school communications for authoritative syllabus, timetable and examination notices.</p>
+      </article>
+      <article class="home-guide-card">
+        <span class="home-guide-index">04 / PRACTISE</span>
+        <h3>Turn reading into active revision</h3>
+        <p>After reviewing a topic, close the notes and try to explain the main idea from memory. Then solve a small set of questions without looking at the worked answer. Mark the points you could not recall, revisit only those gaps and try a fresh question later. This short cycle of review, retrieval and practice is more useful than collecting many PDFs and repeatedly scrolling through them.</p>
+        <p>For examination practice, attempt a paper under a realistic time limit when you are ready. Review the marking guidance or answer discussion from the source, identify the reason for each lost mark and record one specific action for your next attempt. Separate a concept gap from a careless error or a time-management issue; each needs a different response.</p>
+      </article>
+      <article class="home-guide-card">
+        <span class="home-guide-index">05 / PLAN</span>
+        <h3>Use the syllabus tracker to keep your next step visible</h3>
+        <p>The syllabus area can help you organise subjects and chapters and record your own progress on the device you are using. Keep the plan small enough to act on: choose one topic to understand, one task to practise and one earlier topic to revisit. Update progress only after you have done the work. Your tracker is a personal planning aid, not an official school record or a measure of your ability.</p>
+        <p>If you change devices or clear browser data, use the available backup and restore controls before relying on a locally stored progress record. Saved items and syllabus progress are designed to help organise your own study; they do not change the availability or ownership of linked resources.</p>
+      </article>
+      <article class="home-guide-card">
+        <span class="home-guide-index">06 / USE WELL</span>
+        <h3>Build a balanced resource routine</h3>
+        <p>Choose one dependable explanation, one source of practice and one way to check your understanding for each topic. Avoid downloading several versions of the same notes just because they appear in search results. Prefer material that is readable, relevant to your course and clear about its source. When a link is unavailable, try the publisher or educator's own site rather than assuming the file has disappeared permanently.</p>
+        <p>ICSE Compass is intended to make discovery simpler, not to replace your teacher, prescribed textbooks, school instructions or official examination updates. Use it to find a starting point, verify the source and return to your own learning goal.</p>
+      </article>
+    </div>
+    <div class="home-guide-faq" aria-labelledby="guide-faq-title">
+      <h3 id="guide-faq-title">Frequently asked questions</h3>
+      <div class="home-guide-faq-grid">
+        <article><h4>Is ICSE Compass an official CISCE website?</h4><p>No. ICSE Compass is an independent educational resource-discovery project. It is not affiliated with, authorised by or endorsed by CISCE.</p></article>
+        <article><h4>Does Compass create or publish every listed resource?</h4><p>No. Listings may point to original publishers, educators and other source websites. Check each listing's access label and follow its source link for the publisher's current terms.</p></article>
+        <article><h4>Can I use Compass to track my syllabus?</h4><p>Yes. The syllabus area helps you organise chapter progress on your device. Keep a backup if you need to move your progress to another browser or device.</p></article>
+      </div>
     </div>
   </section>
 

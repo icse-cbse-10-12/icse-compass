@@ -76,14 +76,13 @@
 </script>
 
 <svelte:head>
-  <meta name="theme-color" content="#0B111E" />
-  <meta name="robots" content="index,follow" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ICSE Compass" />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary" />
   <link rel="manifest" href="{siteBase}/manifest.webmanifest" />
   <link rel="icon" href="{siteBase}/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{siteBase}/apple-touch-icon.png" />
   <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
 </svelte:head>
 
