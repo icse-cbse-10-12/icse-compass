@@ -9,6 +9,8 @@
   let menuOpen = $state(false);
   let searchOpen = $state(false);
   let savedCount = $state(0);
+  let splashVisible = $state(false);
+  let splashLeaving = $state(false);
   let searchQuery = $state('');
 
   function refreshSavedCount() {
@@ -28,12 +30,25 @@
 
   onMount(() => {
     refreshSavedCount();
+    const splashTimers: number[] = [];
+    try {
+      const hasSeenSplash = window.sessionStorage.getItem('compassSplashShown') === 'true';
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!hasSeenSplash && !prefersReducedMotion) {
+        window.sessionStorage.setItem('compassSplashShown', 'true');
+        splashVisible = true;
+        splashTimers.push(window.setTimeout(() => { splashLeaving = true; }, 930));
+        splashTimers.push(window.setTimeout(() => { splashVisible = false; }, 1180));
+      }
+    } catch {
+      // If session storage is unavailable, skip the splash rather than replay it on every visit.
+    }
     const handleStorage = (event: StorageEvent) => { if (!event.key || event.key === BOOKMARK_STORAGE_KEY) refreshSavedCount(); };
     const handleBookmarkChange = () => refreshSavedCount();
     window.addEventListener('storage', handleStorage);
     window.addEventListener('icse-compass:bookmarks-changed', handleBookmarkChange);
     window.addEventListener('keydown', handleKeydown);
-    return () => { window.removeEventListener('storage', handleStorage); window.removeEventListener('icse-compass:bookmarks-changed', handleBookmarkChange); window.removeEventListener('keydown', handleKeydown); };
+    return () => { splashTimers.forEach((timer) => window.clearTimeout(timer)); window.removeEventListener('storage', handleStorage); window.removeEventListener('icse-compass:bookmarks-changed', handleBookmarkChange); window.removeEventListener('keydown', handleKeydown); };
   });
 
   const homeUrl = siteOrigin + siteBase + '/';
@@ -71,6 +86,20 @@
   <link rel="icon" href="{siteBase}/favicon.svg" type="image/svg+xml" />
   <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
 </svelte:head>
+
+{#if splashVisible}
+  <div class="compass-splash" class:is-leaving={splashLeaving} aria-hidden="true">
+    <div class="splash-content">
+      <svg class="splash-logo" viewBox="0 0 64 64" width="64" height="64" fill="none" aria-hidden="true">
+        <circle class="draw-circle" cx="32" cy="32" r="28" stroke="#10b981" stroke-width="2.5" />
+        <polygon class="draw-needle" points="32,14 38,32 32,50 26,32" stroke="#f8fafc" stroke-width="2" />
+        <circle class="draw-dot" cx="32" cy="32" r="2.5" fill="#10b981" />
+      </svg>
+      <div class="splash-title">ICSE <span>Compass</span></div>
+      <div class="splash-sub">OPEN ACCESS STUDY LIBRARY</div>
+    </div>
+  </div>
+{/if}
 
 <div class="app-shell">
   <header class="topbar">

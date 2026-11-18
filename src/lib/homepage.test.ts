@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 const homepage = readFileSync(new URL('../routes/+page.svelte', import.meta.url), 'utf8');
+const layout = readFileSync(new URL('../routes/+layout.svelte', import.meta.url), 'utf8');
 const materials = readFileSync(new URL('../routes/materials/+page.svelte', import.meta.url), 'utf8');
 const styles = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
 const subjects = JSON.parse(readFileSync(new URL('../../static/data/subjects.json', import.meta.url), 'utf8')) as Array<{ id: string; name: string; status: string }>;
@@ -113,4 +114,38 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('.resource-grid.list-view');
     expect(styles).toContain('.resource-preview-dialog::backdrop');
   });
+
+  it('shows the compass line-drawing splash once per session and skips reduced-motion users', () => {
+    expect(layout).toContain("sessionStorage.getItem('compassSplashShown')");
+    expect(layout).toContain("sessionStorage.setItem('compassSplashShown', 'true')");
+    expect(layout).toContain("window.matchMedia('(prefers-reduced-motion: reduce)')");
+    expect(layout).toContain('splashVisible = false');
+    expect(layout).toContain('aria-hidden="true"');
+    expect(styles).toContain('.compass-splash.is-leaving');
+    expect(styles).toContain('.draw-circle');
+    expect(styles).toContain('.draw-needle');
+  });
+
+  it('keeps subject-card text readable and distinguishes the English shelves', () => {
+    expect(styles).toContain('linear-gradient(to top, rgba(10, 15, 25, .88) 0%, rgba(10, 15, 25, .35) 55%, rgba(10, 15, 25, .1) 100%)');
+    expect(styles).toContain('.subject-tile small { font-size: 12px !important; }');
+    expect(homepage).toContain("subject.name === 'English Paper 1' ? 'E1'");
+    expect(homepage).toContain("subject.name === 'English Paper 2' ? 'E2'");
+  });
+
+  it('adds low-cost tactile feedback, staggered reveal and mobile preview-sheet motion', () => {
+    expect(styles).toContain('@keyframes subject-card-reveal');
+    expect(styles).toContain('.subject-tile:active { transform: scale(.97); }');
+    expect(styles).toContain('.mobile-nav > a[aria-current="page"] > svg');
+    expect(styles).toContain('@keyframes preview-sheet-enter');
+    expect(styles).toContain('.resource-preview-dialog[open]');
+    expect(styles).toContain('@media (prefers-reduced-motion: reduce)');
+  });
+
+  it('animates bookmark feedback only on a newly saved resource', () => {
+    expect(materials).toContain('bookmarkPopId = result.saved ? resource.id :');
+    expect(materials).toContain('class:bookmark-pop={bookmarkPopId === resource.id}');
+    expect(styles).toContain('@keyframes bookmark-pop');
+  });
+
 });

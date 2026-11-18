@@ -150,7 +150,7 @@
             <a class={'subject-tile subject-tile-' + ((index % 6) + 1)} href={siteBase + '/materials/?q=' + encodeURIComponent(subject.name)}>
               <img class="subject-tile-image" src={subjectImages[subject.id] ?? subjectImages.biology} alt="" loading="lazy" decoding="async" onerror={(event) => event.currentTarget.remove()} />
               <span class="subject-tile-index">{String(index + 1).padStart(2, '0')}</span>
-              <span class="subject-tile-mark" aria-hidden="true">{subject.name.slice(0, 2).toUpperCase()}</span>
+              <span class="subject-tile-mark" aria-hidden="true">{subject.name === 'English Paper 1' ? 'E1' : subject.name === 'English Paper 2' ? 'E2' : subject.name.slice(0, 2).toUpperCase()}</span>
               <strong>{subject.name}</strong>
               <small>{subject.count} {subject.count === 1 ? 'resource' : 'resources'} <span aria-hidden="true">→</span></small>
             </a>
