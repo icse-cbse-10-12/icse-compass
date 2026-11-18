@@ -20,8 +20,20 @@ describe('ICSE Compass study pages', () => {
   it('adds both destinations to shared navigation', () => {
     expect(site).toContain("path: '/syllabus/'");
     expect(site).toContain("path: '/chapter-player/'");
-    expect(layout).toContain("route.shortLabel === 'Syllabus'");
-    expect(layout).toContain("route.shortLabel === 'Player'");
+    expect(layout).toContain('href="{siteBase}/syllabus/"');
+    expect(layout).toContain('href="{siteBase}/chapter-player/"');
+    expect(layout).toContain('mobile-menu-panel');
+    expect(layout).toContain('saved-count-badge');
+  });
+
+  it('provides four thumb-friendly mobile destinations and secondary menu links', () => {
+    expect(layout).toContain('aria-label="Primary navigation"');
+    expect(layout).toContain('aria-label="Home"');
+    expect(layout).toContain('aria-label="Library"');
+    expect(layout).toContain('aria-label="Syllabus"');
+    expect(layout).toContain('aria-label={savedCount ?');
+    expect(layout).toContain('Backup / Restore Progress');
+    expect(layout).toContain('About &amp; CISCE Disclaimer');
   });
 
   it('does not seed demo chapters, resource links or fake completion', () => {
