@@ -147,6 +147,18 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('.draw-needle');
   });
 
+  it('uses unified action/highlight greens and readable navigation contrast', () => {
+    expect(styles).toContain('--action-green: #15803D');
+    expect(styles).toContain('--dark-highlight: #34D399');
+    expect(styles).toContain('--surface-soft: #FCFBF7');
+    expect(styles).toContain('--surface-border: #E2DDD0');
+    expect(styles).toContain('--nav-inactive: #94A3B8');
+    expect(styles).toContain('rgba(11, 17, 30, 0.90)');
+    expect(styles).toContain('.mobile-nav > a[aria-current="page"]::before');
+    expect(styles).toContain('background: var(--dark-highlight) !important');
+    expect(styles).toContain('.mobile-search-form {');
+  });
+
   it('keeps subject-card text readable and distinguishes the English shelves', () => {
     expect(styles).toContain('linear-gradient(to top, rgba(10, 15, 25, .88) 0%, rgba(10, 15, 25, .35) 55%, rgba(10, 15, 25, .1) 100%)');
     expect(styles).toContain('.subject-tile small { font-size: 12px !important; }');
