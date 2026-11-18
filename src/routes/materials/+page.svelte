@@ -23,9 +23,10 @@
   let previewDialog: HTMLDialogElement;
   let savedItems: SavedItem[] = [];
   let bookmarkStorageError = false;
+  let bookmarkPopId = $state('');
   let shareMessage = '';
   function isSaved(resourceId: string) { return savedItems.some((item) => item.id === 'resource:' + resourceId); }
-  function toggleResourceBookmark(resource: Resource) { const result = toggleSavedItem(createResourceSavedItem(resource, siteBase + '/materials/?q=' + encodeURIComponent(resource.title)), savedItems); savedItems = result.items; bookmarkStorageError = result.error; }
+  function toggleResourceBookmark(resource: Resource) { const result = toggleSavedItem(createResourceSavedItem(resource, siteBase + '/materials/?q=' + encodeURIComponent(resource.title)), savedItems); savedItems = result.items; bookmarkStorageError = result.error; bookmarkPopId = result.saved ? resource.id : ''; }
   async function shareResource(resource: Resource) { shareMessage = await shareLink(resource.title, resource.description, resource.sourceUrl); }
 
   function markPreviewFailed(resourceId: string) {
@@ -220,7 +221,7 @@
             </details>
             <div class="resource-card-actions">
               <button type="button" class="resource-preview-action" onclick={() => openPreview(resource)}>Preview details</button>
-              <button type="button" class="resource-preview-action" aria-pressed={isSaved(resource.id)} onclick={() => toggleResourceBookmark(resource)}>{isSaved(resource.id) ? '★ Saved' : '☆ Bookmark'}</button>
+              <button type="button" class="resource-preview-action bookmark-action" class:bookmark-saved={isSaved(resource.id)} aria-pressed={isSaved(resource.id)} onclick={() => toggleResourceBookmark(resource)}><span class="bookmark-symbol" class:bookmark-pop={bookmarkPopId === resource.id} onanimationend={() => bookmarkPopId = ''} aria-hidden="true">{isSaved(resource.id) ? '★' : '☆'}</span>{isSaved(resource.id) ? ' Saved' : ' Bookmark'}</button>
               <button type="button" class="resource-preview-action" onclick={() => void shareResource(resource)}>Share</button>
               <a class="resource-link" href={resource.sourceUrl} target="_blank" rel="noopener noreferrer">{actionLabel} <span aria-hidden="true">↗</span></a>
             </div>
