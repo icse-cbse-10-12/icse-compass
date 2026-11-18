@@ -213,7 +213,7 @@
     {/if}
     <div class="prelims-results" aria-live="polite">
       {#if loading}
-        <div class="prelims-state" role="status"><span class="prelims-spinner" aria-hidden="true"></span><strong>Loading school papers</strong><p>Fetching the latest published sheet catalogue.</p></div>
+        <div class="prelims-state" role="status"><strong>Loading school papers</strong><p>Fetching the latest published sheet catalogue.</p></div>
       {:else if loadError}
         <div class="prelims-state" role="alert"><strong>The paper catalogue couldn't be loaded.</strong><p>Check your connection and try again. No papers have been removed from the source spreadsheet.</p><button type="button" onclick={loadPapers}>Try again</button></div>
       {:else if papers.length === 0}
@@ -354,8 +354,6 @@
   .prelims-state { display: grid; min-height: 190px; place-content: center; justify-items: center; padding: 24px; color: #e7edf6; text-align: center; }
   .prelims-state strong { font-size: 15px; }
   .prelims-state p { max-width: 520px; color: #9eafc5; font-size: 11px; line-height: 1.7; }
-  .prelims-spinner { width: 22px; height: 22px; margin-bottom: 12px; border: 2px solid #324761; border-top-color: #10b981; border-radius: 50%; animation: prelim-spin .8s linear infinite; }
-  @keyframes prelim-spin { to { transform: rotate(360deg); } }
   .prelims-load-more { display: flex; justify-content: center; padding-top: 20px; }
   .prelims-rights-note { margin: 16px 0 0; color: #8fa0b7; font-size: 10px; line-height: 1.7; }
   .school-papers-collection { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 20px; padding: clamp(22px, 4vw, 32px); background: #141e30; border: 1px solid #263750; border-radius: 10px; }
@@ -384,8 +382,5 @@
     .prelims-search { grid-column: auto; }
     .school-papers-collection { align-items: flex-start; }
     .school-papers-collection-mark { width: 60px; height: 60px; font-size: 9px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .prelims-spinner { animation: none; }
   }
 </style>

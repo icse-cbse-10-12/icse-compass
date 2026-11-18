@@ -66,7 +66,7 @@
 
 <main class="page-content saved-page">
   <header class="page-heading">
-    <div><p class="eyebrow"><span class="eyebrow-rule"></span> YOUR PERSONAL COLLECTION</p><h1>Saved</h1><p class="page-intro">Your bookmarked papers and learning resources, kept on this device. Nothing is uploaded to an account.</p></div>
+    <div><p class="eyebrow">YOUR PERSONAL COLLECTION</p><h1>Saved</h1><p class="page-intro">Your bookmarked papers and learning resources, kept on this device. Nothing is uploaded to an account.</p></div>
     <aside class="heading-aside"><strong>{items.length.toLocaleString('en-IN')} SAVED ITEMS</strong>Stored locally in this browser</aside>
   </header>
   {#if storageError}<p class="saved-alert" role="status">Some saved items could not be read or stored. Check browser storage settings; this collection stays on this device.</p>{/if}

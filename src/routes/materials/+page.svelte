@@ -102,7 +102,7 @@
 <main class="page-content catalogue-page catalogue-v2">
   <header class="page-heading catalogue-heading-v2">
     <div>
-      <p class="eyebrow"><span class="eyebrow-rule"></span> THE ICSE RESOURCE LIBRARY / 01</p>
+      <p class="eyebrow">THE ICSE RESOURCE LIBRARY / 01</p>
       <h1>Materials Library</h1>
       <p class="page-intro">A visual shelf of notes, papers, videos and learning resources. Browse by subject, inspect available previews and follow every resource to its original source.</p>
     </div>
@@ -158,7 +158,7 @@
   </section>
 
   {#if loading}
-    <div class="catalogue-state" role="status"><span class="state-spinner" aria-hidden="true"></span><span class="state-kicker">PLEASE WAIT</span><strong>Opening the resource shelves</strong><p>Fetching the latest approved public catalogue.</p></div>
+    <div class="catalogue-state" role="status"><span class="state-kicker">PLEASE WAIT</span><strong>Opening the resource shelves</strong><p>Fetching the latest approved public catalogue.</p></div>
   {:else if loadError}
     <div class="catalogue-state" role="alert"><span class="state-kicker">CONNECTION ISSUE</span><strong>The catalogue couldn't be loaded.</strong><p>Check your connection and try again. Your saved syllabus progress is not affected by a catalogue refresh.</p><button type="button" class="retry-button" onclick={loadCatalogue}>Try again</button></div>
   {:else if filtered.length === 0}
@@ -189,7 +189,7 @@
                 <span class="cover-format">{displayTitle.extension ?? formatResourceType(resource.resourceType)}</span>
                 <strong>{displayTitle.title}</strong>
                 <span class="cover-subject">{subjectName}</span>
-                <span class="cover-lines"></span>
+                
               </div>
               <span class="cover-source-label">{previewFailed ? 'SOURCE PREVIEW UNAVAILABLE' : 'COVER-STYLE FALLBACK'}</span>
             {/if}

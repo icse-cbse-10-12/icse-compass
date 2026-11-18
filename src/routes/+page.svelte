@@ -101,7 +101,7 @@
 
 <svelte:head>
   <title>ICSE Compass | Your independent ICSE study library</title>
-  <meta name="description" content="Discover ICSE notes, question papers, video lessons and learning resources by subject, chapter and educator. Browse freely and follow each resource to its original source." />
+  <meta name="description" content="Discover ICSE notes, past papers, and video lessons by subject and chapter. Browse freely and follow each resource to its original source." />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
   <meta property="og:title" content="ICSE Compass | Your independent ICSE study library" />
   <meta property="og:description" content="A visual, searchable library for ICSE learners. Find notes, papers, videos and original educator sources." />
@@ -113,7 +113,7 @@
       <p class="eyebrow eyebrow-ruled">THE ICSE COMPASS RULE</p>
       <h1 id="home-title">A study library should help you find the material — <em>not sell you a seat.</em></h1>
       <p class="home-rule-lede">ICSE Compass is an independent library for discovering notes, question papers, lessons and other learning resources. Find what you need, then open it at its original source.</p>
-      <a class="home-enter-button" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">→</span></a>
+      <a class="home-enter-button" href={siteBase + '/materials/'}>Browse the ICSE Materials Library <span aria-hidden="true">→</span></a>
       <form class="home-hero-search" action={siteBase + '/materials/'} method="get" role="search" aria-label="Search the materials library">
         <label for="home-library-search">Or search the library directly</label>
         <div class="home-hero-search-row">
@@ -133,7 +133,7 @@
       </div>
       <section class="home-rule-samples" aria-label="Resource preview examples">
         {#if loading}
-          <div class="home-preview-skeletons" role="status" aria-label="Loading library preview"><span></span><span></span><span></span></div>
+          <div class="home-preview-skeletons" role="status"><span class="visually-hidden">Loading library preview</span></div>
         {:else if loadError}
           <div class="home-rule-error" role="alert"><strong>Preview unavailable.</strong><button type="button" onclick={loadHomeData}>Try again</button></div>
         {:else if sampleResources.length > 0}
@@ -165,7 +165,7 @@
         {/each}
       </nav>
       {#if loading}
-        <div class="subject-grid-v2" aria-label="Loading subjects"><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div></div>
+        <div class="subject-grid-v2 subject-grid-loading" role="status"><span class="visually-hidden">Loading subjects</span></div>
       {:else if loadError}
         <div class="home-data-state" role="alert"><strong>Subjects could not be loaded.</strong><p>Check your connection and try again.</p><button type="button" onclick={loadHomeData}>Reload library</button></div>
       {:else}
@@ -192,7 +192,7 @@
     <div class="discovery-grid-v2">
       <a class="discovery-tile discovery-papers" href={siteBase + '/school-papers/'}>
         <span class="discovery-number">01 / EXAM PREP</span><span class="discovery-symbol" aria-hidden="true">▤</span>
-        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Explore papers <span aria-hidden="true">→</span></span>
+        <strong>Board papers &amp; specimen sets</strong><p>Past papers, specimen papers and competency-focused practice from original sources.</p><span class="discovery-link">Browse papers <span aria-hidden="true">→</span></span>
       </a>
       <a class="discovery-tile discovery-notes" href={siteBase + '/materials/?q=Notes'}>
         <span class="discovery-number">02 / UNDERSTAND</span><span class="discovery-symbol" aria-hidden="true">▧</span>
@@ -207,7 +207,7 @@
 
   <section class="home-sample-section" aria-labelledby="sample-title">
     <div class="page-width home-sample-inner">
-      <div><p class="eyebrow eyebrow-ruled">YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">→</span></a></div>
+      <div><p class="eyebrow eyebrow-ruled">YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Browse the ICSE Materials Library <span aria-hidden="true">→</span></a></div>
       <figure class="sample-stack" aria-hidden="true"><div class="sample-sheet sample-sheet-back"><span>ICSE / STUDY INDEX</span><strong>Practice.<br />Revise.<br />Repeat.</strong></div><div class="sample-sheet sample-sheet-front"><span>YOUR NEXT RESOURCE</span><div class="sample-stamp">SOURCE<br />LINKED</div></div></figure>
     </div>
   </section>

@@ -20,8 +20,8 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).not.toContain('name="twitter:title"');
     expect(homepage).not.toContain('name="twitter:description"');
     expect(homepage).not.toContain('property="og:url"');
-    expect((homepage.split('<meta ').length - 1) + (layout.split('<meta ').length - 1)).toBeLessThanOrEqual(7);
-    expect(homepage).toContain('Discover ICSE notes, question papers, video lessons');
+    expect((homepage.split('<meta ').length - 1) + (layout.split('<meta ').length - 1)).toBeLessThanOrEqual(9);
+    expect(homepage).toContain('Discover ICSE notes, past papers, and video lessons');
   });
 
   it('uses semantic sections and CSS-drawn decoration instead of empty decorative markup', () => {
@@ -207,7 +207,7 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('transform: translateX(4px)');
     expect(styles).toContain('.home-rule-preview::before');
     expect(styles).toContain('transition: left .65s ease');
-    expect(homepage).toContain('<span class="discovery-link">Explore papers <span aria-hidden="true">→</span></span>');
+    expect(homepage).toContain('<span class="discovery-link">Browse papers <span aria-hidden="true">→</span></span>');
   });
 
   it('animates bookmark feedback only on a newly saved resource', () => {

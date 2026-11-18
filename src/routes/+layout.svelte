@@ -79,7 +79,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ICSE Compass" />
   <meta property="og:locale" content="en_IN" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://icse-cbse-10-12.github.io/icse-compass/og-compass.png" />
+  <meta name="twitter:image" content="https://icse-cbse-10-12.github.io/icse-compass/og-compass.png" />
   <link rel="manifest" href="{siteBase}/manifest.webmanifest" />
   <link rel="icon" href="{siteBase}/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" sizes="180x180" href="{siteBase}/apple-touch-icon.png" />
