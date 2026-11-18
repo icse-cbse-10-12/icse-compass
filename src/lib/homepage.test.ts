@@ -49,6 +49,18 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).toContain('Video lessons &amp; educators');
   });
 
+  it('shows all subject shortcuts immediately and links each pill to its filtered library shelf', () => {
+    expect(homepage).toContain('defaultSubjectLinks');
+    expect(homepage).toContain('subjectQuickLinks as subject');
+    expect(homepage).toContain('subject-quick-links');
+    expect(homepage).toContain('subject-quick-pill');
+    expect(homepage).toContain("'/materials/?q=' + encodeURIComponent(subject.name)");
+    expect(subjects.filter((subject) => subject.status === 'published')).toHaveLength(12);
+    for (const subject of subjects.filter((item) => item.status === 'published')) {
+      expect(homepage).toContain(`name: '${subject.name}'`);
+    }
+  });
+
   it('uses the published subject catalogue to build subject shelves', () => {
     expect(homepage).toContain('subjectCards as subject');
     expect(homepage).toContain('subject.name');
@@ -91,6 +103,8 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(styles).toContain('--terracotta: #b75c3e');
     expect(styles).toContain('.subject-chemistry .resource-cover-art');
     expect(styles).toContain('.subject-biology .resource-cover-art');
+    expect(styles).toContain('.nav-dropdown-item-description { display: block !important;');
+    expect(styles).toContain('.subject-quick-pill');
   });
 
   it('supports responsive layouts and reduced-motion preferences', () => {

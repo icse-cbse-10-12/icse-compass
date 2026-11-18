@@ -27,6 +27,22 @@
     'robotics-artificial-intelligence': 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=78'
   };
 
+  const defaultSubjectLinks = [
+    { id: 'biology', name: 'Biology' },
+    { id: 'chemistry', name: 'Chemistry' },
+    { id: 'english-paper-2', name: 'English Paper 2' },
+    { id: 'mathematics', name: 'Mathematics' },
+    { id: 'physics', name: 'Physics' },
+    { id: 'computer-applications', name: 'Computer Applications' },
+    { id: 'english-paper-1', name: 'English Paper 1' },
+    { id: 'geography', name: 'Geography' },
+    { id: 'history-civics', name: 'History & Civics' },
+    { id: 'economics', name: 'Economics' },
+    { id: 'commercial-studies', name: 'Commercial Studies' },
+    { id: 'robotics-artificial-intelligence', name: 'Robotics & Artificial Intelligence' }
+  ];
+  // Keep subject shortcuts available immediately, including while catalogue data is loading/offline.
+  let subjectQuickLinks = $derived(subjects.length > 0 ? subjects : defaultSubjectLinks);
   let subjectCards = $derived(subjects.map((subject) => ({
     ...subject,
     count: resources.filter((resource) => resource.subjectId === subject.id).length
@@ -119,6 +135,11 @@
         <div><p class="eyebrow"><span class="eyebrow-rule"></span> FIND YOUR SUBJECT</p><h2 id="subjects-title">Browse the shelves.</h2></div>
         <a href={siteBase + '/materials/'}>View the complete library <span aria-hidden="true">→</span></a>
       </div>
+      <nav class="subject-quick-links" aria-label="Browse resources by subject">
+        {#each subjectQuickLinks as subject (subject.id)}
+          <a class="subject-quick-pill" href={siteBase + '/materials/?q=' + encodeURIComponent(subject.name)}>{subject.name}<span aria-hidden="true">↗</span></a>
+        {/each}
+      </nav>
       {#if loading}
         <div class="subject-grid-v2" aria-label="Loading subjects"><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div><div class="subject-skeleton"></div></div>
       {:else if loadError}
