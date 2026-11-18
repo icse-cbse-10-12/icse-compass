@@ -29,9 +29,11 @@
   onMount(() => {
     refreshSavedCount();
     const handleStorage = (event: StorageEvent) => { if (!event.key || event.key === BOOKMARK_STORAGE_KEY) refreshSavedCount(); };
+    const handleBookmarkChange = () => refreshSavedCount();
     window.addEventListener('storage', handleStorage);
+    window.addEventListener('icse-compass:bookmarks-changed', handleBookmarkChange);
     window.addEventListener('keydown', handleKeydown);
-    return () => { window.removeEventListener('storage', handleStorage); window.removeEventListener('keydown', handleKeydown); };
+    return () => { window.removeEventListener('storage', handleStorage); window.removeEventListener('icse-compass:bookmarks-changed', handleBookmarkChange); window.removeEventListener('keydown', handleKeydown); };
   });
 
   const homeUrl = siteOrigin + siteBase + '/';

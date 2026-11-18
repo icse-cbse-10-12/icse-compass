@@ -24,6 +24,8 @@ describe('ICSE Compass study pages', () => {
     expect(layout).toContain('href="{siteBase}/chapter-player/"');
     expect(layout).toContain('mobile-menu-panel');
     expect(layout).toContain('saved-count-badge');
+    expect(layout).toContain('icse-compass:bookmarks-changed');
+    expect(bookmarks).toContain("window.dispatchEvent(new Event('icse-compass:bookmarks-changed'))");
   });
 
   it('provides four thumb-friendly mobile destinations and secondary menu links', () => {

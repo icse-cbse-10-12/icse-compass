@@ -56,6 +56,7 @@ export function writeSavedItems(items: SavedItem[], storage?: BookmarkStorage): 
   if (!items.every(isSavedItem)) return false;
   try {
     (storage ?? localStorage).setItem(BOOKMARK_STORAGE_KEY, JSON.stringify({ version: STORAGE_VERSION, items }));
+    if (typeof window !== 'undefined') window.dispatchEvent(new Event('icse-compass:bookmarks-changed'));
     return true;
   } catch { return false; }
 }

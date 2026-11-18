@@ -20,6 +20,7 @@
     const next = items.filter((item) => item.id !== id);
     try {
       localStorage.setItem(BOOKMARK_STORAGE_KEY, JSON.stringify({ version: 2, items: next }));
+      window.dispatchEvent(new Event('icse-compass:bookmarks-changed'));
       items = next;
       storageError = false;
     } catch { storageError = true; }
