@@ -101,17 +101,19 @@
 
 <svelte:head>
   <title>ICSE Compass | Your independent ICSE study library</title>
-  <meta name="description" content="Discover ICSE notes, question papers, videos and learning resources by subject, chapter and educator with ICSE Compass." />
+  <meta name="description" content="Discover ICSE notes, question papers, video lessons and learning resources by subject, chapter and educator. Browse freely and follow each resource to its original source." />
   <link rel="canonical" href="https://icse-cbse-10-12.github.io/icse-compass/" />
   <meta property="og:title" content="ICSE Compass | Your independent ICSE study library" />
   <meta property="og:description" content="A visual, searchable library for ICSE learners. Find notes, papers, videos and original educator sources." />
   <meta property="og:url" content="https://icse-cbse-10-12.github.io/icse-compass/" />
+  <meta name="twitter:title" content="ICSE Compass | Your independent ICSE study library" />
+  <meta name="twitter:description" content="Discover ICSE notes, question papers, video lessons and learning resources by subject, chapter and educator. Follow each resource to its original source." />
 </svelte:head>
 
 <main class="home-page home-v2">
   <section class="home-rule-hero page-width" aria-labelledby="home-title">
     <div class="home-rule-copy">
-      <p class="eyebrow"><span class="eyebrow-rule"></span> THE ICSE COMPASS RULE</p>
+      <p class="eyebrow eyebrow-ruled">THE ICSE COMPASS RULE</p>
       <h1 id="home-title">A study library should help you find the material — <em>not sell you a seat.</em></h1>
       <p class="home-rule-lede">ICSE Compass is an independent library for discovering notes, question papers, lessons and other learning resources. Find what you need, then open it at its original source.</p>
       <a class="home-enter-button" href={siteBase + '/materials/'}>Enter the library <span aria-hidden="true">→</span></a>
@@ -129,10 +131,10 @@
       <div class="home-rule-preview-top"><span>INSIDE THE LIBRARY</span><span>OPEN ACCESS</span></div>
       <div class="home-rule-preview-title"><span class="home-rule-symbol" aria-hidden="true">✳</span><div><strong>Find your next resource.</strong><small>Browse by subject, paper or educator.</small></div></div>
       <div class="home-rule-stats">
-        <div><strong>{resourceCount.toLocaleString('en-IN')}{#if loading}<span class="stat-skeleton stat-skeleton-inline" aria-hidden="true"></span>{/if}</strong><span>PUBLISHED RESOURCES</span></div>
-        <div><strong>{subjectCount}{#if loading}<span class="stat-skeleton stat-skeleton-inline short" aria-hidden="true"></span>{/if}</strong><span>SUBJECT AREAS</span></div>
+        <div><strong class="stat-value" class:loading={loading}>{resourceCount.toLocaleString('en-IN')}</strong><span>PUBLISHED RESOURCES</span></div>
+        <div><strong class="stat-value stat-value-short" class:loading={loading}>{subjectCount}</strong><span>SUBJECT AREAS</span></div>
       </div>
-      <div class="home-rule-samples">
+      <section class="home-rule-samples" aria-label="Resource preview examples">
         {#if loading}
           <div class="home-preview-skeletons" role="status" aria-label="Loading library preview"><span></span><span></span><span></span></div>
         {:else if loadError}
@@ -149,7 +151,7 @@
         {:else}
           <p class="home-rule-error">Published resources will appear here.</p>
         {/if}
-      </div>
+      </section>
       <p class="home-rule-preview-foot">Preview a listing. Follow its source. Study at your pace.</p>
     </aside>
   </section>
@@ -157,7 +159,7 @@
   <section class="home-subject-section" aria-labelledby="subjects-title">
     <div class="page-width">
       <div class="home-section-heading">
-        <div><p class="eyebrow"><span class="eyebrow-rule"></span> FIND YOUR SUBJECT</p><h2 id="subjects-title">Browse the shelves.</h2></div>
+        <div><p class="eyebrow eyebrow-ruled">FIND YOUR SUBJECT</p><h2 id="subjects-title">Browse the shelves.</h2></div>
         <a href={siteBase + '/materials/'}>View the complete library <span aria-hidden="true">→</span></a>
       </div>
       <nav class="subject-quick-links" aria-label="Browse resources by subject">
@@ -187,7 +189,7 @@
 
   <section class="home-discovery-section page-width" aria-labelledby="discovery-title">
     <div class="home-section-heading">
-      <div><p class="eyebrow"><span class="eyebrow-rule"></span> WHAT DO YOU NEED?</p><h2 id="discovery-title">Go straight to the good stuff.</h2></div>
+      <div><p class="eyebrow eyebrow-ruled">WHAT DO YOU NEED?</p><h2 id="discovery-title">Go straight to the good stuff.</h2></div>
       <p>Choose a starting point. Refine your search once you reach the library.</p>
     </div>
     <div class="discovery-grid-v2">
@@ -208,13 +210,13 @@
 
   <section class="home-sample-section" aria-labelledby="sample-title">
     <div class="page-width home-sample-inner">
-      <div><p class="eyebrow"><span class="eyebrow-rule"></span> YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">→</span></a></div>
-      <div class="sample-stack" aria-hidden="true"><div class="sample-sheet sample-sheet-back"><span>ICSE / STUDY INDEX</span><strong>Practice.<br />Revise.<br />Repeat.</strong></div><div class="sample-sheet sample-sheet-front"><span>YOUR NEXT RESOURCE</span><div class="sample-lines"></div><div class="sample-lines short"></div><div class="sample-stamp">SOURCE<br />LINKED</div></div></div>
+      <div><p class="eyebrow eyebrow-ruled">YOUR STUDY SPACE</p><h2 id="sample-title">Find it. Preview it.<br /><em>Study with confidence.</em></h2><p>Every listing points back to its original source. Where a source provides a preview image, you can inspect it before opening the full resource.</p><a class="sample-cta" href={siteBase + '/materials/'}>Explore the materials library <span aria-hidden="true">→</span></a></div>
+      <figure class="sample-stack" aria-hidden="true"><div class="sample-sheet sample-sheet-back"><span>ICSE / STUDY INDEX</span><strong>Practice.<br />Revise.<br />Repeat.</strong></div><div class="sample-sheet sample-sheet-front"><span>YOUR NEXT RESOURCE</span><div class="sample-stamp">SOURCE<br />LINKED</div></div></figure>
     </div>
   </section>
 
   <section class="home-planner-band page-width">
-    <div><p class="eyebrow"><span class="eyebrow-rule"></span> MAKE IT YOURS</p><h2>Turn a resource into a plan.</h2><p>Build your own subject and chapter list, then track your learning progress on this device.</p></div>
+    <div><p class="eyebrow eyebrow-ruled">MAKE IT YOURS</p><h2>Turn a resource into a plan.</h2><p>Build your own subject and chapter list, then track your learning progress on this device.</p></div>
     <a href={siteBase + '/syllabus/'}>Open the syllabus tracker <span aria-hidden="true">→</span></a>
   </section>
 </main>

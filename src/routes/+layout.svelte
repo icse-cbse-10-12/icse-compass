@@ -124,7 +124,7 @@
         <a href="{siteBase}{route.path}" class="nav-link" aria-current={page.url.pathname === siteBase + route.path ? "page" : undefined}>{route.label}</a>
       {/each}
     </nav>
-    <span class="public-label" title="Browse without creating a student account"><span aria-hidden="true"></span> OPEN ACCESS</span>
+    <span class="public-label" title="Browse without creating a student account">OPEN ACCESS</span>
     <div class="mobile-header-actions">
       <button class="mobile-header-button" type="button" aria-label="Search the library" onclick={() => { menuOpen = false; searchOpen = true; }}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
       <button class="mobile-header-button" type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="mobile-menu-panel" onclick={() => { searchOpen = false; menuOpen = !menuOpen; }}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">{#if menuOpen}<path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>{:else}<path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>{/if}</svg></button>
