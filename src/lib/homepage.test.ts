@@ -21,7 +21,13 @@ describe('ICSE Compass visual resource-library homepage', () => {
     expect(homepage).not.toContain('name="twitter:description"');
     expect(homepage).not.toContain('property="og:url"');
     expect((homepage.split('<meta ').length - 1) + (layout.split('<meta ').length - 1)).toBeLessThanOrEqual(7);
-    expect(homepage).toContain('Discover ICSE notes, question papers, video lessons');
+    expect(homepage).toContain('Discover ICSE notes, past papers, and video lessons by subject and chapter.');
+    expect(homepage).toContain('property="og:image" content="https://icse-cbse-10-12.github.io/icse-compass/og-compass.png"');
+    expect(homepage).toContain('name="twitter:image" content="https://icse-cbse-10-12.github.io/icse-compass/og-compass.png"');
+    expect(homepage).toContain('name="twitter:card" content="summary_large_image"');
+    expect(appShell).toContain('http-equiv="Content-Security-Policy"');
+    const description = homepage.match(/<meta name="description" content="([^"]+)"/)?.[1] ?? '';
+    expect(description.length).toBeLessThan(155);
   });
 
   it('uses semantic sections and CSS-drawn decoration instead of empty decorative markup', () => {
